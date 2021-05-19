@@ -12,11 +12,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -33,6 +33,7 @@ public class User {
 	private String lastName;
 	@NotBlank
 	private String userName;
+	@Email(message="Email must be valid")
 	@NotBlank
 	private String email;	
 	@Size(min=8, message="Password must be greater than 8 characters")
@@ -42,6 +43,7 @@ public class User {
 	@Column(updatable=false)
 	private Date createdAt;
 	private Date updatedAt;
+
 
 	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(
@@ -54,7 +56,7 @@ public class User {
 	
 	@OneToMany(mappedBy="user", fetch=FetchType.LAZY)
 	private List<Post> posts;
-	
+
 		@PrePersist
 		protected void onCreate() {
 			this.createdAt = new Date();
@@ -99,6 +101,7 @@ public class User {
 
 		public void setUserName(String userName) {
 			this.userName = userName;
+
 		}
 
 		public String getEmail() {
@@ -141,6 +144,7 @@ public class User {
 			this.updatedAt = updatedAt;
 		}
 
+
 		public List<Artist> getArtists() {
 			return artists;
 		}
@@ -156,6 +160,5 @@ public class User {
 		public void setPosts(List<Post> posts) {
 			this.posts = posts;
 		}
-		
 
 }
