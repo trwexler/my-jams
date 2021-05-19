@@ -1,12 +1,17 @@
 package com.robertbuckley.yourJamsProject.models;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -27,7 +32,7 @@ public class User {
 	@NotBlank
 	private String lastName;
 	@NotBlank
-	private String state;
+	private String userName;
 	@Email(message="Email must be valid")
 	@NotBlank
 	private String email;	
@@ -38,16 +43,19 @@ public class User {
 	@Column(updatable=false)
 	private Date createdAt;
 	private Date updatedAt;
-//	@OneToOne(mappedBy="user", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-//	private PersonalTrainer personalTrainers;
-//	
-//	@ManyToMany(fetch=FetchType.LAZY)
-//	@JoinTable(
-//			name="joins",
-//			joinColumns = @JoinColumn(name= "user_id"),
-//			inverseJoinColumns = @JoinColumn(name="trainer_id")
-//			)
-//	private List<PersonalTrainer> pts;
+
+
+	@ManyToMany(fetch=FetchType.LAZY)
+	@JoinTable(
+			name= "artist_user",
+			joinColumns = @JoinColumn(name="user_id"),
+			inverseJoinColumns = @JoinColumn(name="artist_id")
+			)
+	
+	private List<Artist> artists;
+	
+	@OneToMany(mappedBy="user", fetch=FetchType.LAZY)
+	private List<Post> posts;
 
 		@PrePersist
 		protected void onCreate() {
@@ -87,12 +95,13 @@ public class User {
 			this.lastName = lastName;
 		}
 
-		public String getState() {
-			return state;
+		public String getUserName() {
+			return userName;
 		}
 
-		public void setState(String state) {
-			this.state = state;
+		public void setUserName(String userName) {
+			this.userName = userName;
+
 		}
 
 		public String getEmail() {
@@ -135,30 +144,21 @@ public class User {
 			this.updatedAt = updatedAt;
 		}
 
-//		public PersonalTrainer getPersonalTrainers() {
-//			return personalTrainers;
-//		}
-//
-//		public void setPersonalTrainers(PersonalTrainer personalTrainer) {
-//			this.personalTrainers = personalTrainer;
-//		}
-//
-//		public List<PersonalTrainer> getPersonaltrainer() {
-//			return pts;
-//		}
-//
-//		public void setPersonaltrainer(List<PersonalTrainer> personaltrainer) {
-//			this.pts = personaltrainer;
-//		}
-//
-//		public List<PersonalTrainer> getPts() {
-//			return pts;
-//		}
-//
-//		public void setPts(List<PersonalTrainer> pts) {
-//			this.pts = pts;
-//		}
 
-		
+		public List<Artist> getArtists() {
+			return artists;
+		}
+
+		public void setArtists(List<Artist> artists) {
+			this.artists = artists;
+		}
+
+		public List<Post> getPosts() {
+			return posts;
+		}
+
+		public void setPosts(List<Post> posts) {
+			this.posts = posts;
+		}
 
 }
