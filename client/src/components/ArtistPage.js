@@ -12,6 +12,9 @@ import DeleteButton from './DeleteButton';
 
 const ArtistPage = (props)=>{
 
+    //will be added from landing page
+    // const{artist, artistId} = props;
+
 
     const[artist, setArtist] = useState({
         name: "",
@@ -39,12 +42,14 @@ const ArtistPage = (props)=>{
     }]);
 
 
+
+
      //get artist
     //Will look like:
     // axios.get('https://theaudiodb.com/api/v1/json/{APIKEYHERE}/artist.php?i=' + 'artistId')
 
     useEffect(()=>{
-        axios.get('https://theaudiodb.com/api/v1/json/1/artist.php?i=112024')
+        axios.get('https://theaudiodb.com/api/v1/json/523532/artist.php?i=112024')
             .then((res)=>{
                 console.log('artist', res.data.artists[0]);
                 setArtist({
@@ -62,16 +67,19 @@ const ArtistPage = (props)=>{
     },[])
 
 
+
+
     //gets all of that artist's albums
 
     //Will look like:
     // axios.get('https://theaudiodb.com/api/v1/json/1/album.php?i=' + 'artistId')
 
     useEffect(()=>{
-        axios.get('https://theaudiodb.com/api/v1/json/1/album.php?i=112024')
+        axios.get(`https://theaudiodb.com/api/v1/json/523532/album.php?i=${artist.artistId}`)
             .then((res)=>{
                 console.log('albums', res.data.album);
                 setAlbums(res.data.album);
+                console.log(artist);
             })
             .catch((err)=>{
                 console.log(err);
@@ -79,16 +87,22 @@ const ArtistPage = (props)=>{
     },[])
 
 
+
+
+
     //gets all of that album's tracks
 
     //Will look like:
     // axios.get('https://theaudiodb.com/api/v1/json/1/track.php?m=' + 'albumID')
 
-    const trackHandler = ()=>{
-        axios.get('https://theaudiodb.com/api/v1/json/1/track.php?m=2115888')
+    const trackHandler = (id)=>{
+        axios.get('https://theaudiodb.com/api/v1/json/523532/track.php?m=' + id)
         .then((res)=>{
             console.log('tracks', res.data.track);
-            setAlbums(res.data.track);
+            setTracks(res.data.track);
+            let tracksList = document.getElementById('tracksList');
+            tracksList.classList.remove("d-none");
+            tracksList.classList.add("d-block");
         })
         .catch((err)=>{
             console.log(err);
@@ -96,6 +110,27 @@ const ArtistPage = (props)=>{
 
     }
 
+
+
+    // when trackList "x" is clicked, the tracklist closes.
+    const closeTrack = (e)=>{
+        let tracksList = document.getElementById('tracksList');
+        tracksList.classList.remove("d-block");
+        tracksList.classList.add("d-none");
+    }
+
+
+
+    // useEffect(()=>{
+    //     axios.get('https://theaudiodb.com/api/v1/json/523532/album.php?i=112024')
+    //         .then((res)=>{
+    //             console.log('albums', res.data.album);
+    //             setAlbums(res.data.album);
+    //         })
+    //         .catch((err)=>{
+    //             console.log(err);
+    //         })
+    // },[])
 
 
 
@@ -106,23 +141,69 @@ const ArtistPage = (props)=>{
     return(
         <div>
             <Header/>
-            <h1>ArtistPage</h1>
-            {
-                artist.name
-            }
-            <div className=".container-fluid border">
+        
+                <h1>
+                    {
+                        artist.name
+                    }
+                    <button className="btn btn-primary btn-sm m-1">+</button>
+                </h1>
+                
 
-            <div className="row">
+
+{/* 
+            <div id="tracksList" className="d-none">
+            <button className="btn btn-primary btn-sm" onClick={closeTrack}>x</button>
+            
             {
-                albums.map((album, index)=>(
-                    <div className="border mx-auto w-25 .col-4 my-3">
-                        <p>{album.strAlbum}</p>
-                        <img className="w-50" src={album.strAlbumThumb} alt="" />
+                tracks.map((track,index)=>(
+                    <div className=" mx-auto d-flex">
+                        <div className="d-flex mx-auto w-25">
+                            <button className="btn btn-primary btn-sm m-2">+</button>
+                            <p className="p-0 mx-2" key={index}>{track.strTrack}</p>
+                        </div>
                     </div>
                 ))
             }
+            </div> */}
+
+
+            <div className=".container-fluid border">
+                <div className="row">
+                    {
+                        albums?
+                        
+                        albums.map((album, index)=>(
+                            <div key={index} className="border mx-auto w-25 .col-4 my-3">
+                                <p>{album.strAlbum}</p>
+                                <button className="btn btn-primary btn-sm">Add</button>
+                                <img className="w-50" src={album.strAlbumThumb} alt="" />
+                                <button className="btn btn-primary btn-sm" onClick={(e)=>trackHandler(album.idAlbum)}>
+                                tracks
+                                </button>
+                            </div>
+                        ))
+                    
+                    :<h1 className="mx-auto">Loading...</h1>
+
+                    }
+
+                </div>
             </div>
 
+            <div id="tracksList" className="d-none">
+            <button className="btn btn-primary btn-sm" onClick={closeTrack}>x</button>
+            
+            {
+                tracks.map((track,index)=>(
+                    <div className=" mx-auto d-flex">
+                        <div className="d-flex mx-auto w-25">
+                            <button className="btn btn-primary btn-sm m-2">+</button>
+                            <p className="p-0 mx-2" key={index}>{track.strTrack}</p>
+                        </div>
+                    </div>
+                ))
+            }
             </div>
 
             
