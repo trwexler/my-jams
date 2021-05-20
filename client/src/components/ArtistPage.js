@@ -54,11 +54,11 @@ const ArtistPage = (props)=>{
         .then((user)=>{
                 console.log('user', user);
                 setUser({
-                    firstName:"Joe",
-                    lastName: "Walker",
-                    userName: "joejoe",
-                    email: "joe@aol.com",
-                    password: "123456789",
+                    firstName:"",
+                    lastName: "",
+                    userName: "",
+                    email: "",
+                    password: "",
                 });
             })
             .catch((err)=>{
