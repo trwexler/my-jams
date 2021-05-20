@@ -12,7 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -45,6 +44,7 @@ public class User {
 	private Date createdAt;
 	private Date updatedAt;
 
+
 	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(
 			name= "artist_user",
@@ -56,7 +56,7 @@ public class User {
 	
 	@OneToMany(mappedBy="user", fetch=FetchType.LAZY)
 	private List<Post> posts;
-	
+
 		@PrePersist
 		protected void onCreate() {
 			this.createdAt = new Date();
@@ -101,6 +101,7 @@ public class User {
 
 		public void setUserName(String userName) {
 			this.userName = userName;
+
 		}
 
 		public String getEmail() {
@@ -143,6 +144,7 @@ public class User {
 			this.updatedAt = updatedAt;
 		}
 
+
 		public List<Artist> getArtists() {
 			return artists;
 		}
@@ -158,6 +160,5 @@ public class User {
 		public void setPosts(List<Post> posts) {
 			this.posts = posts;
 		}
-		
 
 }
