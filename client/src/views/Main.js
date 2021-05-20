@@ -16,12 +16,12 @@ const Main = (props)=>{
 
     return(
         <div>
-            <h1>Main</h1>
+            {/* <h1>Main</h1> */}
 
             <Router>
                 <LogReg path="/" default/>
                 <Landing path="/landing"/>
-                <ArtistPage path="/artist/:id"/>
+                <ArtistPage path="/artist"/>
                 {/* The way I handled different users was passing both the current
                 User and User Profile as props in the path and rendering
                 based on whether they matched or not.

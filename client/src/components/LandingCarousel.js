@@ -4,7 +4,6 @@ import {Link, navigate, Router} from '@reach/router';
 import AddButton from './AddButton';
 import Edit from './Edit';
 import DeleteButton from './DeleteButton';
-import AddButton from './AddButton';
 
 
 
