@@ -90,6 +90,7 @@ const ArtistPage = (props)=>{
             console.log('tracks', res.data.track);
             setTracks(res.data.track);
             let tracksList = document.getElementById('tracksList');
+            tracksList.classList.remove("d-none");
             tracksList.classList.add("d-block");
         })
         .catch((err)=>{
@@ -102,7 +103,6 @@ const ArtistPage = (props)=>{
         let tracksList = document.getElementById('tracksList');
         tracksList.classList.remove("d-block");
         tracksList.classList.add("d-none");
-
     }
 
 
@@ -113,16 +113,18 @@ const ArtistPage = (props)=>{
                 {
                     artist.name
                 }
+                <button className="button-small">+</button>
             </h1>
 
 
             {/* <button>track</button> */}
 
-            <div id="tracksList" className="border">
+            <div id="tracksList" className="d-none">
             <button onClick={closeTrack}>x</button>
+            
             {
                 tracks.map((track,index)=>(
-                    <div className="border mx-auto d-flex">
+                    <div className=" mx-auto d-flex">
                         <div className="d-flex mx-auto w-25">
                             <button className="m-0">+</button>
                             <p className="p-0 mx-2 mt-1" key={index}>{track.strTrack}</p>
