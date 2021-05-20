@@ -41,6 +41,28 @@ const ArtistPage = (props)=>{
         users: []
     }]);
 
+    // const[user,setUser] = useState({
+    //     firstName: "",
+    //     lastName: "",
+    //     userName: "",
+    //     email: "",
+    //     password: "",
+    // })
+
+    // useEffect(()=>{
+    //     axios.post('http://localhost:8080/register', user)
+    //         .then((res)=>{
+    //             console.log('user', res.data);
+    //             setUser({
+    //                 firstName:"Joe",
+    //                 lastName: "Walker",
+    //                 userName: "joejoe",
+    //                 email: "joe@aol.com",
+    //             })
+    //  },[])
+    
+
+
 
 
 
@@ -84,7 +106,7 @@ const ArtistPage = (props)=>{
             .catch((err)=>{
                 console.log(err);
             })
-    },[])
+    }, artist)
 
 
 
@@ -121,16 +143,17 @@ const ArtistPage = (props)=>{
 
 
 
-    // useEffect(()=>{
-    //     axios.get('https://theaudiodb.com/api/v1/json/523532/album.php?i=112024')
-    //         .then((res)=>{
-    //             console.log('albums', res.data.album);
-    //             setAlbums(res.data.album);
-    //         })
-    //         .catch((err)=>{
-    //             console.log(err);
-    //         })
-    // },[])
+    useEffect(()=>{
+        axios.get('https://theaudiodb.com/api/v1/json/523532/album.php?i=112024')
+            .then((res)=>{
+                console.log('albums', res.data.album);
+                setAlbums(res.data.album);
+            })
+            .catch((err)=>{
+                console.log(err);
+            })
+    },[])
+
 
 
 
