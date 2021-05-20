@@ -26,20 +26,26 @@ import javax.validation.constraints.Size;
 public class User {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	@NotBlank
+	@Column(name = "first_name", nullable = false)
 	private String firstName;
 	@NotBlank
+	@Column(name = "last_name", nullable = false)
 	private String lastName;
 	@NotBlank
+	@Column(name = "username", nullable = false)
 	private String userName;
 	@Email(message="Email must be valid")
 	@NotBlank
+	@Column(name = "email_address", nullable = false)
 	private String email;	
 	@Size(min=8, message="Password must be greater than 8 characters")
+	@Column(name = "password", nullable = false)
 	private String password;
 	@Transient
+	@Column(name = "password_confirmation", nullable = false)
 	private String passwordConfirmation;
 	@Column(updatable=false)
 	private Date createdAt;
