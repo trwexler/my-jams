@@ -41,6 +41,7 @@ const ArtistPage = (props)=>{
         users: []
     }]);
 
+
     const[user,setUser] = useState({
         firstName: "joe",
         lastName: "walker",
@@ -65,6 +66,7 @@ const ArtistPage = (props)=>{
                 console.log(err);
             })
     },[])
+
 
 
 
@@ -109,7 +111,7 @@ const ArtistPage = (props)=>{
             .catch((err)=>{
                 console.log(err);
             })
-    },[])
+    }, artist)
 
 
 
@@ -146,16 +148,17 @@ const ArtistPage = (props)=>{
 
 
 
-    // useEffect(()=>{
-    //     axios.get('https://theaudiodb.com/api/v1/json/523532/album.php?i=112024')
-    //         .then((res)=>{
-    //             console.log('albums', res.data.album);
-    //             setAlbums(res.data.album);
-    //         })
-    //         .catch((err)=>{
-    //             console.log(err);
-    //         })
-    // },[])
+    useEffect(()=>{
+        axios.get('https://theaudiodb.com/api/v1/json/523532/album.php?i=112024')
+            .then((res)=>{
+                console.log('albums', res.data.album);
+                setAlbums(res.data.album);
+            })
+            .catch((err)=>{
+                console.log(err);
+            })
+    },[])
+
 
 
 
