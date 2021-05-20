@@ -41,26 +41,31 @@ const ArtistPage = (props)=>{
         users: []
     }]);
 
-    // const[user,setUser] = useState({
-    //     firstName: "",
-    //     lastName: "",
-    //     userName: "",
-    //     email: "",
-    //     password: "",
-    // })
 
-    // useEffect(()=>{
-    //     axios.post('http://localhost:8080/register', user)
-    //         .then((res)=>{
-    //             console.log('user', res.data);
-    //             setUser({
-    //                 firstName:"Joe",
-    //                 lastName: "Walker",
-    //                 userName: "joejoe",
-    //                 email: "joe@aol.com",
-    //             })
-    //  },[])
-    
+    const[user,setUser] = useState({
+        firstName: "joe",
+        lastName: "walker",
+        userName: "joejoe",
+        email: "joe@aol.com",
+        password: "123456789",
+    })
+
+    useEffect(()=>{
+        axios.post('http://localhost:8080/register', user)
+        .then((user)=>{
+                console.log('user', user);
+                setUser({
+                    firstName:"",
+                    lastName: "",
+                    userName: "",
+                    email: "",
+                    password: "",
+                });
+            })
+            .catch((err)=>{
+                console.log(err);
+            })
+    },[])
 
 
 

@@ -5,11 +5,11 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -39,16 +39,9 @@ public class UserController {
 	}
 	
 	@PostMapping("/register")
-	public String processRegister(@Valid @ModelAttribute("user")User filledUser, BindingResult results, HttpSession session, Model viewModel) {
-		uValid.validate(filledUser, results);
-		if(results.hasErrors()) {
-			return "register.jsp";
-		}
-//		CREATE USER
-		User newUser = uServ.registerUser(filledUser);
-//		SAVE THE USER'S ID IN SESSION THEN REDIRECT TO DASHBOARD
-		session.setAttribute("user_id", newUser.getId());
-		return "redirect:/main";
+	public User processRegister(@Valid @RequestBody User user) {
+		System.out.println(user);
+		return uServ.registerUser(user);
 	}
 
 	@PostMapping("/login")
