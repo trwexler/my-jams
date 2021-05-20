@@ -7,6 +7,7 @@ import Registration from '../components/Registration';
 
 
 
+// 523532 API KEY
 
 const LogReg = (props)=>{
 

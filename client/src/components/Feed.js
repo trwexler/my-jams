@@ -5,7 +5,6 @@ import AddButton from './AddButton';
 import Edit from './Edit';
 import Header from './Header';
 import DeleteButton from './DeleteButton';
-import AddButton from './AddButton';
 
 
 
