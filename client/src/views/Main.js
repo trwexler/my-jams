@@ -26,7 +26,7 @@ const Main = (props)=>{
                 User and User Profile as props in the path and rendering
                 based on whether they matched or not.
                 We can cross that road when we get there. */}
-                <UserProfile path="user/:id"/>
+                <UserProfile path="/user"/>
                 <Feed path="/feed"/>
                 <Edit path="/edit/:id"/>
             </Router>

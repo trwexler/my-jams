@@ -99,12 +99,11 @@ const ArtistPage = (props)=>{
             .then((res)=>{
                 console.log('albums', res.data.album);
                 setAlbums(res.data.album);
-                console.log(artist);
             })
             .catch((err)=>{
                 console.log(err);
             })
-    }, artist)
+    }, [])
 
 
 
@@ -192,7 +191,7 @@ const ArtistPage = (props)=>{
             
             {
                 tracks.map((track,index)=>(
-                    <div className=" mx-auto d-flex">
+                    <div key={index} className=" mx-auto d-flex">
                         <div className="d-flex mx-auto w-25">
                             <button className="btn btn-primary btn-sm m-2">+</button>
                             <p className="p-0 mx-2" key={index}>{track.strTrack}</p>
