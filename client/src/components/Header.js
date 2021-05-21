@@ -21,12 +21,21 @@ const Header = (props)=>{
   <div className="collapse navbar-collapse" id="navbarSupportedContent">
     
     <ul className="navbar-nav mr-auto">
-      <li className="nav-item active">
-        <a className="nav-link" href="/landing">Home <span className="sr-only">(current)</span></a>
-      </li>
-      <li className="nav-item">
-        <a className="nav-link" href="/user">Profile</a>
-      </li>
+    
+      <Link to={"/landing"} className="nav-link">
+        <li className="nav-item">
+          {/* <a className="nav-link" href="/user">Profile</a> */}
+          Home
+        </li>
+      </Link>
+
+      <Link to={"/user"} className="nav-link">
+        <li className="nav-item">
+          {/* <a className="nav-link" href="/user">Profile</a> */}
+          Profile
+        </li>
+      </Link>
+
       <li className="nav-item dropdown">
         <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Dropdown

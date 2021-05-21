@@ -11,7 +11,7 @@ import Edit from '../components/Edit';
 
 const Profile = (props) =>{
 
-    const {profileId, currentUser, setCurrentUser, currentId} = props;
+    const {user, setUser} = props;
     const [userProfile, setUserProfile] = useState({});
 
 
@@ -21,7 +21,7 @@ const Profile = (props) =>{
 
     return(
         <div>
-            <Header id={props.currentId}/>
+            <Header/>
             
 
 

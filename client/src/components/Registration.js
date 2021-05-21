@@ -8,6 +8,10 @@ const Register = (props) => {
   const [errs, setErrs] = useState({});
   const {user, setUser} = props;
 
+
+  // was used for tests. Enable and comment out "UserProfile.js" test
+  // state w user info when ready to test full-stack linkage
+  
   // const [user, setUser] = useState({
   //   firstName: "",
   //   lastName: "",
@@ -17,17 +21,6 @@ const Register = (props) => {
   //   confirmPassword: "",
   // });
 
-  useState(()=>{
-    setUser({
-      firstName: "joe",
-      lastName: "walker",
-      userName: "joejoe",
-      id: "22222",
-      email: "joe@aol.com",
-      password: "123456789",
-  })
-
-  })
 
 
   const handleChange = (e) => {

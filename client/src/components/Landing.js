@@ -13,20 +13,20 @@ const Landing = (props)=>{
     const [artistList, setArtistList] = useState([]);
     const {user, setUser} = props;
 
-
+//for user method tests
 useEffect(()=>{
     setUser({
         firstName: "joe",
         lastName: "walker",
         userName: "joejoe",
         id: "22222",
+        albums:[],
+        tracks:[],
+        artists: [],
         email: "joe@aol.com",
         password: "123456789",
     })
-
 },[])
-
-
 
 
 

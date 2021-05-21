@@ -45,8 +45,7 @@ const ArtistPage = (props)=>{
 
 
 
-     //get artist
-
+     //gets artist
     useEffect(()=>{
         axios.get(`https://theaudiodb.com/api/v1/json/523532/artist.php?i=${artistId}`)
             .then((res)=>{
@@ -67,7 +66,6 @@ const ArtistPage = (props)=>{
 
 
     //gets all of that artist's albums
-
     useEffect(()=>{
         axios.get(`https://theaudiodb.com/api/v1/json/523532/album.php?i=${artistId}`)
             .then((res)=>{
@@ -82,7 +80,6 @@ const ArtistPage = (props)=>{
 
 
     //gets all of that album's tracks
-
     const trackHandler = (id)=>{
         axios.get('https://theaudiodb.com/api/v1/json/523532/track.php?m=' + id)
         .then((res)=>{
@@ -98,13 +95,20 @@ const ArtistPage = (props)=>{
 
     }
 
-
     // when trackList "x" is clicked, the tracklist closes.
     const closeTrack = (e)=>{
         let tracksList = document.getElementById('tracksList');
         tracksList.classList.remove("d-block");
         tracksList.classList.add("d-none");
     }
+
+
+    const addHandler = ((e)=>{
+        setUser({...user,
+            [e.target.name]: e.target.value
+        })
+        console.log(e.target.name, e.target.value);
+    })
     
 
     return(
@@ -114,7 +118,16 @@ const ArtistPage = (props)=>{
                     <h1>
                         {artist.name}
                     </h1>
-                    <button className="btn btn-primary btn-sm m-1">+</button>
+
+                    <button 
+                    className="btn btn-primary btn-sm m-1"
+                    name="artists" 
+                    value={artist.name}
+                    className="btn btn-primary btn-sm"
+                    onClick={addHandler}>
+                    +
+                    </button>
+
                     <p>{artist.bio}</p>
                 </div>
                 
@@ -145,7 +158,14 @@ const ArtistPage = (props)=>{
                         albums.map((album, index)=>(
                             <div key={index} className="border mx-auto w-25 .col-4 my-3">
                                 <p>{album.strAlbum}</p>
-                                <button className="btn btn-primary btn-sm">Add</button>
+
+                                <button 
+                                name="albums" 
+                                value={album.strAlbum} className="btn btn-primary btn-sm"
+                                onClick={addHandler}>
+                                Add
+                                </button>
+
                                 <img className="w-50" src={album.strAlbumThumb} alt="" />
                                 <button className="btn btn-primary btn-sm" onClick={(e)=>trackHandler(album.idAlbum)}>
                                 tracks
@@ -167,7 +187,7 @@ const ArtistPage = (props)=>{
                 tracks.map((track,index)=>(
                     <div key={index} className=" mx-auto d-flex">
                         <div className="d-flex mx-auto w-25">
-                            <button className="btn btn-primary btn-sm m-2">+</button>
+                            <button onClick={addHandler} name="tracks" value={track.strTrack} className="btn btn-primary btn-sm m-2">+</button>
                             <p className="p-0 mx-2" key={index}>{track.strTrack}</p>
                         </div>
                     </div>
