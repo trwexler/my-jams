@@ -1,95 +1,207 @@
-import React, {useState, useEffect} from 'react';
-import axios from 'axios';
-import {Link, navigate, Router} from '@reach/router';
+import React, { useState } from "react";
+import axios from "axios";
+import "../registration.css";
+import Login from "./Login";
 
+const Register = (props) => {
+  const [confirmReg, setConfirmReg] = useState("");
+  const [errs, setErrs] = useState({});
 
+  const [user, setUser] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    address: "",
+    city: "",
+    state: "",
+    password: "",
+    confirmPassword: "",
+  });
 
-
-const Registration = (props)=>{
-
-    const [confirmReg, setConfirmReg] = useState("");
-    const [errs, setErrs] = useState({});
-
-    const [newUser, setNewUser] = useState({
-        email:"",
-        username:"",
-        password:"",
-        confirmPassword:""
+  const handleChange = (e) => {
+    setUser({
+      ...user,
+      [e.target.name]: e.target.value,
     });
+  };
 
-    
-    const submitHandler = (e)=>{
-        e.preventDefault();
-        axios.post('http://localhost:8080/api/user/register', newUser,{
-            withCredentials: true,
-        })
-            .then((res)=>{
-                console.log(res);
-                console.log(res.data)
+  const register = (e) => {
+    e.preventDefault();
 
-                setNewUser({
-                    email:"",
-                    username:"",
-                    password:"",
-                    confirmPassword:""
-                })
-                setConfirmReg("Thank you for Registering, you can now log in!");
-                setErrs({});  // remember to reset errors state if it was successful
-                
-            })
+    axios
+      .post("http://localhost:8000/api/user/register", user, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        console.log(res.data);
+        setUser({
+          firstName: "",
+          lastName: "",
+          email: "",
+          address: "",
+          city: "",
+          state: "",
+          password: "",
+          confirmPassword: "",
+        });
 
-            .catch((err)=>{
-                console.log(err);
-                setErrs(err.response.data.errors);
-            })
-    }
+        setConfirmReg("Thank you for Registering, you can now log in!");
+        setErrs({});
+      })
+      .catch((err) => {
+        console.log(err);
+        setErrs(err.response.data.errors);
+      });
+  };
 
-    const handleChange = (e) => {
-        setNewUser({
-            ...newUser,
-            [e.target.name]: e.target.value,
-        })
-    }
+  return (
+    <div style={{background: "linear-gradient(167deg, rgba(129,255,0,1) 0%, rgba(100,255,230,1) 60%)"}}>
+      {confirmReg ? <h4>{confirmReg}</h4> : null}
+      <div class="top-content">
+        <div class="inner-bg">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-5">
+                <Login />
+              </div>
 
+              <div class="col-sm-1 middle-border"></div>
+              <div class="col-sm-1"></div>
 
+              <div class="col-sm-5">
+                <div class="form-box">
+                  <div class="form-top">
+                    <div class="form-top-left">
+                      <h3>Register now</h3>
+                      <p>Fill in the form below to register:</p>
+                    </div>
+                    <div class="form-top-right">
+                      <i class="fa fa-pencil"></i>
+                    </div>
+                  </div>
+                  <div class="form-bottom">
+                    <form
+                      role="form"
+                      action=""
+                      method="post"
+                      class="registration-form"
+                      onSubmit={register}
+                    >
+                      <div class="form-group">
+                        <label class="sr-only" for="form-first-name">
+                          First name
+                        </label>
+                        {errs.firstName ? (
+                          <span className="error-text">
+                            {errs.firstName.message}
+                          </span>
+                        ) : null}
 
-    return(
-        <>
-            <h1 className="">new here?</h1>
-            <p className="">Register and start creating and collaborating today!</p>
-            {
-                confirmReg ? 
-                <h4 className="">{confirmReg}</h4>
-                : null
-            }
+                        <input
+                          type="text"
+                          placeholder="First name..."
+                          class="form-first-name form-control"
+                          id="form-first-name"
+                          name="firstName"
+                          value={user.firstName}
+                          onChange={(e) => handleChange(e)}
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label class="sr-only" for="form-last-name">
+                          Last name
+                        </label>
+                        {errs.lastName ? (
+                          <span className="error-text">
+                            {errs.lastName.message}
+                          </span>
+                        ) : null}
 
-            <form className="" onSubmit={submitHandler}>
+                        <input
+                          type="text"
+                          placeholder="Last name..."
+                          class="form-last-name form-control"
+                          id="form-last-name"
+                          name="lastName"
+                          value={user.lastName}
+                          onChange={(e) => handleChange(e)}
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label class="sr-only" for="form-email">
+                          Email
+                        </label>
+                        {errs.email ? (
+                          <span className="error-text">
+                            _{errs.email.message}
+                          </span>
+                        ) : null}
 
-                <input className="" placeholder="Email" type="text" name="email" value={newUser.email}
-                    onChange={handleChange}
-                />
+                        <input
+                          type="text"
+                          placeholder="Email..."
+                          class="form-email form-control"
+                          id="form-email"
+                          name="email"
+                          value={user.email}
+                          onChange={handleChange}
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label class="sr-only" for="form-email">
+                          Password
+                        </label>
+                        {errs.password ? (
+                          <span className="error-text">
+                            _{errs.password.message}
+                          </span>
+                        ) : null}
 
-                <input className="" placeholder="Username" type="text" name="username" value={newUser.username}
-                    onChange={handleChange}
-                />
+                        <input
+                          type="text"
+                          placeholder="Password..."
+                          class="form-email form-control"
+                          id="form-email"
+                            name="password"
+                            value={user.password}
+                            onChange={ handleChange }
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label class="sr-only" for="form-email">
+                          Confirm Password
+                        </label>
+                         {
+                            errs.confirmPassword?
+                              <span className="error-text">{ errs.confirmPassword.message }</span>
+                              : null
+                          }
 
-                <input className="" placeholder="Password" type="password" name="password" value={newUser.password}
-                    onChange={handleChange}
-                />
+                        <input
+                          type="text"
+                          placeholder="Confirm Password..."
+                          class="form-email form-control"
+                          id="form-email"
+                            name="confirmPassword"
+                            value={user.confirmPassword}
+                            onChange={ handleChange }
+                        />
+                      </div>
+                     
+                    
+                      <button type="submit" class="btn">
+                        Register
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
-                <input className="" placeholder="Confirm Password" type="password" name="confirmPassword" value={newUser.confirmPassword}
-                    onChange={handleChange}
-                />
-                <br/>
-
-                <input className="" type="submit" value="Register"/>
-
-            </form>
-
-
-        </>
-    )
-}
-
-export default Registration; 
-
+export default Register;
