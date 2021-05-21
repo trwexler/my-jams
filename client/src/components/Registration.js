@@ -16,6 +16,15 @@ const Register = (props) => {
     confirmPassword: "",
   });
 
+  //for testing
+    // const[user,setUser] = useState({
+    //     firstName: "joe",
+    //     lastName: "walker",
+    //     userName: "joejoe",
+    //     email: "joe@aol.com",
+    //     password: "123456789",
+    // })
+
   const handleChange = (e) => {
     setUser({
       ...user,
@@ -27,18 +36,17 @@ const Register = (props) => {
     e.preventDefault();
 
     axios
-      .post("http://localhost:8000/api/user/register", user, {
+      .post("http://localhost:8080/register", user, {
         withCredentials: true,
       })
       .then((res) => {
-        console.log(res.data);
+        console.log('user', user);
         setUser({
-          firstName: "",
-          lastName: "",
-          email: "",
-          username: "",
-          password: "",
-          confirmPassword: "",
+            firstName:"",
+            lastName: "",
+            userName: "",
+            email: "",
+            password: "",
         });
 
         setConfirmReg("Thank you for Registering, you can now log in!");
@@ -49,6 +57,9 @@ const Register = (props) => {
         setErrs(err.response.data.errors);
       });
   };
+
+
+
 
   return (
     <div style={{background: "linear-gradient(167deg, rgba(129,255,0,1) 0%, rgba(100,255,230,1) 60%)"}}>

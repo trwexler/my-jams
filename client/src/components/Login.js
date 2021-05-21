@@ -12,7 +12,7 @@ const Login = () => {
     event.preventDefault();
     axios
       .post(
-        "http://localhost:8000/api/user/login",
+        "http://localhost:8080/login",
         {
           email: email,
           password: password,
