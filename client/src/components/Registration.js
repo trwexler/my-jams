@@ -55,7 +55,7 @@ const Register = (props) => {
   };
 
   return (
-    <div>
+    <div style={{background: "linear-gradient(167deg, rgba(129,255,0,1) 0%, rgba(100,255,230,1) 60%)"}}>
       {confirmReg ? <h4>{confirmReg}</h4> : null}
       <div class="top-content">
         <div class="inner-bg">
