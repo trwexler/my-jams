@@ -15,6 +15,10 @@ const Profile = (props) =>{
     const [userProfile, setUserProfile] = useState({});
 
 
+
+
+
+
     return(
         <div>
             <Header id={props.currentId}/>

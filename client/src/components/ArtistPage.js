@@ -11,6 +11,8 @@ import DeleteButton from './DeleteButton';
 const ArtistPage = (props)=>{
 
     const {artistId} = props;
+    const {user, setUser} = props;
+
 
     //will be added from landing page
     // const{artist, artistId} = props;
@@ -40,34 +42,6 @@ const ArtistPage = (props)=>{
         trackId: "",
         users: []
     }]);
-
-
-    // const[user,setUser] = useState({
-    //     firstName: "joe",
-    //     lastName: "walker",
-    //     userName: "joejoe",
-    //     email: "joe@aol.com",
-    //     password: "123456789",
-    // })
-
-    // useEffect(()=>{
-    //     axios.post('http://localhost:8080/register', user)
-    //     .then((user)=>{
-    //             console.log('user', user);
-    //             setUser({
-    //                 firstName:"",
-    //                 lastName: "",
-    //                 userName: "",
-    //                 email: "",
-    //                 password: "",
-    //             });
-    //         })
-    //         .catch((err)=>{
-    //             console.log(err);
-    //         })
-    // },[])
-
-
 
 
 

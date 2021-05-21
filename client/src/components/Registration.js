@@ -6,30 +6,35 @@ import Login from "./Login";
 const Register = (props) => {
   const [confirmReg, setConfirmReg] = useState("");
   const [errs, setErrs] = useState({});
+  const {user, setUser} = props;
 
-  const [user, setUser] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    username: "",
-    password: "",
-    confirmPassword: "",
-  });
+  // const [user, setUser] = useState({
+  //   firstName: "",
+  //   lastName: "",
+  //   email: "",
+  //   username: "",
+  //   password: "",
+  //   confirmPassword: "",
+  // });
 
-  //for testing
-    // const[user,setUser] = useState({
-    //     firstName: "joe",
-    //     lastName: "walker",
-    //     userName: "joejoe",
-    //     email: "joe@aol.com",
-    //     password: "123456789",
-    // })
+  useState(()=>{
+    setUser({
+      firstName: "joe",
+      lastName: "walker",
+      userName: "joejoe",
+      id: "22222",
+      email: "joe@aol.com",
+      password: "123456789",
+  })
+
+  })
+
 
   const handleChange = (e) => {
-    setUser({
-      ...user,
-      [e.target.name]: e.target.value,
-    });
+    // setUser({
+    //   ...user,
+    //   [e.target.name]: e.target.value,
+    // });
   };
 
   const register = (e) => {
@@ -41,13 +46,13 @@ const Register = (props) => {
       })
       .then((res) => {
         console.log('user', user);
-        setUser({
-            firstName:"",
-            lastName: "",
-            userName: "",
-            email: "",
-            password: "",
-        });
+        // setUser({
+        //     firstName:"",
+        //     lastName: "",
+        //     userName: "",
+        //     email: "",
+        //     password: "",
+        // });
 
         setConfirmReg("Thank you for Registering, you can now log in!");
         setErrs({});
@@ -69,7 +74,7 @@ const Register = (props) => {
           <div class="container">
             <div class="row">
               <div class="col-sm-5">
-                <Login />
+                <Login user={user} setUser={setUser} />
               </div>
 
               <div class="col-sm-1 middle-border"></div>
