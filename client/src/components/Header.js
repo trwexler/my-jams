@@ -9,8 +9,8 @@ const Header = (props)=>{
 
     return(
         <div>
-            <h1>Header</h1>
-            <nav>Menu</nav>
+            <h4>Header</h4>
+            {/* <nav>Menu</nav> */}
 
         </div>
     )

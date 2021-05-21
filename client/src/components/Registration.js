@@ -11,9 +11,7 @@ const Register = (props) => {
     firstName: "",
     lastName: "",
     email: "",
-    address: "",
-    city: "",
-    state: "",
+    username: "",
     password: "",
     confirmPassword: "",
   });
@@ -38,9 +36,7 @@ const Register = (props) => {
           firstName: "",
           lastName: "",
           email: "",
-          address: "",
-          city: "",
-          state: "",
+          username: "",
           password: "",
           confirmPassword: "",
         });
@@ -107,6 +103,8 @@ const Register = (props) => {
                           onChange={(e) => handleChange(e)}
                         />
                       </div>
+
+
                       <div class="form-group">
                         <label class="sr-only" for="form-last-name">
                           Last name
@@ -127,6 +125,8 @@ const Register = (props) => {
                           onChange={(e) => handleChange(e)}
                         />
                       </div>
+
+
                       <div class="form-group">
                         <label class="sr-only" for="form-email">
                           Email
@@ -147,6 +147,32 @@ const Register = (props) => {
                           onChange={handleChange}
                         />
                       </div>
+
+
+                      {/* Needs Username Input */}
+                      
+                      {/* <div class="form-group">
+                        <label class="sr-only" for="form-email">
+                          Email
+                        </label>
+                        {errs.email ? (
+                          <span className="error-text">
+                            _{errs.email.message}
+                          </span>
+                        ) : null}
+
+                        <input
+                          type="text"
+                          placeholder="Email..."
+                          class="form-email form-control"
+                          id="form-email"
+                          name="email"
+                          value={user.email}
+                          onChange={handleChange}
+                        />
+                      </div> */}
+
+
                       <div class="form-group">
                         <label class="sr-only" for="form-email">
                           Password
@@ -167,6 +193,8 @@ const Register = (props) => {
                             onChange={ handleChange }
                         />
                       </div>
+
+
                       <div class="form-group">
                         <label class="sr-only" for="form-email">
                           Confirm Password

@@ -8,9 +8,9 @@ import DeleteButton from './DeleteButton';
 
 
 
-
-
 const ArtistPage = (props)=>{
+
+    const {artistId} = props;
 
     //will be added from landing page
     // const{artist, artistId} = props;
@@ -42,41 +42,39 @@ const ArtistPage = (props)=>{
     }]);
 
 
-    const[user,setUser] = useState({
-        firstName: "joe",
-        lastName: "walker",
-        userName: "joejoe",
-        email: "joe@aol.com",
-        password: "123456789",
-    })
+    // const[user,setUser] = useState({
+    //     firstName: "joe",
+    //     lastName: "walker",
+    //     userName: "joejoe",
+    //     email: "joe@aol.com",
+    //     password: "123456789",
+    // })
 
-    useEffect(()=>{
-        axios.post('http://localhost:8080/register', user)
-        .then((user)=>{
-                console.log('user', user);
-                setUser({
-                    firstName:"",
-                    lastName: "",
-                    userName: "",
-                    email: "",
-                    password: "",
-                });
-            })
-            .catch((err)=>{
-                console.log(err);
-            })
-    },[])
+    // useEffect(()=>{
+    //     axios.post('http://localhost:8080/register', user)
+    //     .then((user)=>{
+    //             console.log('user', user);
+    //             setUser({
+    //                 firstName:"",
+    //                 lastName: "",
+    //                 userName: "",
+    //                 email: "",
+    //                 password: "",
+    //             });
+    //         })
+    //         .catch((err)=>{
+    //             console.log(err);
+    //         })
+    // },[])
 
 
 
 
 
      //get artist
-    //Will look like:
-    // axios.get('https://theaudiodb.com/api/v1/json/{APIKEYHERE}/artist.php?i=' + 'artistId')
 
     useEffect(()=>{
-        axios.get('https://theaudiodb.com/api/v1/json/523532/artist.php?i=112024')
+        axios.get(`https://theaudiodb.com/api/v1/json/523532/artist.php?i=${artistId}`)
             .then((res)=>{
                 console.log('artist', res.data.artists[0]);
                 setArtist({
@@ -94,15 +92,10 @@ const ArtistPage = (props)=>{
     },[])
 
 
-
-
     //gets all of that artist's albums
 
-    //Will look like:
-    // axios.get('https://theaudiodb.com/api/v1/json/1/album.php?i=' + 'artistId')
-
     useEffect(()=>{
-        axios.get(`https://theaudiodb.com/api/v1/json/523532/album.php?i=${artist.artistId}`)
+        axios.get(`https://theaudiodb.com/api/v1/json/523532/album.php?i=${artistId}`)
             .then((res)=>{
                 console.log('albums', res.data.album);
                 setAlbums(res.data.album);
@@ -115,12 +108,7 @@ const ArtistPage = (props)=>{
 
 
 
-
-
     //gets all of that album's tracks
-
-    //Will look like:
-    // axios.get('https://theaudiodb.com/api/v1/json/1/track.php?m=' + 'albumID')
 
     const trackHandler = (id)=>{
         axios.get('https://theaudiodb.com/api/v1/json/523532/track.php?m=' + id)
@@ -138,44 +126,24 @@ const ArtistPage = (props)=>{
     }
 
 
-
     // when trackList "x" is clicked, the tracklist closes.
     const closeTrack = (e)=>{
         let tracksList = document.getElementById('tracksList');
         tracksList.classList.remove("d-block");
         tracksList.classList.add("d-none");
     }
-
-
-
-    useEffect(()=>{
-        axios.get('https://theaudiodb.com/api/v1/json/523532/album.php?i=112024')
-            .then((res)=>{
-                console.log('albums', res.data.album);
-                setAlbums(res.data.album);
-            })
-            .catch((err)=>{
-                console.log(err);
-            })
-    },[])
-
-
-
-
-
-
-
+    
 
     return(
         <div>
             <Header/>
-        
-                <h1>
-                    {
-                        artist.name
-                    }
+                <div>
+                    <h1>
+                        {artist.name}
+                    </h1>
                     <button className="btn btn-primary btn-sm m-1">+</button>
-                </h1>
+                    <p>{artist.bio}</p>
+                </div>
                 
 
 

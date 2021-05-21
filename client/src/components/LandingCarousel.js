@@ -8,12 +8,17 @@ import DeleteButton from './DeleteButton';
 
 
 const LandingCarousel = (props)=>{
+    
+
 
 
     return(
         <div>
 
             <h1>LandingCarousel</h1>
+
+
+
 
         </div>
     )
