@@ -3,16 +3,17 @@ import axios from "axios";
 import { navigate } from "@reach/router";
 import "../registration.css";
 
-const Login = () => {
+const Login = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const {user, setUser} = props;
 
   const login = (event) => {
     event.preventDefault();
     axios
       .post(
-        "http://localhost:8000/api/user/login",
+        "http://localhost:8080/login",
         {
           email: email,
           password: password,

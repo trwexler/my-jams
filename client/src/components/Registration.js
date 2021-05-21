@@ -6,44 +6,46 @@ import Login from "./Login";
 const Register = (props) => {
   const [confirmReg, setConfirmReg] = useState("");
   const [errs, setErrs] = useState({});
+  const {user, setUser} = props;
 
-  const [user, setUser] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    address: "",
-    city: "",
-    state: "",
-    password: "",
-    confirmPassword: "",
-  });
+
+  // was used for tests. Enable and comment out "UserProfile.js" test
+  // state w user info when ready to test full-stack linkage
+  
+  // const [user, setUser] = useState({
+  //   firstName: "",
+  //   lastName: "",
+  //   email: "",
+  //   username: "",
+  //   password: "",
+  //   confirmPassword: "",
+  // });
+
+
 
   const handleChange = (e) => {
-    setUser({
-      ...user,
-      [e.target.name]: e.target.value,
-    });
+    // setUser({
+    //   ...user,
+    //   [e.target.name]: e.target.value,
+    // });
   };
 
   const register = (e) => {
     e.preventDefault();
 
     axios
-      .post("http://localhost:8000/api/user/register", user, {
+      .post("http://localhost:8080/register", user, {
         withCredentials: true,
       })
       .then((res) => {
-        console.log(res.data);
-        setUser({
-          firstName: "",
-          lastName: "",
-          email: "",
-          address: "",
-          city: "",
-          state: "",
-          password: "",
-          confirmPassword: "",
-        });
+        console.log('user', user);
+        // setUser({
+        //     firstName:"",
+        //     lastName: "",
+        //     userName: "",
+        //     email: "",
+        //     password: "",
+        // });
 
         setConfirmReg("Thank you for Registering, you can now log in!");
         setErrs({});
@@ -54,6 +56,9 @@ const Register = (props) => {
       });
   };
 
+
+
+
   return (
     <div style={{background: "linear-gradient(167deg, rgba(129,255,0,1) 0%, rgba(100,255,230,1) 60%)"}}>
       {confirmReg ? <h4>{confirmReg}</h4> : null}
@@ -62,7 +67,7 @@ const Register = (props) => {
           <div class="container">
             <div class="row">
               <div class="col-sm-5">
-                <Login />
+                <Login user={user} setUser={setUser} />
               </div>
 
               <div class="col-sm-1 middle-border"></div>
@@ -107,6 +112,8 @@ const Register = (props) => {
                           onChange={(e) => handleChange(e)}
                         />
                       </div>
+
+
                       <div class="form-group">
                         <label class="sr-only" for="form-last-name">
                           Last name
@@ -127,6 +134,8 @@ const Register = (props) => {
                           onChange={(e) => handleChange(e)}
                         />
                       </div>
+
+
                       <div class="form-group">
                         <label class="sr-only" for="form-email">
                           Email
@@ -147,6 +156,32 @@ const Register = (props) => {
                           onChange={handleChange}
                         />
                       </div>
+
+
+                      {/* Needs Username Input */}
+                      
+                      {/* <div class="form-group">
+                        <label class="sr-only" for="form-email">
+                          Email
+                        </label>
+                        {errs.email ? (
+                          <span className="error-text">
+                            _{errs.email.message}
+                          </span>
+                        ) : null}
+
+                        <input
+                          type="text"
+                          placeholder="Email..."
+                          class="form-email form-control"
+                          id="form-email"
+                          name="email"
+                          value={user.email}
+                          onChange={handleChange}
+                        />
+                      </div> */}
+
+
                       <div class="form-group">
                         <label class="sr-only" for="form-email">
                           Password
@@ -167,6 +202,8 @@ const Register = (props) => {
                             onChange={ handleChange }
                         />
                       </div>
+
+
                       <div class="form-group">
                         <label class="sr-only" for="form-email">
                           Confirm Password

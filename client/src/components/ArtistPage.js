@@ -8,9 +8,11 @@ import DeleteButton from './DeleteButton';
 
 
 
-
-
 const ArtistPage = (props)=>{
+
+    const {artistId} = props;
+    const {user, setUser} = props;
+
 
     //will be added from landing page
     // const{artist, artistId} = props;
@@ -42,41 +44,10 @@ const ArtistPage = (props)=>{
     }]);
 
 
-    const[user,setUser] = useState({
-        firstName: "joe",
-        lastName: "walker",
-        userName: "joejoe",
-        email: "joe@aol.com",
-        password: "123456789",
-    })
 
+     //gets artist
     useEffect(()=>{
-        axios.post('http://localhost:8080/register', user)
-        .then((user)=>{
-                console.log('user', user);
-                setUser({
-                    firstName:"",
-                    lastName: "",
-                    userName: "",
-                    email: "",
-                    password: "",
-                });
-            })
-            .catch((err)=>{
-                console.log(err);
-            })
-    },[])
-
-
-
-
-
-     //get artist
-    //Will look like:
-    // axios.get('https://theaudiodb.com/api/v1/json/{APIKEYHERE}/artist.php?i=' + 'artistId')
-
-    useEffect(()=>{
-        axios.get('https://theaudiodb.com/api/v1/json/523532/artist.php?i=112024')
+        axios.get(`https://theaudiodb.com/api/v1/json/523532/artist.php?i=${artistId}`)
             .then((res)=>{
                 console.log('artist', res.data.artists[0]);
                 setArtist({
@@ -94,34 +65,21 @@ const ArtistPage = (props)=>{
     },[])
 
 
-
-
     //gets all of that artist's albums
-
-    //Will look like:
-    // axios.get('https://theaudiodb.com/api/v1/json/1/album.php?i=' + 'artistId')
-
     useEffect(()=>{
-        axios.get(`https://theaudiodb.com/api/v1/json/523532/album.php?i=${artist.artistId}`)
+        axios.get(`https://theaudiodb.com/api/v1/json/523532/album.php?i=${artistId}`)
             .then((res)=>{
                 console.log('albums', res.data.album);
                 setAlbums(res.data.album);
-                console.log(artist);
             })
             .catch((err)=>{
                 console.log(err);
             })
-    }, artist)
-
-
+    }, [])
 
 
 
     //gets all of that album's tracks
-
-    //Will look like:
-    // axios.get('https://theaudiodb.com/api/v1/json/1/track.php?m=' + 'albumID')
-
     const trackHandler = (id)=>{
         axios.get('https://theaudiodb.com/api/v1/json/523532/track.php?m=' + id)
         .then((res)=>{
@@ -137,8 +95,6 @@ const ArtistPage = (props)=>{
 
     }
 
-
-
     // when trackList "x" is clicked, the tracklist closes.
     const closeTrack = (e)=>{
         let tracksList = document.getElementById('tracksList');
@@ -147,35 +103,33 @@ const ArtistPage = (props)=>{
     }
 
 
-
-    useEffect(()=>{
-        axios.get('https://theaudiodb.com/api/v1/json/523532/album.php?i=112024')
-            .then((res)=>{
-                console.log('albums', res.data.album);
-                setAlbums(res.data.album);
-            })
-            .catch((err)=>{
-                console.log(err);
-            })
-    },[])
-
-
-
-
-
-
-
+    const addHandler = ((e)=>{
+        setUser({...user,
+            [e.target.name]: e.target.value
+        })
+        console.log(e.target.name, e.target.value);
+    })
+    
 
     return(
         <div>
             <Header/>
-        
-                <h1>
-                    {
-                        artist.name
-                    }
-                    <button className="btn btn-primary btn-sm m-1">+</button>
-                </h1>
+                <div>
+                    <h1>
+                        {artist.name}
+                    </h1>
+
+                    <button 
+                    className="btn btn-primary btn-sm m-1"
+                    name="artists" 
+                    value={artist.name}
+                    className="btn btn-primary btn-sm"
+                    onClick={addHandler}>
+                    +
+                    </button>
+
+                    <p>{artist.bio}</p>
+                </div>
                 
 
 
@@ -204,7 +158,14 @@ const ArtistPage = (props)=>{
                         albums.map((album, index)=>(
                             <div key={index} className="border mx-auto w-25 .col-4 my-3">
                                 <p>{album.strAlbum}</p>
-                                <button className="btn btn-primary btn-sm">Add</button>
+
+                                <button 
+                                name="albums" 
+                                value={album.strAlbum} className="btn btn-primary btn-sm"
+                                onClick={addHandler}>
+                                Add
+                                </button>
+
                                 <img className="w-50" src={album.strAlbumThumb} alt="" />
                                 <button className="btn btn-primary btn-sm" onClick={(e)=>trackHandler(album.idAlbum)}>
                                 tracks
@@ -224,9 +185,9 @@ const ArtistPage = (props)=>{
             
             {
                 tracks.map((track,index)=>(
-                    <div className=" mx-auto d-flex">
+                    <div key={index} className=" mx-auto d-flex">
                         <div className="d-flex mx-auto w-25">
-                            <button className="btn btn-primary btn-sm m-2">+</button>
+                            <button onClick={addHandler} name="tracks" value={track.strTrack} className="btn btn-primary btn-sm m-2">+</button>
                             <p className="p-0 mx-2" key={index}>{track.strTrack}</p>
                         </div>
                     </div>

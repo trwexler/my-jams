@@ -9,12 +9,13 @@ import Registration from '../components/Registration';
 // 523532 API KEY
 
 const LogReg = (props)=>{
+    const {user, setUser} = props;
 
 
     return(
         <div>
 
-            <Registration/>
+            <Registration user={user} setUser={setUser}/>
 
         </div>
     )
