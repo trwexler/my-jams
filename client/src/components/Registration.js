@@ -24,35 +24,35 @@ const Register = (props) => {
 
 
   const handleChange = (e) => {
-    // setUser({
-    //   ...user,
-    //   [e.target.name]: e.target.value,
-    // });
+    setUser({
+      ...user,
+      [e.target.name]: e.target.value,
+    });
   };
 
   const register = (e) => {
     e.preventDefault();
 
-    axios
-      .post("http://localhost:8080/register", user, {
-        withCredentials: true,
+    console.log(user);
+    axios.post("http://localhost:8080/register", user, {
+        // withCredentials: true,
       })
       .then((res) => {
         console.log('user', user);
-        // setUser({
-        //     firstName:"",
-        //     lastName: "",
-        //     userName: "",
-        //     email: "",
-        //     password: "",
-        // });
+        setUser({
+            firstName:"",
+            lastName: "",
+            userName: "",
+            email: "",
+            password: "",
+        });
 
         setConfirmReg("Thank you for Registering, you can now log in!");
         setErrs({});
       })
       .catch((err) => {
         console.log(err);
-        setErrs(err.response.data.errors);
+        // setErrs(err.response.data.errors);
       });
   };
 
@@ -160,26 +160,26 @@ const Register = (props) => {
 
                       {/* Needs Username Input */}
                       
-                      {/* <div class="form-group">
-                        <label class="sr-only" for="form-email">
-                          Email
+                      <div class="form-group">
+                        <label class="sr-only" for="form-userName">
+                          username:
                         </label>
-                        {errs.email ? (
+                        {errs.userName ? (
                           <span className="error-text">
-                            _{errs.email.message}
+                            _{errs.userName.message}
                           </span>
                         ) : null}
 
                         <input
                           type="text"
-                          placeholder="Email..."
-                          class="form-email form-control"
-                          id="form-email"
-                          name="email"
-                          value={user.email}
+                          placeholder="Username..."
+                          class="form-userName form-control"
+                          id="form-userName"
+                          name="userName"
+                          value={user.userName}
                           onChange={handleChange}
                         />
-                      </div> */}
+                      </div>
 
 
                       <div class="form-group">

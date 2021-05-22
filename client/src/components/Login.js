@@ -8,27 +8,46 @@ const Login = (props) => {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const {user, setUser} = props;
+  // const {userEmail, setUserEmail} = props;
+  // const {userPassword, setUserPassword} = props;
+
 
   const login = (event) => {
     event.preventDefault();
+    console.log(email);
+    console.log(password);
     axios
-      .post(
-        "http://localhost:8080/login",
-        {
-          email: email,
-          password: password,
-        },
-        {
-          withCredentials: true,
-        }
-      )
-      .then((res) => {
-        console.log(res.cookie);
-        console.log(res);
-        console.log(res.data, "Res data");
-        // navigate("/home");
+    .post(
+      "http://localhost:8080/login",
+      {
+        email: email,
+        password: password,
+      },
+      console.log(email),
+      console.log(password)
+        )
+        .then((res) => {
+          console.log(res.cookie);
+          console.log(res);
+          console.log(email, "Res data");
+          // console.log(user.email);
+        //   setUser({
+        //     email: email,
+        //     password: password
+        // });
+        console.log(user);
+        // console.log('user', user);
+        // setUser({
+        //     firstName:"",
+        //     lastName: "",
+        //     userName: "",
+        //     email: "",
+        //     password: "",
+        // });
+        navigate("/artists");
       })
       .catch((err) => {
+        console.log(email);
         console.log(err.response);
         setErrorMessage(err.response.data.message);
       });
