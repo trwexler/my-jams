@@ -24,35 +24,35 @@ const Register = (props) => {
 
 
   const handleChange = (e) => {
-    // setUser({
-    //   ...user,
-    //   [e.target.name]: e.target.value,
-    // });
+    setUser({
+      ...user,
+      [e.target.name]: e.target.value,
+    });
   };
 
   const register = (e) => {
     e.preventDefault();
 
-    axios
-      .post("http://localhost:8080/register", user, {
-        withCredentials: true,
+    console.log(user);
+    axios.post("http://localhost:8080/register", user, {
+        // withCredentials: true,
       })
       .then((res) => {
         console.log('user', user);
-        // setUser({
-        //     firstName:"",
-        //     lastName: "",
-        //     userName: "",
-        //     email: "",
-        //     password: "",
-        // });
+        setUser({
+            firstName:"",
+            lastName: "",
+            userName: "",
+            email: "",
+            password: "",
+        });
 
         setConfirmReg("Thank you for Registering, you can now log in!");
         setErrs({});
       })
       .catch((err) => {
         console.log(err);
-        setErrs(err.response.data.errors);
+        // setErrs(err.response.data.errors);
       });
   };
 

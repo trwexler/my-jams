@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,8 +22,11 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 @Entity
 @Table(name="users")
+@EntityListeners(AuditingEntityListener.class)
 public class User {
 
 	@Id
@@ -39,7 +43,7 @@ public class User {
 	private String userName;
 	@Email(message="Email must be valid")
 	@NotBlank
-	@Column(name = "email_address", nullable = false)
+	@Column(name = "email", nullable = false)
 	private String email;	
 	@Size(min=8, message="Password must be greater than 8 characters")
 	@Column(name = "password", nullable = false)
