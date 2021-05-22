@@ -161,22 +161,22 @@ const Register = (props) => {
                       {/* Needs Username Input */}
                       
                       <div class="form-group">
-                        <label class="sr-only" for="form-userName">
-                          username:
+                        <label class="sr-only" for="form-email">
+                          Username
                         </label>
-                        {errs.userName ? (
+                        {errs.username ? (
                           <span className="error-text">
-                            _{errs.userName.message}
+                            _{errs.username.message}
                           </span>
                         ) : null}
 
                         <input
                           type="text"
                           placeholder="Username..."
-                          class="form-userName form-control"
-                          id="form-userName"
-                          name="userName"
-                          value={user.userName}
+                          class="form-email form-control"
+                          id="form-email"
+                          name="email"
+                          value={user.username}
                           onChange={handleChange}
                         />
                       </div>
