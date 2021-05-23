@@ -4,6 +4,7 @@ import {Link, navigate, Router} from '@reach/router';
 import LandingCarousel from './LandingCarousel';
 import AddButton from './AddButton';
 import Header from './Header';
+import { Carousel } from 'react-bootstrap';
 
 
 
@@ -43,18 +44,21 @@ useEffect(()=>{
             })
     },[])
 
+    let size=5;
+
     return(
         <div>
             <Header user={user}/>
             <h1>Landing</h1>
-            {/* <LandingCarousel/> */}
+            <LandingCarousel/>
+
 
             {
                 artistList?
                 <div>
                 {
-                artistList.map((artist,index)=>(
-                    <Link key={index} to={`/artist/${artist.idArtist}/${user.id}`}><p >{artist.strArtist}</p></Link>
+                artistList.slice(0, size).map((artist,index)=>(
+                    <Link key={index} to={`/artist/${artist.idArtist}/${user.id}`}><p>{artist.strArtist}</p></Link>
                 ))
                 }
                 </div>

@@ -24,10 +24,10 @@ const Register = (props) => {
 
 
   const handleChange = (e) => {
-    // setUser({
-    //   ...user,
-    //   [e.target.name]: e.target.value,
-    // });
+    setUser({
+      ...user,
+      [e.target.name]: e.target.value,
+    });
   };
 
   const register = (e) => {
