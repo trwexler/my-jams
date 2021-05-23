@@ -150,7 +150,24 @@ const ArtistPage = (props)=>{
             </div> */}
 
 
-            <div className=".container-fluid border">
+
+            <div className=".container-fluid border mx-auto">
+
+                <div id="tracksList" style={{width:"100vw", backgroundColor:"black"}} className="d-none border .bg-dark position-absolute">
+                    <button className="btn btn-primary btn-sm" onClick={closeTrack}>x</button>
+                    
+                    {
+                        tracks.map((track,index)=>(
+                            <div key={index} className=" mx-auto">
+                                <div className="d-flex mx-auto w-25">
+                                    <button onClick={addHandler} name="tracks" value={track.strTrack} className="btn btn-primary btn-sm m-2">+</button>
+                                    <p className="p-0 mx-2" key={index}>{track.strTrack}</p>
+                                </div>
+                            </div>
+                        ))
+                    }
+                </div>
+
                 <div className="row">
                     {
                         albums?
@@ -180,20 +197,7 @@ const ArtistPage = (props)=>{
                 </div>
             </div>
 
-            <div id="tracksList" className="d-none">
-            <button className="btn btn-primary btn-sm" onClick={closeTrack}>x</button>
-            
-            {
-                tracks.map((track,index)=>(
-                    <div key={index} className=" mx-auto d-flex">
-                        <div className="d-flex mx-auto w-25">
-                            <button onClick={addHandler} name="tracks" value={track.strTrack} className="btn btn-primary btn-sm m-2">+</button>
-                            <p className="p-0 mx-2" key={index}>{track.strTrack}</p>
-                        </div>
-                    </div>
-                ))
-            }
-            </div>
+
 
             
 

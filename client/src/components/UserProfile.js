@@ -15,33 +15,25 @@ const Profile = (props) =>{
     const [userProfile, setUserProfile] = useState({});
 
 
-
-
-
-
     return(
         <div>
             <Header/>
             
-
-
                 <div>
-
 
                     <div className="bg-white shadow mx-auto">
 
                         <h2 className="text-2xl p-3 font-mono">
-                        Welcome home, {userProfile.username}!
+                        Welcome home, {user.userName}!
                         </h2>
-
+                        {/* would be a prof pic */}
                         <div className="rounded h-full
                         mx-auto py-3 mx-2 mb-4 bg-white">
 
+                        </div>
 
-
-                            </div>
                             <p className="text-sm p-3">
-                            {userProfile.bio}
+                            {user.bio}
                             </p>
 
                             <button 
@@ -103,7 +95,7 @@ const Profile = (props) =>{
                 </label>
                 :
                 <label className="m-2 text-2xl">
-                Write on {userProfile.username}'s wall!
+                Write on {user.username}'s wall!
                 </label>
 
                 }
