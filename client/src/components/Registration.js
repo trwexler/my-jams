@@ -92,8 +92,10 @@ const Register = (props) => {
                       class="registration-form"
                       onSubmit={register}
                     >
+
+                    
                       <div class="form-group">
-                        <label class="sr-only" for="form-first-name">
+                        <label class="sr-only" for="form-firstName">
                           First name
                         </label>
                         {errs.firstName ? (
@@ -105,8 +107,8 @@ const Register = (props) => {
                         <input
                           type="text"
                           placeholder="First name..."
-                          class="form-first-name form-control"
-                          id="form-first-name"
+                          class="form-firstName form-control"
+                          id="form-firstName"
                           name="firstName"
                           value={user.firstName}
                           onChange={(e) => handleChange(e)}
@@ -115,7 +117,7 @@ const Register = (props) => {
 
 
                       <div class="form-group">
-                        <label class="sr-only" for="form-last-name">
+                        <label class="sr-only" for="form-lastName">
                           Last name
                         </label>
                         {errs.lastName ? (
@@ -127,13 +129,15 @@ const Register = (props) => {
                         <input
                           type="text"
                           placeholder="Last name..."
-                          class="form-last-name form-control"
-                          id="form-last-name"
+                          class="form-lastName form-control"
+                          id="form-lastName"
                           name="lastName"
                           value={user.lastName}
                           onChange={(e) => handleChange(e)}
                         />
                       </div>
+
+
 
 
                       <div class="form-group">
@@ -158,32 +162,34 @@ const Register = (props) => {
                       </div>
 
 
+
+
                       {/* Needs Username Input */}
                       
                       <div class="form-group">
-                        <label class="sr-only" for="form-email">
+                        <label class="sr-only" for="form-userName">
                           Username
                         </label>
                         {errs.username ? (
                           <span className="error-text">
-                            _{errs.username.message}
+                            _{errs.userName.message}
                           </span>
                         ) : null}
 
                         <input
                           type="text"
                           placeholder="Username..."
-                          class="form-email form-control"
-                          id="form-email"
-                          name="email"
-                          value={user.username}
+                          class="form-userName form-control"
+                          id="form-userName"
+                          name="userName"
+                          value={user.userName}
                           onChange={handleChange}
                         />
                       </div>
 
 
                       <div class="form-group">
-                        <label class="sr-only" for="form-email">
+                        <label class="sr-only" for="form-password">
                           Password
                         </label>
                         {errs.password ? (
@@ -195,8 +201,8 @@ const Register = (props) => {
                         <input
                           type="text"
                           placeholder="Password..."
-                          class="form-email form-control"
-                          id="form-email"
+                          class="form-password form-control"
+                          id="form-password"
                             name="password"
                             value={user.password}
                             onChange={ handleChange }
@@ -204,8 +210,11 @@ const Register = (props) => {
                       </div>
 
 
+
+
+
                       <div class="form-group">
-                        <label class="sr-only" for="form-email">
+                        <label class="sr-only" for="form-confirmPassword">
                           Confirm Password
                         </label>
                          {
@@ -217,8 +226,8 @@ const Register = (props) => {
                         <input
                           type="text"
                           placeholder="Confirm Password..."
-                          class="form-email form-control"
-                          id="form-email"
+                          class="form-confirmPassword form-control"
+                          id="form-confirmPassword"
                             name="confirmPassword"
                             value={user.confirmPassword}
                             onChange={ handleChange }
