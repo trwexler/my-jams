@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,6 +40,14 @@ public class UserController {
 		return "login.jsp";
 	}
 	
+	@GetMapping("/getUser/{email}")
+	public User loginPage(@PathVariable("email")String email) {
+		System.out.println("From getmapping getuser/{email} " + email);
+		User currentUser = uServ.findByEmail(email);
+		System.out.println(currentUser.getId());
+		return currentUser;
+	}
+	
 	@PostMapping("/register")
 	public User processRegister(@Valid @RequestBody User user) {
 		System.out.println(user);
@@ -47,12 +56,15 @@ public class UserController {
 
 	@PostMapping("/login")
 	public boolean proccesslogin(@RequestBody User user) {
-		
+		if( !this.uServ.authenticateUser(user.getEmail(), user.getPassword())) {
+//			redirectAttributes.addFlashAttribute("error", "INVALID CREDENTIALS");
+			System.out.println("null");
+		}
 		System.out.println(user.getEmail());
 //		System.out.println(user.getPassword());
 		String userEmail = user.getEmail();
 		String userPassword = user.getPassword();
-//		if(userEmail == null) {
+//		if(userEmail != user.getEmail()) {
 //			System.out.println("false");
 //		} else {
 //			if(BCrypt.checkpw(userPassword, user.getPassword())) {
