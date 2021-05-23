@@ -74,7 +74,7 @@ useEffect(()=>{
                                 <img
                                 style={{ height: "300px" }}
                                 className="d-block w-100"
-                                src={"assets/img/img2.jpg"}
+                                src={artist.strTrackThumb}
                                 />
                             <Carousel.Caption>
                             <Link to={`/artist/${artist.idArtist}/${user.id}`}><h3>{artist.strArtist}</h3></Link>
