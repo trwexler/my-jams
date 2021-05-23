@@ -18,6 +18,7 @@ const ArtistPage = (props)=>{
     // const{artist, artistId} = props;
 
 
+
     const[artist, setArtist] = useState({
         name: "",
         artistId: "",

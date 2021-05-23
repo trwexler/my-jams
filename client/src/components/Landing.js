@@ -14,20 +14,17 @@ const Landing = (props)=>{
     const [artistList, setArtistList] = useState([]);
     const {user, setUser} = props;
 
-//for user method tests
-// useEffect(()=>{
-//     setUser({
-//         firstName: "joe",
-//         lastName: "walker",
-//         userName: "joejoe",
-//         id: "22222",
-//         albums:[],
-//         tracks:[],
-//         artists: [],
-//         email: "joe@aol.com",
-//         password: "123456789",
-//     })
-// },[])
+    //for user method tests
+    useEffect(()=>{
+        axios.get(`http://localhost:8080/getUser/${user.email}`)
+            .then((res)=>{
+                console.log(res.data);
+            })
+            .catch((err)=>{
+                console.log(err);
+            })
+
+        }, [])
 
 
 
@@ -42,7 +39,7 @@ const Landing = (props)=>{
             .catch((err)=>{
                 console.log(err);
             })
-    },[])
+    }, [])
 
     // Size = number of artists displayed on landing page.
     let size=5;
@@ -52,12 +49,12 @@ const Landing = (props)=>{
             <Header user={user}/>
             <h1>Landing</h1>
             {/* <LandingCarousel/> */}
+            {user.email}
 
 
             {
                 artistList?
                 <div>
-                
                     <div>
                     <div class="container-fluid">
                         <div className="row title" style={{ marginBottom: "20px" }}>
@@ -69,7 +66,7 @@ const Landing = (props)=>{
                 <div className="container-fluid">
                     <Carousel>
                     {
-                artistList.slice(0, size).map((artist,index)=>(
+                        artistList.slice(0, size).map((artist,index)=>(
                         <Carousel.Item style={{ height: "300px" }}>
                                 <img
                                 style={{ height: "300px" }}
@@ -80,12 +77,12 @@ const Landing = (props)=>{
                             <Link to={`/artist/${artist.idArtist}/${user.id}`}><h3>{artist.strArtist}</h3></Link>
                             </Carousel.Caption>
                         </Carousel.Item>
-                         ))
+                        ))
                         }
-                </Carousel>
+                        </Carousel>
             </div>
             </div>
-               
+
                 </div>
                 : <h1>Loading...</h1>
             }
