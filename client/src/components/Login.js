@@ -28,7 +28,7 @@ const Login = (props) => {
         )
         .then((res) => {
           console.log(res.cookie);
-          console.log(res);
+          console.log(res.data);
           console.log(email, "Res data");
           console.log(user.email);
           setUser({
@@ -36,7 +36,15 @@ const Login = (props) => {
             password: password
         });
         console.log(user);
-        navigate("/landing");
+        
+        if(res.data == true){
+          navigate("/landing");
+        }
+        else{
+          navigate("/");
+        }
+        
+
       })
       .catch((err) => {
         console.log(email);
@@ -47,6 +55,7 @@ const Login = (props) => {
 
   return (
     <div>
+    
       <div class="form-box">
         <div class="form-top">
           <div class="form-top-left">
