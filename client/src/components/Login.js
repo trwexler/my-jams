@@ -30,21 +30,13 @@ const Login = (props) => {
           console.log(res.cookie);
           console.log(res);
           console.log(email, "Res data");
-          // console.log(user.email);
-        //   setUser({
-        //     email: email,
-        //     password: password
-        // });
+          console.log(user.email);
+          setUser({
+            email: email,
+            password: password
+        });
         console.log(user);
-        // console.log('user', user);
-        // setUser({
-        //     firstName:"",
-        //     lastName: "",
-        //     userName: "",
-        //     email: "",
-        //     password: "",
-        // });
-        navigate("/artists");
+        navigate("/landing");
       })
       .catch((err) => {
         console.log(email);

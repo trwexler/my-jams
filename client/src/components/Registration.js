@@ -93,7 +93,7 @@ const Register = (props) => {
                       onSubmit={register}
                     >
 
-                    
+
                       <div class="form-group">
                         <label class="sr-only" for="form-firstName">
                           First name
@@ -199,7 +199,7 @@ const Register = (props) => {
                         ) : null}
 
                         <input
-                          type="text"
+                          type="password"
                           placeholder="Password..."
                           class="form-password form-control"
                           id="form-password"
@@ -224,7 +224,7 @@ const Register = (props) => {
                           }
 
                         <input
-                          type="text"
+                          type="password"
                           placeholder="Confirm Password..."
                           class="form-confirmPassword form-control"
                           id="form-confirmPassword"
