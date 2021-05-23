@@ -4,6 +4,7 @@ import {Link, navigate, Router} from '@reach/router';
 import LandingCarousel from './LandingCarousel';
 import AddButton from './AddButton';
 import Header from './Header';
+import { Carousel } from 'react-bootstrap';
 
 
 
@@ -43,20 +44,48 @@ useEffect(()=>{
             })
     },[])
 
+    // Size = number of artists displayed on landing page.
+    let size=5;
+
     return(
         <div>
             <Header user={user}/>
             <h1>Landing</h1>
             {/* <LandingCarousel/> */}
 
+
             {
                 artistList?
                 <div>
-                {
-                artistList.map((artist,index)=>(
-                    <Link key={index} to={`/artist/${artist.idArtist}/${user.id}`}><p >{artist.strArtist}</p></Link>
-                ))
-                }
+                
+                    <div>
+                    <div class="container-fluid">
+                        <div className="row title" style={{ marginBottom: "20px" }}>
+                            <div class="col-sm-12">
+                                Most Loved Artists
+                            </div>
+                        </div>
+                </div>
+                <div className="container-fluid">
+                    <Carousel>
+                    {
+                artistList.slice(0, size).map((artist,index)=>(
+                        <Carousel.Item style={{ height: "300px" }}>
+                                <img
+                                style={{ height: "300px" }}
+                                className="d-block w-100"
+                                src={"assets/img/img2.jpg"}
+                                />
+                            <Carousel.Caption>
+                            <Link to={`/artist/${artist.idArtist}/${user.id}`}><h3>{artist.strArtist}</h3></Link>
+                            </Carousel.Caption>
+                        </Carousel.Item>
+                         ))
+                        }
+                </Carousel>
+            </div>
+            </div>
+               
                 </div>
                 : <h1>Loading...</h1>
             }
