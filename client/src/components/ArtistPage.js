@@ -14,7 +14,7 @@ import 'simplebar/dist/simplebar.min.css';
 const ArtistPage = (props)=>{
 
     const {artistId} = props;
-    const {user, setUser, userEmail} = props;
+    const {user, setUser, userEmail, id } = props;
 
 
     //will be added from landing page
@@ -115,11 +115,18 @@ const ArtistPage = (props)=>{
 
 
     const addHandler = ((e)=>{
-        axios(`http://localhost:8080/likeArtist/${artistId}`)
-        setUser({...user,
-            [e.target.name]: e.target.value
+        axios.post(`http://localhost:8080/likeArtist/${artistId}`, {
+            artistId, id
         })
-        console.log(e.target.name, e.target.value);
+        .then((res)=>{
+            console.log(res);
+            // setUser({...user,
+            //     [e.target.name]: e.target.value
+            // })
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
     })
     
 
