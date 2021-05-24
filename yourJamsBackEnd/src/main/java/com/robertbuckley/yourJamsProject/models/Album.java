@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
@@ -25,17 +27,26 @@ public class Album {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	@NotBlank
-	private String name;
+	private Long albumId;
 	@Column(updatable=false)
 	private Date createdAt;
 	private Date updatedAt;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="artist_id")
-	private Artist artist;
+//	@ManyToOne(fetch=FetchType.LAZY)
+//	@JoinColumn(name="artist_id")
+//	private Artist artist;
+//	
+//	@OneToMany(mappedBy="albums", fetch=FetchType.LAZY)
+//	private List<Track> tracks;
 	
-	@OneToMany(mappedBy="albums", fetch=FetchType.LAZY)
-	private List<Track> tracks;
+	@ManyToMany(fetch=FetchType.LAZY)
+	@JoinTable(
+			name= "album_user",
+			joinColumns = @JoinColumn(name="album_id"),
+			inverseJoinColumns = @JoinColumn(name="user_id")
+			)
+	
+	private List<User> albumLiked;
 	
 	@PrePersist
 	protected void onCreate() {
@@ -59,14 +70,6 @@ public class Album {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public Date getCreatedAt() {
 		return createdAt;
 	}
@@ -83,19 +86,20 @@ public class Album {
 		this.updatedAt = updatedAt;
 	}
 
-	public Artist getArtist() {
-		return artist;
+	public Long getAlbumId() {
+		return albumId;
 	}
 
-	public void setArtist(Artist artist) {
-		this.artist = artist;
+	public void setAlbumId(Long albumId) {
+		this.albumId = albumId;
 	}
 
-	public List<Track> getTracks() {
-		return tracks;
+	public List<User> getAlbumLiked() {
+		return albumLiked;
 	}
 
-	public void setTracks(List<Track> tracks) {
-		this.tracks = tracks;
+	public void setAlbumLiked(List<User> albumLiked) {
+		this.albumLiked = albumLiked;
 	}
+	
 }

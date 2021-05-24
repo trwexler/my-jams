@@ -76,6 +76,18 @@ public class UserController {
 		return uServ.authenticateUser(userEmail, userPassword);
 		
 	}
+	
+	@PostMapping("/likeArtist/{id}")
+	public User likeArtist(@PathVariable("id")Long id) {
+		
+		return null;
+		
+	}
+	
+	
+	
+	
+	
 //	@PostMapping("/login")
 //	public @Valid String processLogin(@Valid @RequestBody String user) {
 ////		User loggedUser = uServ.findByEmail(email);

@@ -65,6 +65,24 @@ public class User {
 	
 	private List<Artist> artists;
 	
+	@ManyToMany(fetch=FetchType.LAZY)
+	@JoinTable(
+			name= "album_user",
+			joinColumns = @JoinColumn(name="user_id"),
+			inverseJoinColumns = @JoinColumn(name="album_id")
+			)
+	
+	private List<Album> album;
+	
+	@ManyToMany(fetch=FetchType.LAZY)
+	@JoinTable(
+			name= "track_user",
+			joinColumns = @JoinColumn(name="user_id"),
+			inverseJoinColumns = @JoinColumn(name="track_id")
+			)
+	
+	private List<Track> tracks;
+	
 	@OneToMany(mappedBy="user", fetch=FetchType.LAZY)
 	private List<Post> posts;
 
@@ -170,6 +188,22 @@ public class User {
 
 		public void setPosts(List<Post> posts) {
 			this.posts = posts;
+		}
+
+		public List<Album> getAlbum() {
+			return album;
+		}
+
+		public void setAlbum(List<Album> album) {
+			this.album = album;
+		}
+
+		public List<Track> getTracks() {
+			return tracks;
+		}
+
+		public void setTracks(List<Track> tracks) {
+			this.tracks = tracks;
 		}
 
 }

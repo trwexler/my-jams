@@ -25,7 +25,7 @@ public class Artist {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	@NotBlank
-	private String name;
+	private Long artistId;
 	@Column(updatable=false)
 	private Date createdAt;
 	private Date updatedAt;
@@ -37,10 +37,10 @@ public class Artist {
 			inverseJoinColumns = @JoinColumn(name="user_id")
 			)
 	
-	private List<User> users;
+	private List<User> artistLiked;
 	
-	@OneToMany(mappedBy="artist", fetch=FetchType.LAZY)
-	private List<Album> albums;
+//	@OneToMany(mappedBy="artist", fetch=FetchType.LAZY)
+//	private List<Album> albums;
 	
 	@PrePersist
 	protected void onCreate() {
@@ -64,14 +64,6 @@ public class Artist {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public Date getCreatedAt() {
 		return createdAt;
 	}
@@ -88,19 +80,20 @@ public class Artist {
 		this.updatedAt = updatedAt;
 	}
 
-	public List<User> getUsers() {
-		return users;
+	public Long getArtistId() {
+		return artistId;
 	}
 
-	public void setUsers(List<User> users) {
-		this.users = users;
+	public void setArtistId(Long artistId) {
+		this.artistId = artistId;
 	}
 
-	public List<Album> getAlbums() {
-		return albums;
+	public List<User> getArtistLiked() {
+		return artistLiked;
 	}
 
-	public void setAlbums(List<Album> albums) {
-		this.albums = albums;
+	public void setArtistLiked(List<User> artistLiked) {
+		this.artistLiked = artistLiked;
 	}
+	
 }
