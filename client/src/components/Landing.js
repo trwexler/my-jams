@@ -10,12 +10,14 @@ import Slider from "react-slick";
 // 523532 API KEY
 const Landing = (props) => {
   const [artistList, setArtistList] = useState([]);
+  const [id, setId] = useState("");
   const { user, setUser } = props;
 
       useEffect(()=>{
         axios.get(`http://localhost:8080/getUser/${user.email}`)
             .then((res)=>{
                 console.log(res.data);
+                setId(res.data.id);
                 setUser(res.data);
             })
             .catch((err)=>{
