@@ -5,6 +5,9 @@ import AddButton from './AddButton';
 import Edit from './Edit';
 import Header from './Header';
 import DeleteButton from './DeleteButton';
+import SimpleBar from 'simplebar-react';
+import 'simplebar/dist/simplebar.min.css';
+
 
 
 
@@ -124,7 +127,7 @@ const ArtistPage = (props)=>{
     
 
     return(
-        <div>
+        <div style={{overflow:"hidden"}}>
             <Header user={user} userEmail={userEmail}/>
                 <div className="">
 
@@ -143,8 +146,21 @@ const ArtistPage = (props)=>{
                     </div>
 
 
-                    <p style={{height:"100px", overflowY:"scroll"}} 
-                    className="w-100 w-sm-50 mx-auto my-4">{artist.bio}</p>
+                    {/* <p data-simplebar style={{height:"200px", overflow:"scroll"}} 
+                    className="w-75 w-sm-50 mx-auto my-4">{artist.bio}</p> */}
+{/* 
+                    <SimpleBar data-simplebar style={{ height: '300px' }}>
+                    <p  style={{height:"200px", overflow:"scroll"}} 
+                    className="w-75 w-sm-50 mx-auto my-4">{artist.bio}</p>
+                    </SimpleBar> */}
+
+                    <SimpleBar style={{ maxHeight: "200px" }}>
+                    <p className="w-75 w-sm-50 mx-auto my-4">
+                    {artist.bio}
+                    </p>
+                    </SimpleBar>
+
+
                 </div>
                 
 
@@ -168,35 +184,58 @@ const ArtistPage = (props)=>{
 
 
             <div className=".container-fluid border mx-auto">
+            
+                <SimpleBar id="tracksList" className="d-none mx-auto .bg-dark position-fixed" 
+                style={{width:"90vw", backgroundColor:"black", opacity:".9", zIndex:"100", top:"0px", bottom:"0px", right:"0px", left:"0px", textAlign:"left"}}>
+                <div>
 
-                <div id="tracksList" style={{width:"100vw", backgroundColor:"black", zIndex:"100"}} className="d-none border .bg-dark position-absolute">
-                    <button className="btn btn-primary btn-sm" onClick={closeTrack}>x</button>
+                    <button className="btn btn-primary position-fixed btn-sm" onClick={closeTrack}>close</button>
                     
                     {
                         tracks.map((track,index)=>(
-                            <div key={index} className=" mx-auto">
-
-                                <div className="d-flex mx-auto w-25">
-                                    <button onClick={addHandler} name="tracks" value={track.strTrack} className="btn btn-primary btn-sm m-2">+</button>
-                                    <p className="p-0 mx-2" key={index}>{track.strTrack}</p>
+                            <div key={index} className="mx-auto w-100">
+                                <div className="d-flex mx-auto justify-content-center">
+                                    <button onClick={addHandler} name="tracks" value={track.strTrack} className="btn btn-primary btn-sm m-2">add</button>
+                                    <p className="p-0 mx-2 mt-3 h1 w-50" key={index}>{track.strTrack}</p>
                                 </div>
-
+                                <hr/>
                             </div>
                         ))
                     }
 
                 </div>
+                </SimpleBar>
+                {/* <div id="tracksList" 
+                className="d-none mx-auto .bg-dark position-fixed" 
+                style={{width:"90vw", backgroundColor:"black", opacity:".9", zIndex:"100", top:"0px", bottom:"0px", right:"0px", left:"0px", overflowY:"scroll", textAlign:"left"}}>
+
+                    <button className="btn btn-primary position-fixed btn-sm" onClick={closeTrack}>close</button>
+                    
+                    {
+                        tracks.map((track,index)=>(
+                            <div key={index} className="mx-auto w-100">
+                                <div className="d-flex mx-auto justify-content-center">
+                                    <button onClick={addHandler} name="tracks" value={track.strTrack} className="btn btn-primary btn-sm m-2">add</button>
+                                    <p className="p-0 mx-2 mt-3 h1 w-50" key={index}>{track.strTrack}</p>
+                                </div>
+                                <hr/>
+                            </div>
+                        ))
+                    }
+
+                </div> */}
 
                 <div className="row">
                     {
                         albums?
                         
                         albums.map((album, index)=>(
-                            <div key={index} className="mx-auto col-md-2 my-3 position-relative">
-                            {/* w-25 .col-4 */}
+                            <div key={index} className="mx-auto col-md-4 my-3 position-relative">
                                 <p style={{height:"30px"}} className="overflow-hidden">{album.strAlbum}</p>
 
                                 {/* Renders based on availability of album art */}
+
+
                                 {
 
                                     album.strAlbumThumb?
@@ -204,13 +243,14 @@ const ArtistPage = (props)=>{
                                     <div>
 
                                         <img style={{width:"90%"}} className="" src={album.strAlbumThumb} alt="" />
-                                        <button style={{position:"absolute", left:"0px", bottom:"0px"}} className="btn btn-primary btn-sm" onClick={(e)=>trackHandler(album.idAlbum)}>
+                                        
+                                        <button style={{position:"absolute", opacity:".65", left:"40px", bottom:"0px"}} className="btn" onClick={(e)=>trackHandler(album.idAlbum)}>
                                         tracks
                                         </button>
 
-                                        <button  style={{position:"absolute", right:"0px", bottom:"0px"}}
+                                        <button  style={{position:"absolute", opacity:".65", right:"40px", bottom:"0px"}}
                                         name="albums" 
-                                        value={album.strAlbum} className="btn btn-primary btn-sm"
+                                        value={album.strAlbum} className="btn"
                                         onClick={addHandler}>
                                         Add
                                         </button>
@@ -221,13 +261,13 @@ const ArtistPage = (props)=>{
                                     <div>
                                         <div className="d-inline-block" style={{fontSize:"24px", width:"90%", height:"161px", border:"1px solid black"}}>{album.strAlbum}</div>
 
-                                        <button style={{position:"absolute", left:"0px", bottom:"0px"}} className="btn btn-primary btn-sm" onClick={(e)=>trackHandler(album.idAlbum)}>
+                                        <button style={{position:"absolute", left:"40px", bottom:"0px"}} className="btn" onClick={(e)=>trackHandler(album.idAlbum)}>
                                         tracks
                                         </button>
 
-                                        <button  style={{position:"absolute", right:"0px", bottom:"0px"}}
+                                        <button  style={{position:"absolute", right:"40px", bottom:"0px"}}
                                         name="albums" 
-                                        value={album.strAlbum} className="btn btn-primary btn-sm"
+                                        value={album.strAlbum} className="btn"
                                         onClick={addHandler}>
                                         Add
                                         </button>

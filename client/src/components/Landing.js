@@ -80,16 +80,16 @@ const Landing = (props) => {
   };
 
   return (
-    <div>
+    <div style={{overflow:"hidden"}}>
       <Header user={user} />
-      <h1>Landing</h1>
+      <h1>Explore</h1>
       {user.email}
 
       {
       artistList ?
-        <div>
-          <div>
-            <div class="container-fluid">
+        <div >
+          <div >
+            <div class="container-fluid" >
               <div className="row title" style={{ marginBottom: "20px" }}>
                 <div class="col-sm-12">Most Loved Artists</div>
               </div>
