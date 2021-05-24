@@ -6,6 +6,8 @@ import {Link, navigate, Router} from '@reach/router';
 
 const Header = (props)=>{
 
+  const {user, userEmail} = props;
+
 
     return(
 
@@ -22,14 +24,14 @@ const Header = (props)=>{
     
     <ul className="navbar-nav mr-auto">
     
-      <Link to={"/landing"} className="nav-link">
+      <Link to={`/landing/${userEmail}`} className="nav-link">
         <li className="nav-item">
           {/* <a className="nav-link" href="/user">Profile</a> */}
           Home
         </li>
       </Link>
 
-      <Link to={"/user"} className="nav-link">
+      <Link to={`/user/${userEmail}`} className="nav-link">
         <li className="nav-item">
           {/* <a className="nav-link" href="/user">Profile</a> */}
           Profile

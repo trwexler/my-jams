@@ -12,18 +12,18 @@ import { Carousel } from 'react-bootstrap';
 const Landing = (props)=>{
 
     const [artistList, setArtistList] = useState([]);
-    const {user, setUser} = props;
+    const {user, setUser, userEmail} = props;
 
-    //for user method tests
+
     useEffect(()=>{
-        axios.get(`http://localhost:8080/getUser/${user.email}`)
+        axios.get("http://localhost:8080/getUser/" + userEmail)
             .then((res)=>{
                 console.log(res.data);
+                setUser(res.data);
             })
             .catch((err)=>{
                 console.log(err);
             })
-
         }, [])
 
 
@@ -42,11 +42,11 @@ const Landing = (props)=>{
     }, [])
 
     // Size = number of artists displayed on landing page.
-    let size=5;
+    let size=10;
 
     return(
         <div>
-            <Header user={user}/>
+            <Header user={user}  userEmail={userEmail}/>
             <h1>Landing</h1>
             {/* <LandingCarousel/> */}
             {user.email}
@@ -74,7 +74,7 @@ const Landing = (props)=>{
                                 src={artist.strTrackThumb}
                                 />
                             <Carousel.Caption>
-                            <Link to={`/artist/${artist.idArtist}/${user.id}`}><h3>{artist.strArtist}</h3></Link>
+                            <Link to={`/artist/${artist.idArtist}/${user.email}`}><h3>{artist.strArtist}</h3></Link>
                             </Carousel.Caption>
                         </Carousel.Item>
                         ))
