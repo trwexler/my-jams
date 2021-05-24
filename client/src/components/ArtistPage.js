@@ -248,11 +248,11 @@ const ArtistPage = (props)=>{
                                         tracks
                                         </button>
 
-                                        <button  style={{position:"absolute", opacity:".65", right:"40px", bottom:"0px"}}
+                                        <button  style={{position:"absolute", transform:"translate(-55%, 20%)", top:"50%", left:"50%", borderRadius:"50%", fontSize:"20px", opacity:"0.7"}}
                                         name="albums" 
                                         value={album.strAlbum} className="btn"
                                         onClick={addHandler}>
-                                        Add
+                                        +
                                         </button>
 
                                     </div>
