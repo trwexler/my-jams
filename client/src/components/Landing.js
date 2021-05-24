@@ -25,12 +25,9 @@ const Landing = (props) => {
 
 
   useEffect(() => {
-    axios
-      .get(
-        "https://theaudiodb.com/api/v1/json/523532/mostloved.php?format=track"
-      )
+    axios.get('https://theaudiodb.com/api/v1/json/523532/mostloved.php?format=track')
       .then((res) => {
-        console.log("mostloved", res.data);
+        console.log('mostloved', res.data);
         console.log(res.data.loved);
         setArtistList(res.data.loved);
       })
@@ -88,7 +85,8 @@ const Landing = (props) => {
       <h1>Landing</h1>
       {user.email}
 
-      {artistList ? (
+      {
+      artistList ?
         <div>
           <div>
             <div class="container-fluid">
@@ -112,9 +110,8 @@ const Landing = (props) => {
             </div>
           </div>
         </div>
-      ) : (
-        <h1>Loading...</h1>
-      )}
+       : <h1>Loading...</h1>
+      }
 
       {/* {
                 artistList.map((artist,index)=>(
