@@ -80,7 +80,7 @@ const Landing = (props) => {
   };
 
   return (
-    <div>
+    <div style={{background: "linear-gradient(167deg, rgba(129,255,0,1) 0%, rgba(100,255,230,1) 60%)"}}>
       <Header id={user.id} user={user} />
       <h1>Explore</h1>
       {user.email}
@@ -96,7 +96,11 @@ const Landing = (props) => {
             </div>
             <div>
               <Slider {...settings}>
-                {artistList.slice(0, size).map((artist, index) => (
+                {
+                artistList.slice(0, size).map((artist, index) => (
+                  <div>
+                  {
+                    artist.strTrackThumb ?
                   <div>
                     <Link to={`/artist/${artist.idArtist}/${user.id}`}>
                       <img src={artist.strTrackThumb} />
@@ -104,6 +108,17 @@ const Landing = (props) => {
                     <Link to={`/artist/${artist.idArtist}/${user.id}`}>
                       <h3>{artist.strArtist}</h3>
                     </Link>
+                  </div>
+                  :
+                  <div>
+                    <Link to={`/artist/${artist.idArtist}/${user.id}`}>
+                    <div className="d-inline-block" style={{fontSize:"24px", width:"90%", height:"161px", border:"1px solid black"}}>{artist.strArtist}</div>
+                    </Link>
+                    <Link to={`/artist/${artist.idArtist}/${user.id}`}>
+                      <h3>{artist.strArtist}</h3>
+                    </Link>
+                  </div>
+                  }
                   </div>
                 ))}
               </Slider>
