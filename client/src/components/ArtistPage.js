@@ -26,9 +26,7 @@ const ArtistPage = (props)=>{
         name: "",
         artistId: "",
         bio:"",
-        albums: [],
-        artistId: "", //will be props.artistId
-        users: []   
+        artistId: "", //will be props.artistId 
     });
 
     const[albums, setAlbums] = useState([{
@@ -36,7 +34,6 @@ const ArtistPage = (props)=>{
         title: "",
         tracks: [],
         albumId: "",
-        users: []
     }]);
 
     const[tracks,setTracks] = useState([{
@@ -44,7 +41,6 @@ const ArtistPage = (props)=>{
         album: "",
         title: "",
         trackId: "",
-        users: []
     }]);
 
 
@@ -119,6 +115,7 @@ const ArtistPage = (props)=>{
 
 
     const addHandler = ((e)=>{
+        axios(`http://localhost:8080/likeArtist/${artistId}`)
         setUser({...user,
             [e.target.name]: e.target.value
         })

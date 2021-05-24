@@ -6,6 +6,8 @@ import "../registration.css";
 const Login = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [id, setId] = useState("");
+
   const [errorMessage, setErrorMessage] = useState("");
   const {user, setUser} = props;
   // const {userEmail, setUserEmail} = props;
@@ -27,18 +29,19 @@ const Login = (props) => {
       console.log(password)
         )
         .then((res) => {
-          console.log(res.cookie);
           console.log(res.data);
           console.log(email, "Res data");
           console.log(user.email);
+          console.log(user.id);
           setUser({
             email: email,
-            password: password
+            password: password,
+
         });
         console.log(user);
         
         if(res.data == true){
-          navigate(`/landing/${email}`);
+          navigate(`/landing`);
         }
         else{
           navigate("/");

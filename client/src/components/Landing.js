@@ -16,11 +16,11 @@ const Landing = (props) => {
         axios.get(`http://localhost:8080/getUser/${user.email}`)
             .then((res)=>{
                 console.log(res.data);
+                setUser(res.data);
             })
             .catch((err)=>{
                 console.log(err);
             })
-
         }, [])
 
 
@@ -81,7 +81,7 @@ const Landing = (props) => {
 
   return (
     <div>
-      <Header user={user} />
+      <Header id={user.id} user={user} />
       <h1>Explore</h1>
       {user.email}
 
