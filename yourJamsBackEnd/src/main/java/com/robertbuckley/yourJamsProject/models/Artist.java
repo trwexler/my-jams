@@ -24,7 +24,7 @@ public class Artist {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
-	@NotBlank
+//	@NotBlank
 	private Long artistId;
 	@Column(updatable=false)
 	private Date createdAt;

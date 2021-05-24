@@ -36,20 +36,21 @@ public class JamsMainController {
 	
 	@GetMapping("/likeArtist/{id}")
 	public Long likeArtist(@PathVariable("id")Long id, @ModelAttribute("user")User user, @ModelAttribute("artist")Artist artist) {
-		User currentUser = this.uServ.findByEmail(user.getEmail());
-		System.out.println(currentUser);
+//		User currentUser = this.uServ.findByEmail(user.getEmail());
+//		System.out.println("current user" + user.getId());
 //		User currentUser = this.uServ.findUserById(id);
 //		System.out.println(userId);
-		Artist currentArtist = this.jServ.findArtistById(id);
-		System.out.println(currentArtist);
 //		Long artistId = currentArtist.getArtistId();
 //		Long currentArtist = this.jServ.findArtistById(artist.getArtistId());
-		if(id == artist.getId()) {
-			jServ.likeArtist(currentUser, currentArtist);
+		if(artist.getArtistId() != null) {
+//			Artist currentArtist = this.jServ.findArtistById(id);
+//			System.out.println(currentArtist);
+//			jServ.likeArtist(currentUser, currentArtist);
 //			jServ.likeArtist(user, artist);
-		} else {
 			this.jServ.createArtist(artist);
 			jServ.likeArtist(user, artist);
+		} else {
+			return null;
 		}
 		return user.getId();
 	}
