@@ -38,7 +38,7 @@ const Login = (props) => {
         console.log(user);
         
         if(res.data == true){
-          navigate("/landing");
+          navigate(`/landing/${email}`);
         }
         else{
           navigate("/");
