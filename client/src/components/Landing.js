@@ -80,7 +80,7 @@ const Landing = (props) => {
   };
 
   return (
-    <div style={{overflow:"hidden"}}>
+    <div>
       <Header user={user} />
       <h1>Explore</h1>
       {user.email}
