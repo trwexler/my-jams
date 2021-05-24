@@ -5,6 +5,7 @@ import LandingCarousel from './LandingCarousel';
 import AddButton from './AddButton';
 import Header from './Header';
 import { Carousel } from 'react-bootstrap';
+import Slider from 'react-slick';
 
 
 
@@ -45,15 +46,46 @@ useEffect(()=>{
     },[])
 
     // Size = number of artists displayed on landing page.
-    let size=5;
+    let size=15;
+
+    let settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 5,
+        slidesToScroll: 4,
+        initialSlide: 0,
+        responsive: [
+          {
+            breakpoint: 1024,
+            settings: {
+              slidesToShow: 3,
+              slidesToScroll: 3,
+              infinite: true,
+              dots: true
+            }
+          },
+          {
+            breakpoint: 600,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 2,
+              initialSlide: 2
+            }
+          },
+          {
+            breakpoint: 480,
+            settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1
+            }
+        },]}
 
     return(
         <div>
             <Header user={user}/>
             <h1>Landing</h1>
-            {/* <LandingCarousel/> */}
-
-
+            
             {
                 artistList?
                 <div>
@@ -96,6 +128,20 @@ useEffect(()=>{
                 ))
             } */}
 
+<Slider {...settings}
+        //   slidesToShow={5}
+        //   swipeToSlide={true}
+        //   focusOnSelect={true}
+        >
+            {
+                artistList.slice(0, size).map((artist,index)=>(
+          <div>
+            <Link to={`/artist/${artist.idArtist}/${user.id}`}><img src={artist.strTrackThumb}/></Link>
+            <Link to={`/artist/${artist.idArtist}/${user.id}`}><h3>{artist.strArtist}</h3></Link>
+          </div>
+                ))}
+        </Slider>
+ 
         </div>
     )
 
