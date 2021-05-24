@@ -241,7 +241,7 @@ const ArtistPage = (props)=>{
 
                                         <img style={{width:"90%"}} className="" src={album.strAlbumThumb} alt="" />
                                         
-                                        <button style={{position:"absolute", transform:"translate(-55%, 450%)", top:"50%", left:"50%", fontSize:"20px", opacity:"0.7"}} className="btn" onClick={(e)=>trackHandler(album.idAlbum)}>
+                                        <button style={{position:"absolute", transform:"translate(-55%, 490%)", top:"50%", left:"50%", fontSize:"20px", opacity:"0.7"}} className="btn" onClick={(e)=>trackHandler(album.idAlbum)}>
                                         view tracks
                                         </button>
 
@@ -258,8 +258,8 @@ const ArtistPage = (props)=>{
                                     <div>
                                         <div className="d-inline-block" style={{fontSize:"24px", width:"90%", height:"161px", border:"1px solid black"}}>{album.strAlbum}</div>
 
-                                        <button style={{position:"absolute", left:"40px", bottom:"0px"}} className="btn" onClick={(e)=>trackHandler(album.idAlbum)}>
-                                        tracks
+                                        <button style={{position:"absolute", transform:"translate(-55%, 490%)", top:"50%", left:"50%", fontSize:"20px", opacity:"0.7"}} className="btn" onClick={(e)=>trackHandler(album.idAlbum)}>
+                                        view tracks
                                         </button>
 
                                         <button  style={{position:"absolute", transform:"translate(-55%, 20%)", top:"50%", left:"50%", borderRadius:"50%", fontSize:"20px", opacity:"0.7"}}
