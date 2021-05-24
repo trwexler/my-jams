@@ -6,6 +6,7 @@ import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.robertbuckley.yourJamsProject.models.Artist;
 import com.robertbuckley.yourJamsProject.models.User;
 import com.robertbuckley.yourJamsProject.repositories.UserRepository;
 
@@ -56,8 +57,11 @@ public class UserService {
         }
     }
     
-//    public User likeArtist(User id, String artist) {
-//    	String artistToLike = artist;
-//    	artistsToLike.add
+//    public Artist likeArtist(Artist artistId) {
+//    	artistToLike
+//    }
+//    public User likeArtist(User id, Artist artist) {
+//    	Artist artistToLike = artist;
+//    	artistsToLike.add()
 //    }
 }
