@@ -6,6 +6,7 @@ import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.robertbuckley.yourJamsProject.models.Artist;
 import com.robertbuckley.yourJamsProject.models.User;
 import com.robertbuckley.yourJamsProject.repositories.UserRepository;
 
@@ -38,16 +39,29 @@ public class UserService {
     public boolean authenticateUser(String email, String password) {
         // first find the user by email
         User user = uRepo.findByEmail(email);
+        
         // if we can't find it by email, return false
         if(user == null) {
             return false;
         } else {
             // if the passwords match, return true, else, return false
             if(BCrypt.checkpw(password, user.getPassword())) {
+            	System.out.println("true");
                 return true;
             } else {
+            	System.out.println("false");
+            	System.out.println(password);
+            	System.out.println(user.getPassword());
                 return false;
             }
         }
     }
+    
+//    public Artist likeArtist(Artist artistId) {
+//    	artistToLike
+//    }
+//    public User likeArtist(User id, Artist artist) {
+//    	Artist artistToLike = artist;
+//    	artistsToLike.add()
+//    }
 }

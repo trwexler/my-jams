@@ -97,7 +97,58 @@ const Landing = (props) => {
               <div className="row title" style={{ marginBottom: "20px" }}>
                 <div class="col-sm-12">Most Loved Artists</div>
               </div>
-            </div>
+=======
+    const [artistList, setArtistList] = useState([]);
+    const {user, setUser, userEmail} = props;
+
+
+    useEffect(()=>{
+        axios.get("http://localhost:8080/getUser/" + userEmail)
+            .then((res)=>{
+                console.log(res.data);
+                setUser(res.data);
+            })
+            .catch((err)=>{
+                console.log(err);
+            })
+        }, [])
+
+
+
+    useEffect(()=>{
+        axios.get('https://theaudiodb.com/api/v1/json/523532/mostloved.php?format=track')
+            .then((res)=>{
+                console.log('mostloved', res.data);
+                console.log(res.data.loved);
+                setArtistList(res.data.loved);
+
+            })
+            .catch((err)=>{
+                console.log(err);
+            })
+    }, [])
+
+    // Size = number of artists displayed on landing page.
+    let size=10;
+
+    return(
+        <div>
+            <Header user={user}  userEmail={userEmail}/>
+            <h1>Landing</h1>
+            {/* <LandingCarousel/> */}
+            {user.email}
+
+
+            {
+                artistList?
+                <div>
+                    <div>
+                    <div class="container-fluid">
+                        <div className="row title" style={{ marginBottom: "20px" }}>
+                            <div class="col-sm-12">
+                                Most Loved Artists
+                            </div>
+                        </div>
             <div>
               <Slider {...settings}>
                 {artistList.slice(0, size).map((artist, index) => (

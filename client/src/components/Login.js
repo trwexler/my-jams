@@ -8,27 +8,46 @@ const Login = (props) => {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const {user, setUser} = props;
+  // const {userEmail, setUserEmail} = props;
+  // const {userPassword, setUserPassword} = props;
+
 
   const login = (event) => {
     event.preventDefault();
+    console.log(email);
+    console.log(password);
     axios
-      .post(
-        "http://localhost:8080/login",
-        {
-          email: email,
-          password: password,
-        },
-        {
-          withCredentials: true,
+    .post(
+      "http://localhost:8080/login",
+      {
+        email: email,
+        password: password,
+      },
+      console.log(email),
+      console.log(password)
+        )
+        .then((res) => {
+          console.log(res.cookie);
+          console.log(res.data);
+          console.log(email, "Res data");
+          console.log(user.email);
+          setUser({
+            email: email,
+            password: password
+        });
+        console.log(user);
+        
+        if(res.data == true){
+          navigate(`/landing/${email}`);
         }
-      )
-      .then((res) => {
-        console.log(res.cookie);
-        console.log(res);
-        console.log(res.data, "Res data");
-        // navigate("/home");
+        else{
+          navigate("/");
+        }
+        
+
       })
       .catch((err) => {
+        console.log(email);
         console.log(err.response);
         setErrorMessage(err.response.data.message);
       });
@@ -36,6 +55,7 @@ const Login = (props) => {
 
   return (
     <div>
+    
       <div class="form-box">
         <div class="form-top">
           <div class="form-top-left">

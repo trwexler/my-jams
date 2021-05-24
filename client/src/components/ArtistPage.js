@@ -11,11 +11,12 @@ import DeleteButton from './DeleteButton';
 const ArtistPage = (props)=>{
 
     const {artistId} = props;
-    const {user, setUser} = props;
+    const {user, setUser, userEmail} = props;
 
 
     //will be added from landing page
     // const{artist, artistId} = props;
+
 
 
     const[artist, setArtist] = useState({
@@ -63,6 +64,17 @@ const ArtistPage = (props)=>{
                 console.log(err);
             })
     },[])
+
+    // useEffect(()=>{
+    //     axios.get(`http://localhost:8080/getUser/${user.email}`)
+    //         .then((res)=>{
+    //             console.log(res.data);
+    //             // setUser(res.data);
+    //         })
+    //         .catch((err)=>{
+    //             console.log(err);
+    //         })
+    //     }, [])
 
 
     //gets all of that artist's albums
@@ -113,22 +125,26 @@ const ArtistPage = (props)=>{
 
     return(
         <div>
-            <Header/>
-                <div>
-                    <h1>
+            <Header user={user} userEmail={userEmail}/>
+                <div className="">
+
+                    <div d-flex>
+                        <h1 className="d-inline mx-2" style={{verticalAlign:"middle"}}>
                         {artist.name}
-                    </h1>
+                        </h1>
 
-                    <button 
-                    className="btn btn-primary btn-sm m-1"
-                    name="artists" 
-                    value={artist.name}
-                    className="btn btn-primary btn-sm"
-                    onClick={addHandler}>
-                    +
-                    </button>
+                        <button 
+                        className="btn-primary m-1"
+                        name="artists" 
+                        value={artist.name}
+                        onClick={addHandler}>
+                        +
+                        </button>
+                    </div>
 
-                    <p>{artist.bio}</p>
+
+                    <p style={{height:"100px", overflowY:"scroll"}} 
+                    className="w-100 w-sm-50 mx-auto my-4">{artist.bio}</p>
                 </div>
                 
 
@@ -150,26 +166,76 @@ const ArtistPage = (props)=>{
             </div> */}
 
 
-            <div className=".container-fluid border">
+
+            <div className=".container-fluid border mx-auto">
+
+                <div id="tracksList" style={{width:"100vw", backgroundColor:"black", zIndex:"100"}} className="d-none border .bg-dark position-absolute">
+                    <button className="btn btn-primary btn-sm" onClick={closeTrack}>x</button>
+                    
+                    {
+                        tracks.map((track,index)=>(
+                            <div key={index} className=" mx-auto">
+
+                                <div className="d-flex mx-auto w-25">
+                                    <button onClick={addHandler} name="tracks" value={track.strTrack} className="btn btn-primary btn-sm m-2">+</button>
+                                    <p className="p-0 mx-2" key={index}>{track.strTrack}</p>
+                                </div>
+
+                            </div>
+                        ))
+                    }
+
+                </div>
+
                 <div className="row">
                     {
                         albums?
                         
                         albums.map((album, index)=>(
-                            <div key={index} className="border mx-auto w-25 .col-4 my-3">
-                                <p>{album.strAlbum}</p>
+                            <div key={index} className="mx-auto col-md-2 my-3 position-relative">
+                            {/* w-25 .col-4 */}
+                                <p style={{height:"30px"}} className="overflow-hidden">{album.strAlbum}</p>
 
-                                <button 
-                                name="albums" 
-                                value={album.strAlbum} className="btn btn-primary btn-sm"
-                                onClick={addHandler}>
-                                Add
-                                </button>
+                                {/* Renders based on availability of album art */}
+                                {
 
-                                <img className="w-50" src={album.strAlbumThumb} alt="" />
-                                <button className="btn btn-primary btn-sm" onClick={(e)=>trackHandler(album.idAlbum)}>
-                                tracks
-                                </button>
+                                    album.strAlbumThumb?
+
+                                    <div>
+
+                                        <img style={{width:"90%"}} className="" src={album.strAlbumThumb} alt="" />
+                                        <button style={{position:"absolute", left:"0px", bottom:"0px"}} className="btn btn-primary btn-sm" onClick={(e)=>trackHandler(album.idAlbum)}>
+                                        tracks
+                                        </button>
+
+                                        <button  style={{position:"absolute", right:"0px", bottom:"0px"}}
+                                        name="albums" 
+                                        value={album.strAlbum} className="btn btn-primary btn-sm"
+                                        onClick={addHandler}>
+                                        Add
+                                        </button>
+
+                                    </div>
+
+                                    :
+                                    <div>
+                                        <div className="d-inline-block" style={{fontSize:"24px", width:"90%", height:"161px", border:"1px solid black"}}>{album.strAlbum}</div>
+
+                                        <button style={{position:"absolute", left:"0px", bottom:"0px"}} className="btn btn-primary btn-sm" onClick={(e)=>trackHandler(album.idAlbum)}>
+                                        tracks
+                                        </button>
+
+                                        <button  style={{position:"absolute", right:"0px", bottom:"0px"}}
+                                        name="albums" 
+                                        value={album.strAlbum} className="btn btn-primary btn-sm"
+                                        onClick={addHandler}>
+                                        Add
+                                        </button>
+
+                                    </div>
+
+                                }
+
                             </div>
                         ))
                     
@@ -180,20 +246,7 @@ const ArtistPage = (props)=>{
                 </div>
             </div>
 
-            <div id="tracksList" className="d-none">
-            <button className="btn btn-primary btn-sm" onClick={closeTrack}>x</button>
-            
-            {
-                tracks.map((track,index)=>(
-                    <div key={index} className=" mx-auto d-flex">
-                        <div className="d-flex mx-auto w-25">
-                            <button onClick={addHandler} name="tracks" value={track.strTrack} className="btn btn-primary btn-sm m-2">+</button>
-                            <p className="p-0 mx-2" key={index}>{track.strTrack}</p>
-                        </div>
-                    </div>
-                ))
-            }
-            </div>
+
 
             
 

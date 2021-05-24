@@ -11,37 +11,42 @@ import Edit from '../components/Edit';
 
 const Profile = (props) =>{
 
-    const {user, setUser} = props;
+    const {user, setUser, userEmail} = props;
     const [userProfile, setUserProfile] = useState({});
 
-
-
-
+    //call to grab user by email. Without working back-end call it resets  data.
+    //good to uncomment when testing or when back-end call is working on front
+    // useEffect(()=>{
+    //     axios.get("http://localhost:8080/getUser/" + userEmail)
+    //         .then((res)=>{
+    //             console.log(res.data);
+    //             setUser(res.data);
+    //         })
+    //         .catch((err)=>{
+    //             console.log(err);
+    //         })
+    //     }, [])
 
 
     return(
         <div>
-            <Header/>
+            <Header userEmail={userEmail} user={user} />
             
-
-
                 <div>
-
 
                     <div className="bg-white shadow mx-auto">
 
                         <h2 className="text-2xl p-3 font-mono">
-                        Welcome home, {userProfile.username}!
+                        Welcome home, {user.userName}!
                         </h2>
-
+                        {/* would be a prof pic */}
                         <div className="rounded h-full
                         mx-auto py-3 mx-2 mb-4 bg-white">
 
+                        </div>
 
-
-                            </div>
                             <p className="text-sm p-3">
-                            {userProfile.bio}
+                            {user.bio}
                             </p>
 
                             <button 
@@ -60,6 +65,7 @@ const Profile = (props) =>{
                     border mx-auto p-4 my-3 rounded shadow">
                         <h3 className="text-left text-2xl pb-3">Your Artists</h3>
                         <hr/>
+                        <div>{user.artists}</div>
                     
                         {/* <p>{userProfile.artists}</p> */}
                         <button onClick={()=>navigate(`/edit/${props.currentId}`)}>Edit</button>
@@ -103,7 +109,7 @@ const Profile = (props) =>{
                 </label>
                 :
                 <label className="m-2 text-2xl">
-                Write on {userProfile.username}'s wall!
+                Write on {user.username}'s wall!
                 </label>
 
                 }

@@ -1,6 +1,7 @@
 package com.robertbuckley.yourJamsProject.models;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
@@ -23,14 +26,23 @@ public class Track {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	@NotBlank
-	private String name;
+	private Long trackId;
 	@Column(updatable=false)
 	private Date createdAt;
 	private Date updatedAt;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="album_id")
-	private Album albums;
+//	@ManyToOne(fetch=FetchType.LAZY)
+//	@JoinColumn(name="album_id")
+//	private Album albums;
+	
+	@ManyToMany(fetch=FetchType.LAZY)
+	@JoinTable(
+			name= "track_user",
+			joinColumns = @JoinColumn(name="track_id"),
+			inverseJoinColumns = @JoinColumn(name="user_id")
+			)
+	
+	private List<User> trackLiked;
 	
 	@PrePersist
 	protected void onCreate() {
@@ -54,14 +66,6 @@ public class Track {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public Date getCreatedAt() {
 		return createdAt;
 	}
@@ -78,12 +82,20 @@ public class Track {
 		this.updatedAt = updatedAt;
 	}
 
-	public Album getAlbums() {
-		return albums;
+	public Long getTrackId() {
+		return trackId;
 	}
 
-	public void setAlbums(Album albums) {
-		this.albums = albums;
+	public void setTrackId(Long trackId) {
+		this.trackId = trackId;
+	}
+
+	public List<User> getTrackLiked() {
+		return trackLiked;
+	}
+
+	public void setTrackLiked(List<User> trackLiked) {
+		this.trackLiked = trackLiked;
 	}
 
 }

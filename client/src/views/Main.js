@@ -23,13 +23,13 @@ const Main = (props)=>{
 
             <Router>
                 <LogReg user={user} setUser={setUser} path="/" default/>
-                <Landing user={user} setUser={setUser} path="/landing"/>
-                <ArtistPage user={user} setUser={setUser} path="/artist/:artistId/:userId"/> 
+                <Landing user={user} setUser={setUser} path="/landing/:userEmail"/>
+                <ArtistPage user={user} setUser={setUser} path="/artist/:artistId/:userEmail"/> 
                 {/* The way I handled different users was passing both the current
                 User and User Profile as props in the path and rendering
                 based on whether they matched or not.
                 We can cross that road when we get there. */}
-                <UserProfile user={user} setUser={setUser} path="/user"/>
+                <UserProfile user={user} setUser={setUser} path="/user/:userEmail"/>
                 <Feed user={user} setUser={setUser} path="/feed"/>
                 <Edit user={user} setUser={setUser} path="/edit/:id"/>
             </Router>
