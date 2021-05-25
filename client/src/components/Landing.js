@@ -104,21 +104,13 @@ const Landing = (props) => {
                   {
                     artist.strTrackThumb ?
                   <div>
-                    <Link to={`/artist/${artist.idArtist}/${user.id}`}>
                       <img src={artist.strTrackThumb} />
-                    </Link>
-                    <Link to={`/artist/${artist.idArtist}/${user.id}`}>
-                      <h3>{artist.strArtist}</h3>
-                    </Link>
+                    <a href={`/artist/${artist.idArtist}/${user.id}`} style={{color:"blue", fontSize:"20px"}}>{artist.strArtist}</a>
                   </div>
                   :
                   <div>
-                    <Link to={`/artist/${artist.idArtist}/${user.id}`}>
-                    <div className="d-inline-block" style={{fontSize:"24px", width:"90%", height:"161px", border:"1px solid black"}}>{artist.strArtist}</div>
-                    </Link>
-                    <Link to={`/artist/${artist.idArtist}/${user.id}`}>
-                      <h3>{artist.strArtist}</h3>
-                    </Link>
+                    <img src={"https://images.8tracks.com/cover/i/000/471/318/record-7500.jpg?rect=0,0,1385,1385&q=98&fm=jpg&fit=max&w=1024&h=1024"} />
+                      <a href={`/artist/${artist.idArtist}/${user.id}`} style={{color:"blue", fontSize:"20px"}}>{artist.strArtist}</a>
                   </div>
                   }
                   </div>
