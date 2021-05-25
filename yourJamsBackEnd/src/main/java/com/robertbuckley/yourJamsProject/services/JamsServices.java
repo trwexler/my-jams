@@ -85,8 +85,12 @@ public class JamsServices {
 	
 	public void likeArtist(User user, Artist artist) {
 		List<User> artistToLike = artist.getArtistLiked();
+		if(artistToLike == null) {
+			
+		} else {
 		artistToLike.add(user);
 		this.artistrepo.save(artist);
+		}
 	}
 	
 	public void likeAlbum(User user, Album album) {

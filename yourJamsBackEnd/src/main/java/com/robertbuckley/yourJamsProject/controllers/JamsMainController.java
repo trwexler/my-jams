@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.robertbuckley.yourJamsProject.models.Artist;
 import com.robertbuckley.yourJamsProject.models.User;
+import com.robertbuckley.yourJamsProject.repositories.ArtistRepository;
 import com.robertbuckley.yourJamsProject.services.JamsServices;
 import com.robertbuckley.yourJamsProject.services.UserService;
 
@@ -23,6 +24,9 @@ public class JamsMainController {
 	
 	@Autowired
 	private JamsServices jServ;
+	
+	@Autowired
+	private ArtistRepository aRepo;
 	
 //	@PostMapping("/addArtist/{id}")
 //	public Long createArtist(@Valid @PathVariable("id")Long id, @ModelAttribute("artId")Artist artist) {
@@ -46,15 +50,18 @@ public class JamsMainController {
 //		System.out.println(this.jServ.findByArtistId(artistId).getArtistId());
 //		Long currentArtist = this.jServ.findArtistById(artist.getArtistId());
 		if(this.jServ.findByArtistId(artistId) == null) {
-////			Artist currentArtist = this.jServ.findArtistById(id);
-////			System.out.println(currentArtist);
-////			jServ.likeArtist(currentUser, currentArtist);
-////			jServ.likeArtist(user, artist);
-			this.jServ.createArtist(artist);
-			artist.setArtistId(artistId);
-			Artist thisArtist = this.jServ.findByArtistId(artistId);
-			System.out.println("hit the null statement created artist" + artist.getId());
-			jServ.likeArtist(currentUser, thisArtist);
+//			artist.setArtistId(artistId);
+			Artist thisArtist = this.jServ.createArtist(artist);
+//			Artist thisArtist = this.jServ.findByArtistId(artist.getArtistId());
+//			System.out.println("findByArtistId" + thisArtist.getArtistId());
+//			System.out.println("hit the null statement created artist" + artist.getArtistId());
+//			System.out.println(currentUser.getId());
+//			jServ.likeArtist(currentUser, thisArtist);
+			if(currentUser.getArtists().contains(artist)) {
+				return null;
+			} else {
+				jServ.likeArtist(currentUser, thisArtist);
+			}
 		} else if(currentUser.getArtists().contains(artist)){
 			System.out.println(currentUser.getArtists());
 			System.out.println(" hit the else statement " + artist);
