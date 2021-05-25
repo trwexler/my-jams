@@ -59,6 +59,10 @@ public class JamsServices {
 		return this.albumRepo.findById(id).orElse(null);
 	}
 	
+	public Artist findByArtistId(Long artistId) {
+		return this.artistrepo.findByArtistId(artistId);
+	}
+	
 	public Artist findArtistById(Long id) {
 		return this.artistrepo.findById(id).orElse(null);
 	}
@@ -81,8 +85,12 @@ public class JamsServices {
 	
 	public void likeArtist(User user, Artist artist) {
 		List<User> artistToLike = artist.getArtistLiked();
+		if(artistToLike == null) {
+			
+		} else {
 		artistToLike.add(user);
 		this.artistrepo.save(artist);
+		}
 	}
 	
 	public void likeAlbum(User user, Album album) {
@@ -96,4 +104,5 @@ public class JamsServices {
 		trackToLike.add(user);
 		this.tRepo.save(track);
 	}
+
 }

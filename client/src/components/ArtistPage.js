@@ -47,6 +47,7 @@ const ArtistPage = (props)=>{
 
      //gets artist
     useEffect(()=>{
+        // console.log(user)
         axios.get(`https://theaudiodb.com/api/v1/json/523532/artist.php?i=${artistId}`)
             .then((res)=>{
                 console.log('artist', res.data.artists[0]);
@@ -115,8 +116,9 @@ const ArtistPage = (props)=>{
 
 
     const addHandler = ((e)=>{
-        axios.post(`http://localhost:8080/likeArtist/${artistId}`, {
-            artistId, id
+        axios.post(`http://localhost:8080/likeArtist/${user.id}/${artistId}`, {
+            userid: user.id,
+            artistId
         })
         .then((res)=>{
             console.log(res);
