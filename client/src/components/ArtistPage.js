@@ -62,7 +62,7 @@ const ArtistPage = (props)=>{
             .catch((err)=>{
                 console.log(err);
             })
-    },[])
+    },[artistId])
 
     // useEffect(()=>{
     //     axios.get(`http://localhost:8080/getUser/${user.email}`)
@@ -86,7 +86,7 @@ const ArtistPage = (props)=>{
             .catch((err)=>{
                 console.log(err);
             })
-    }, [])
+    }, [artistId])
 
 
 
@@ -132,7 +132,7 @@ const ArtistPage = (props)=>{
 
     return(
         <div style={{overflow:"hidden"}}>
-            <Header user={user} userEmail={userEmail}/>
+            <Header id={user.id} user={user} userEmail={userEmail}/>
                 <div className="">
 
                     <div d-flex>
