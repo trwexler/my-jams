@@ -59,6 +59,10 @@ public class JamsServices {
 		return this.albumRepo.findById(id).orElse(null);
 	}
 	
+	public Artist findByArtistId(Long artistId) {
+		return this.artistrepo.findByArtistId(artistId);
+	}
+	
 	public Artist findArtistById(Long id) {
 		return this.artistrepo.findById(id).orElse(null);
 	}
@@ -96,4 +100,5 @@ public class JamsServices {
 		trackToLike.add(user);
 		this.tRepo.save(track);
 	}
+
 }

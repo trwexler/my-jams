@@ -34,27 +34,42 @@ public class JamsMainController {
 //		return null;
 //	}
 	
-	@GetMapping("/likeArtist/{id}")
-	public Long likeArtist(@PathVariable("id")Long id, @ModelAttribute("user")User user, @ModelAttribute("artist")Artist artist) {
+	@PostMapping("/likeArtist/{userId}/{artistId}")
+	public Long likeArtist(@PathVariable("userId")Long userId, @PathVariable("artistId")Long artistId, @ModelAttribute("artist")Artist artist) {
 //		User currentUser = this.uServ.findByEmail(user.getEmail());
+		System.out.println("current user " + userId);
+		System.out.println("current artist " + artistId);
 //		System.out.println("current user" + user.getId());
-//		User currentUser = this.uServ.findUserById(id);
+		User currentUser = this.uServ.findUserById(userId);
 //		System.out.println(userId);
 //		Long artistId = currentArtist.getArtistId();
+//		System.out.println(this.jServ.findByArtistId(artistId).getArtistId());
 //		Long currentArtist = this.jServ.findArtistById(artist.getArtistId());
-		if(artist.getArtistId() != null) {
-//			Artist currentArtist = this.jServ.findArtistById(id);
-//			System.out.println(currentArtist);
-//			jServ.likeArtist(currentUser, currentArtist);
-//			jServ.likeArtist(user, artist);
+		if(this.jServ.findByArtistId(artistId) == null) {
+////			Artist currentArtist = this.jServ.findArtistById(id);
+////			System.out.println(currentArtist);
+////			jServ.likeArtist(currentUser, currentArtist);
+////			jServ.likeArtist(user, artist);
 			this.jServ.createArtist(artist);
-			jServ.likeArtist(user, artist);
+			artist.setArtistId(artistId);
+			Artist thisArtist = this.jServ.findByArtistId(artistId);
+			System.out.println("hit the null statement created artist" + artist.getId());
+			jServ.likeArtist(currentUser, thisArtist);
+		} else if(currentUser.getArtists().contains(artist)){
+			System.out.println(currentUser.getArtists());
+			System.out.println(" hit the else statement " + artist);
 		} else {
+			Artist thisArtist = this.jServ.findByArtistId(artistId);
+			jServ.likeArtist(currentUser, thisArtist);
+//			jServ.likeArtist(currentUser, artist);
+			System.out.println(" hit the else if statement " + artist.getArtistId());
 			return null;
 		}
-		return user.getId();
+		return null;
 	}
 }
+
+
 		
 //	}
 //		String userEmail = user.getEmail();
