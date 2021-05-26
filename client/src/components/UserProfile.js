@@ -14,6 +14,7 @@ const Profile = (props) =>{
     const {user, setUser, userEmail} = props;
     const [userProfile, setUserProfile] = useState({});
     const [artists, setArtists] = useState([]);
+    const [albums, setAlbums] = useState([]);
 
     useEffect(()=>{
         axios.get("http://localhost:8080/getUser/" + userEmail)
@@ -38,7 +39,24 @@ const Profile = (props) =>{
         112031,
         112030,
         112039,
-    ]
+    ];
+
+
+    let albumArr = [];
+
+    //for testing
+    let albumList = [
+        2115888,
+        2115887,
+        2115886,
+        2115885,
+        2115884,
+        2115883,
+        2115882,
+    ];
+
+
+
 
     useEffect(()=>{
         for(let i = 0; i<artistList.length; i++){
@@ -56,6 +74,27 @@ const Profile = (props) =>{
             })
         }
     },[])
+
+
+    useEffect(()=>{
+        for(let i = 0; i<albumList.length; i++){
+            axios.get(`https://theaudiodb.com/api/v1/json/1/album.php?m=${albumList[i]}`)
+            .then((res)=>{
+                console.log(res.data.album[0]);
+                albumArr.push(res.data.album[0]);
+                setAlbums([...albumArr,
+                    res.data.album[0]
+                ]);
+                console.log(albumArr);
+            })
+            .catch((err)=>{
+                console.log(err);
+            })
+        }
+    },[])
+
+
+
 
     return(
         <div>
@@ -91,11 +130,7 @@ const Profile = (props) =>{
                         }
 
                         
-                        {/* {
-                            artistArr.map((item, index)=>(
-                                <p>{item}</p>
-                            ))
-                        } */}
+
 
                         {/* <div>{user.artists}</div> */}
                         
@@ -109,6 +144,11 @@ const Profile = (props) =>{
                     border mx-auto p-4 my-3 rounded shadow">
                         <h3 className="text-left text-2xl pb-3">Your Albums</h3>
                         <hr/>
+                            {
+                                albums.map((item, index)=>(
+                                <img src={item.strAlbumThumb} alt="" />
+                                ))
+                            }
                     
                         {/* <p>{userProfile.albums}</p> */}
                         <button onClick={()=>navigate(`/edit/${props.currentId}`)}>Edit</button>
