@@ -43,9 +43,9 @@ public class UserController {
 	@GetMapping("/getUser/{email}")
 	public User loginPage(@PathVariable("email")String email) {
 		System.out.println("From getmapping getuser/{email} " + email);
-		User currentUser = uServ.findByEmail(email);
-		System.out.println(currentUser.getId());
-		return currentUser;
+//		User currentUser = uServ.findByEmail(email);
+//		System.out.println(currentUser.getId());
+		return uServ.findByEmail(email);
 	}
 	
 	@PostMapping("/register")
@@ -76,13 +76,13 @@ public class UserController {
 		return uServ.authenticateUser(userEmail, userPassword);
 		
 	}
-	
-	@PostMapping("/likeArtist/{id}")
-	public User likeArtist(@PathVariable("id")Long id) {
-		
-		return null;
-		
-	}
+//	
+//	@PostMapping("/likeArtist/{id}")
+//	public User likeArtist(@PathVariable("id")Long id) {
+//		
+//		return null;
+//		
+//	}
 	
 	
 	

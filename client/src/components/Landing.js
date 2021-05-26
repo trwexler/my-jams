@@ -10,13 +10,17 @@ import Slider from "react-slick";
 // 523532 API KEY
 const Landing = (props) => {
   const [artistList, setArtistList] = useState([]);
+  const [id, setId] = useState("");
   const { user, setUser } = props;
 
       useEffect(()=>{
+        // console.log(id)
         axios.get(`http://localhost:8080/getUser/${user.email}`)
             .then((res)=>{
                 console.log(res.data);
+                setId(res.data.id);
                 setUser(res.data);
+                console.log(user.email)
             })
             .catch((err)=>{
                 console.log(err);
@@ -107,16 +111,15 @@ const Landing = (props) => {
                     artist.strTrackThumb ?
                   <div>
                       <img src={artist.strTrackThumb} />
-                    <Link to={`/artist/${artist.idArtist}/${user.id}`}>
-                      <h3 style={{color:"blue"}}>{artist.strArtist}</h3>
-                    </Link>
+
+                    <Link to={`/artist/${artist.idArtist}/${user.id}`} style={{color:"blue", fontSize:"20px"}}>{artist.strArtist}</Link>
+
                   </div>
                   :
                   <div>
                     <img src={"https://images.8tracks.com/cover/i/000/471/318/record-7500.jpg?rect=0,0,1385,1385&q=98&fm=jpg&fit=max&w=1024&h=1024"} />
-                    <Link to={`/artist/${artist.idArtist}/${user.id}`}>
-                      <h3 style={{color:"blue"}}>{artist.strArtist}</h3>
-                    </Link>
+
+                      <Link to={`/artist/${artist.idArtist}/${user.id}`} style={{color:"blue", fontSize:"20px"}}>{artist.strArtist}</Link>
                   </div>
                   }
                   </div>

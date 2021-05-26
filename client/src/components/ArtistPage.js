@@ -14,7 +14,7 @@ import 'simplebar/dist/simplebar.min.css';
 const ArtistPage = (props)=>{
 
     const {artistId} = props;
-    const {user, setUser, userEmail} = props;
+    const {user, setUser, userEmail, id } = props;
 
 
     //will be added from landing page
@@ -47,6 +47,7 @@ const ArtistPage = (props)=>{
 
      //gets artist
     useEffect(()=>{
+        // console.log(user)
         axios.get(`https://theaudiodb.com/api/v1/json/523532/artist.php?i=${artistId}`)
             .then((res)=>{
                 console.log('artist', res.data.artists[0]);
@@ -62,7 +63,7 @@ const ArtistPage = (props)=>{
             .catch((err)=>{
                 console.log(err);
             })
-    },[])
+    },[artistId])
 
     // useEffect(()=>{
     //     axios.get(`http://localhost:8080/getUser/${user.email}`)
@@ -86,7 +87,7 @@ const ArtistPage = (props)=>{
             .catch((err)=>{
                 console.log(err);
             })
-    }, [])
+    }, [artistId])
 
 
 
@@ -115,17 +116,25 @@ const ArtistPage = (props)=>{
 
 
     const addHandler = ((e)=>{
-        axios(`http://localhost:8080/likeArtist/${artistId}`)
-        setUser({...user,
-            [e.target.name]: e.target.value
+        axios.post(`http://localhost:8080/likeArtist/${user.id}/${artistId}`, {
+            userid: user.id,
+            artistId
         })
-        console.log(e.target.name, e.target.value);
+        .then((res)=>{
+            console.log(res);
+            // setUser({...user,
+            //     [e.target.name]: e.target.value
+            // })
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
     })
     
 
     return(
         <div style={{overflow:"hidden"}}>
-            <Header user={user} userEmail={userEmail}/>
+            <Header id={user.id} user={user} userEmail={userEmail}/>
                 <div className="" style={{background: "linear-gradient(167deg, rgba(129,255,0,1) 0%, rgba(100,255,230,1) 60%)"}}>
 
                     <div d-flex>
