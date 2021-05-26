@@ -17,7 +17,7 @@ const Profile = (props) =>{
     const [albums, setAlbums] = useState([]);
 
     useEffect(()=>{
-        axios.get("http://localhost:8080/getUser/" + userEmail)
+        axios.get("http://localhost:8080/getUser/" + user.email)
             .then((res)=>{
                 console.log(res.data);
                 setUser(res.data);
@@ -98,7 +98,7 @@ const Profile = (props) =>{
 
     return(
         <div>
-            <Header userEmail={userEmail} user={user} />
+            <Header user={user} id={user.id} />
                 <div>
                     <div className="bg-white shadow mx-auto">
                         <h2 className="text-2xl p-3 font-mono">

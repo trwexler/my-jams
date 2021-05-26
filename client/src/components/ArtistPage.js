@@ -14,7 +14,7 @@ import 'simplebar/dist/simplebar.min.css';
 const ArtistPage = (props)=>{
 
     const {artistId} = props;
-    const {user, setUser, userEmail, id } = props;
+    const {user, setUser, userEmail, id, setId } = props;
 
 
     //will be added from landing page
@@ -65,16 +65,19 @@ const ArtistPage = (props)=>{
             })
     },[artistId])
 
-    // useEffect(()=>{
-    //     axios.get(`http://localhost:8080/getUser/${user.email}`)
-    //         .then((res)=>{
-    //             console.log(res.data);
-    //             // setUser(res.data);
-    //         })
-    //         .catch((err)=>{
-    //             console.log(err);
-    //         })
-    //     }, [])
+    useEffect(()=>{
+        // console.log(id)
+        axios.get(`http://localhost:8080/getUser/${user.email}`)
+            .then((res)=>{
+                console.log(res.data);
+                setId(res.data.id);
+                setUser(res.data);
+                console.log(user.email)
+            })
+            .catch((err)=>{
+                console.log(err);
+            })
+        }, [])
 
 
     //gets all of that artist's albums
