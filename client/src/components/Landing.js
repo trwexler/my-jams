@@ -105,7 +105,7 @@ const Landing = (props) => {
                 {
                 items.slice(0, size).map((item, index) => (
 
-                  <div>
+                  <div key={index}>
                   {
                     item.strTrackThumb ?
 
