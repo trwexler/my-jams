@@ -134,8 +134,9 @@ const ArtistPage = (props)=>{
                         </h1>
 
                         <button 
-                        className="btn-primary m-1"
+                        style={{borderRadius:"50%", fontSize:"20px", opacity:"0.8"}}
                         name="artists" 
+                        className="btn"
                         value={artist.name}
                         onClick={addHandler}>
                         +
@@ -222,7 +223,7 @@ const ArtistPage = (props)=>{
 
                 </div> */}
 
-                <div className="row">
+                <div className="row" >
                     {
                         albums?
                         
@@ -241,11 +242,11 @@ const ArtistPage = (props)=>{
 
                                         <img style={{width:"90%"}} className="" src={album.strAlbumThumb} alt="" />
                                         
-                                        <button style={{position:"absolute", left:"45px", bottom:"0px", opacity:"0.7"}} className="btn" onClick={(e)=>trackHandler(album.idAlbum)}>
+                                        <button style={{position:"absolute", left:"45px", bottom:"0px", opacity:"0.9"}} className="btn" onClick={(e)=>trackHandler(album.idAlbum)}>
                                         view tracks
                                         </button>
 
-                                        <button  style={{position:"absolute", transform:"translate(-50%, -3%)", top:"50%", left:"50%", borderRadius:"50%", fontSize:"20px", opacity:"0.7"}}
+                                        <button  style={{position:"absolute", transform:"translate(-50%, -3%)", top:"50%", left:"50%", borderRadius:"50%", fontSize:"20px", opacity:"0.8"}}
                                         name="albums" 
                                         value={album.strAlbum} className="btn"
                                         onClick={addHandler}>
@@ -258,11 +259,11 @@ const ArtistPage = (props)=>{
                                     <div>
                                         <img src={"https://images.8tracks.com/cover/i/000/471/318/record-7500.jpg?rect=0,0,1385,1385&q=98&fm=jpg&fit=max&w=1024&h=1024"} />
 
-                                        <button style={{position:"absolute", left:"45px", bottom:"0px", opacity:"0.7"}} className="btn" onClick={(e)=>trackHandler(album.idAlbum)}>
+                                        <button style={{position:"absolute", left:"45px", bottom:"0px", opacity:"0.9"}} className="btn" onClick={(e)=>trackHandler(album.idAlbum)}>
                                         view tracks
                                         </button>
 
-                                        <button  style={{position:"absolute", transform:"translate(-50%, -3%)", top:"50%", left:"50%", borderRadius:"50%", fontSize:"20px", opacity:"0.7"}}
+                                        <button  style={{position:"absolute", transform:"translate(-50%, -3%)", top:"50%", left:"50%", borderRadius:"50%", fontSize:"20px", opacity:"0.8"}}
                                         name="albums" 
                                         value={album.strAlbum} className="btn"
                                         onClick={addHandler}>
