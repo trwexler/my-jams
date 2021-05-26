@@ -86,6 +86,10 @@ const Landing = (props) => {
   return (
     <div style={{background: "linear-gradient(167deg, rgba(129,255,0,1) 0%, rgba(100,255,230,1) 60%)"}}>
       <Header id={user.id} user={user} />
+      <div>
+        <h1 style={{fontFamily:"Bangers, cursive", fontSize:"50px"}}>My Jams</h1>
+        <div></div>
+      </div>
       <h1>Explore</h1>
       {user.email}
 

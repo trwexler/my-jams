@@ -27,39 +27,39 @@ const Header = (props)=>{
 
 
 
-  return(
+    return(
 
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+<nav className="navbar navbar-expand-lg navbar-light bg-light">
+  <Link to={`/landing`}>
+  <p className="navbar-brand"style={{fontFamily:"Bangers, cursive", fontSize:"30px", marginBottom:"0"}}>My Jams</p>
+  </Link>
+  <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" 
+  aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span className="navbar-toggler-icon"></span>
+  </button> 
+
+  <div className="collapse navbar-collapse" id="navbarSupportedContent">
+    
+    <ul className="navbar-nav mr-auto">
+    
+      <Link to={`/landing`} className="nav-link">
+        <li className="nav-item">
+          {/* <a className="nav-link" href="/user">Profile</a> */}
+          Home
+        </li>
+      </Link>
+
+      <Link to={`/user/${id}`} className="nav-link">
+        <li className="nav-item">
+          {/* <a className="nav-link" href="/user">Profile</a> */}
+          Profile
+        </li>
+      </Link>
+
       
-      <p className="navbar-brand">My Jams</p>
-      
-      <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" 
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span className="navbar-toggler-icon"></span>
-      </button> 
+    </ul>
 
-      <div className="collapse navbar-collapse" id="navbarSupportedContent">
-        
-        <ul className="navbar-nav mr-auto">
-        
-          <Link to={`/landing`} className="nav-link">
-            <li className="nav-item">
-              {/* <a className="nav-link" href="/user">Profile</a> */}
-              Home
-            </li>
-          </Link>
-
-          <Link to={`/user/${id}`} className="nav-link">
-            <li className="nav-item">
-              {/* <a className="nav-link" href="/user">Profile</a> */}
-              Profile
-            </li>
-          </Link>
-
-
-        </ul>
-
-        <form onSubmit={searchHandler} className="form-inline my-2 my-lg-0">
+      <form onSubmit={searchHandler} className="form-inline my-2 my-lg-0">
 
           <input onChange={(e)=>setSearchedArtist(e.target.value)} 
           className="form-control mr-sm-2" 
