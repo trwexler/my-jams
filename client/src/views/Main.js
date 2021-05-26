@@ -14,6 +14,24 @@ import Edit from '../components/Edit';
 const Main = (props)=>{
     const {user, setUser} = props;
 
+  const [items, setItems] = useState([]);
+  const [isLoading, setLoading] = useState(true);
+
+  useEffect (() => {
+    const getItems =  async () =>{
+      const result = await axios (
+        `https://theaudiodb.com/api/v1/json/523532/mostloved.php?format=track` //Endpoint and parameter or base Url
+        )
+      console.log(result.data.loved)
+
+      setItems(result.data.loved)//sets the data to appear 
+      setLoading(false) //stop loading when data is fetched
+    }
+    getItems()
+
+  }, [])//when we use useEffect we put dependency as a second paramers
+
+
     return(
         <div>
             {/* <h1>Main</h1> */}
@@ -21,12 +39,8 @@ const Main = (props)=>{
 
             <Router>
                 <LogReg user={user} setUser={setUser} path="/" default/>
-                <Landing user={user} setUser={setUser} path="/landing"/>
+                <Landing user={user} setUser={setUser} isLoading={isLoading} items={items} path="/landing"/>
                 <ArtistPage user={user} setUser={setUser} path="/artist/:artistId/:id"/> 
-                {/* The way I handled different users was passing both the current
-                User and User Profile as props in the path and rendering
-                based on whether they matched or not.
-                We can cross that road when we get there. */}
                 <UserProfile user={user} setUser={setUser} path="/user/:id"/>
                 <Feed user={user} setUser={setUser} path="/feed"/>
                 <Edit user={user} setUser={setUser} path="/edit/:id"/>
