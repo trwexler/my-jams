@@ -68,7 +68,9 @@ const Header = (props)=>{
 
           <button
           className="btn btn-outline-success 
-          my-2 my-sm-0" type="submit">
+          my-2 my-sm-0"
+          type="submit"
+          style={{opacity:"0.8"}}>
           Search
           </button>
           
