@@ -13,61 +13,94 @@ const Profile = (props) =>{
 
     const {user, setUser, userEmail} = props;
     const [userProfile, setUserProfile] = useState({});
+    const [artists, setArtists] = useState([]);
 
-    //call to grab user by email. Without working back-end call it resets  data.
-    //good to uncomment when testing or when back-end call is working on front
-    // useEffect(()=>{
-    //     axios.get("http://localhost:8080/getUser/" + userEmail)
-    //         .then((res)=>{
-    //             console.log(res.data);
-    //             setUser(res.data);
-    //         })
-    //         .catch((err)=>{
-    //             console.log(err);
-    //         })
-    //     }, [])
+    useEffect(()=>{
+        axios.get("http://localhost:8080/getUser/" + userEmail)
+            .then((res)=>{
+                console.log(res.data);
+                setUser(res.data);
+            })
+            .catch((err)=>{
+                console.log(err);
+            })
+        }, [])
 
+
+    let artistArr = [];
+
+    //for testing
+    let artistList = [
+        112035,
+        112034,
+        112033,
+        112032,
+        112031,
+        112030,
+        112039,
+    ]
+
+    useEffect(()=>{
+        for(let i = 0; i<artistList.length; i++){
+            axios.get(`https://theaudiodb.com/api/v1/json/523532/artist.php?i=${artistList[i]}`)
+            .then((res)=>{
+                console.log(res.data.artists[0]);
+                artistArr.push(res.data.artists[0]);
+                setArtists([...artistArr,
+                    res.data.artists[0]
+                ]);
+                console.log(artistArr);
+            })
+            .catch((err)=>{
+                console.log(err);
+            })
+        }
+    },[])
 
     return(
         <div>
             <Header userEmail={userEmail} user={user} />
-            
                 <div>
-
                     <div className="bg-white shadow mx-auto">
-
                         <h2 className="text-2xl p-3 font-mono">
                         Welcome home, {user.userName}!
                         </h2>
                         {/* would be a prof pic */}
                         <div className="rounded h-full
                         mx-auto py-3 mx-2 mb-4 bg-white">
-
                         </div>
-
                             <p className="text-sm p-3">
                             {user.bio}
                             </p>
-
                             <button 
                             onClick={(e)=>navigate(`/edit/${props.currentId}`)}>
                             Edit
                             </button>
-                        
-
-
                     </div>
                     
-
-
                     <div className="md:w-1/2 md:mx-auto 
                     sm:w-4/5 sm:mx-auto bg-white w-5/6 
                     border mx-auto p-4 my-3 rounded shadow">
                         <h3 className="text-left text-2xl pb-3">Your Artists</h3>
                         <hr/>
-                        <div>{user.artists}</div>
+
+                        {
+                            artists.map((item, index)=>(
+                                <img src={item.strArtistLogo} alt="" />
+                            ))
+                        }
+
+                        
+                        {/* {
+                            artistArr.map((item, index)=>(
+                                <p>{item}</p>
+                            ))
+                        } */}
+
+                        {/* <div>{user.artists}</div> */}
+                        
                     
-                        {/* <p>{userProfile.artists}</p> */}
+                        
                         <button onClick={()=>navigate(`/edit/${props.currentId}`)}>Edit</button>
                     </div>
 
