@@ -126,7 +126,7 @@ const ArtistPage = (props)=>{
     return(
         <div style={{overflow:"hidden"}}>
             <Header user={user} userEmail={userEmail}/>
-                <div className="">
+                <div className="" style={{background: "linear-gradient(167deg, rgba(129,255,0,1) 0%, rgba(100,255,230,1) 60%)"}}>
 
                     <div d-flex>
                         <h1 className="d-inline mx-2" style={{verticalAlign:"middle"}}>
@@ -245,7 +245,7 @@ const ArtistPage = (props)=>{
                                         view tracks
                                         </button>
 
-                                        <button  style={{position:"absolute", transform:"translate(-55%, 20%)", top:"50%", left:"50%", borderRadius:"50%", fontSize:"20px", opacity:"0.7"}}
+                                        <button  style={{position:"absolute", transform:"translate(-50%, -3%)", top:"50%", left:"50%", borderRadius:"50%", fontSize:"20px", opacity:"0.7"}}
                                         name="albums" 
                                         value={album.strAlbum} className="btn"
                                         onClick={addHandler}>
@@ -262,7 +262,7 @@ const ArtistPage = (props)=>{
                                         view tracks
                                         </button>
 
-                                        <button  style={{position:"absolute", transform:"translate(-55%, 20%)", top:"50%", left:"50%", borderRadius:"50%", fontSize:"20px", opacity:"0.7"}}
+                                        <button  style={{position:"absolute", transform:"translate(-50%, -3%)", top:"50%", left:"50%", borderRadius:"50%", fontSize:"20px", opacity:"0.7"}}
                                         name="albums" 
                                         value={album.strAlbum} className="btn"
                                         onClick={addHandler}>
