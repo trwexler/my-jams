@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import "../registration.css";
 import Login from "./Login";
+import Header from "./Header";
 
 const Register = (props) => {
   const [confirmReg, setConfirmReg] = useState("");
@@ -70,6 +71,7 @@ const Register = (props) => {
 
   return (
     <div style={{background: "linear-gradient(167deg, rgba(129,255,0,1) 0%, rgba(100,255,230,1) 60%)"}}>
+      <Header />
       {confirmReg ? <h4>{confirmReg}</h4> : null}
       <div class="top-content">
         <div class="inner-bg">
