@@ -40,9 +40,7 @@ const Register = (props) => {
         console.log('pass', user.password);
         console.log('first', user.firstName);
         console.log('last', user.lastName);
-    axios.post("http://localhost:8080/register", user, {
-        // withCredentials: true,
-      })
+    axios.post("http://localhost:8080/register", user)
       .then((res) => {
         console.log('user', user);
         console.log('email', user.email);

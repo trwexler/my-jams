@@ -6,39 +6,52 @@ import AddButton from "./AddButton";
 import Header from "./Header";
 import { Carousel } from "react-bootstrap";
 import Slider from "react-slick";
+import Loader from './loading.gif';
 
 // 523532 API KEY
 const Landing = (props) => {
-  const [artistList, setArtistList] = useState([]);
+  // const [artistList, setArtistList] = useState([]);
   const [id, setId] = useState("");
-  const { user, setUser } = props;
+  const { user, setUser, items, isLoading} = props;
+      
+    // useEffect(()=>{
+    //   // console.log(id)
+    //   axios.get(`http://localhost:8080/getUser/${user.email}`)
+    //       .then((res)=>{
+    //           console.log(res.data);
+    //           setId(res.data.id);
+    //           setUser(res.data);
+    //           console.log(user.email);
+    //           const json = JSON.stringify(res.data.email);
+    //           localStorage.setItem("res.data.email", json);
+    //       })
+    //       .catch((err)=>{
+    //           console.log(err);
+    //       })
+    //   }, [])
 
-      useEffect(()=>{
-        // console.log(id)
-        axios.get(`http://localhost:8080/getUser/${user.email}`)
-            .then((res)=>{
-                console.log(res.data);
-                setId(res.data.id);
-                setUser(res.data);
-                console.log(user.email)
-            })
-            .catch((err)=>{
-                console.log(err);
-            })
-        }, [])
+    // useEffect(()=>{
+    //   const json = JSON.stringify(user.email);
+    //   localStorage.setItem("user.email", json);
+    //   }, [user])
 
 
-  useEffect(() => {
-    axios.get('https://theaudiodb.com/api/v1/json/523532/mostloved.php?format=track')
-      .then((res) => {
-        console.log('mostloved', res.data);
-        console.log(res.data.loved);
-        setArtistList(res.data.loved);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+    useEffect(()=>{
+      const json = localStorage.getItem("email");
+      const storageRetreiver = JSON.parse(json);
+      axios.get("http://localhost:8080/getUser/" + storageRetreiver)
+          .then((res)=>{
+              console.log(res.data);
+              setId(res.data.id);
+              setUser(res.data);
+              console.log("http://localhost:8080/getUser/" + storageRetreiver);
+          })
+          .catch((err)=>{
+              console.log(err);
+          })
+      }, [])
+
+
 
   // Size = number of artists displayed on landing page.
   let size = 15;
@@ -86,46 +99,67 @@ const Landing = (props) => {
   return (
     <div style={{background: "linear-gradient(167deg, rgba(129,255,0,1) 0%, rgba(100,255,230,1) 60%)"}}>
       <Header id={user.id} user={user} />
+
+ 
+        <h1 style={{fontFamily:"Bangers, cursive", fontSize:"50px"}}>My Jams</h1>
+   
+
       <h1>Explore</h1>
       {user.email}
-      {user.password}
 
       {
-      artistList ?
-        <div >
-          <div >
-            <div class="container-fluid" >
+      isLoading ?
+        <img src={Loader} alt="" />
+
+        :
+
+        <div>
+
+          <div>
+
+            <div className="container-fluid" >
               <div className="row title" style={{ marginBottom: "20px" }}>
                 <div class="col-sm-12">Most Loved Artists</div>
               </div>
             </div>
+
             <div>
               <Slider {...settings}>
+
                 {
-                artistList.slice(0, size).map((artist, index) => (
-                  <div>
+                items.slice(0, size).map((item, index) => (
+
+                  <div key={index}>
                   {
-                    artist.strTrackThumb ?
+                    item.strTrackThumb ?
+
                   <div>
-                      <img src={artist.strTrackThumb} />
-                    <Link to={`/artist/${artist.idArtist}/${user.id}`} style={{color:"blue", fontSize:"20px"}}>{artist.strArtist}</Link>
+                      <img src={item.strTrackThumb} />
+
+                    <Link to={`/artist/${item.idArtist}/${user.id}`} style={{color:"blue", fontSize:"20px"}}>{item.strArtist}</Link>
                   </div>
+
                   :
+
                   <div>
                     <img src={"https://images.8tracks.com/cover/i/000/471/318/record-7500.jpg?rect=0,0,1385,1385&q=98&fm=jpg&fit=max&w=1024&h=1024"} />
-                      <Link to={`/artist/${artist.idArtist}/${user.id}`} style={{color:"blue", fontSize:"20px"}}>{artist.strArtist}</Link>
+
+                      <Link to={`/artist/${item.idArtist}/${user.id}`} style={{color:"blue", fontSize:"20px"}}>{item.strArtist}</Link>
                   </div>
+
                   }
                   </div>
                 ))}
+
               </Slider>
             </div>
-          </div>
-        </div>
-       : <h1>Loading...</h1>
-      }
 
-      {/* {
+          </div>
+        </div> 
+
+        }
+
+        {/* {
                 artistList.map((artist,index)=>(
                     <Link to={`/artist/${artist.idArtist}/${user.id}`}><p key={index}>{artist.strArtist}</p></Link>
                 ))

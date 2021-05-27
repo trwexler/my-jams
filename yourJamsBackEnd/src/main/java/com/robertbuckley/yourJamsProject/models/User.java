@@ -57,7 +57,7 @@ public class User {
 	private Date createdAt;
 	private Date updatedAt;
 
-//	@JsonManagedReference
+	@JsonManagedReference
 	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(
 			name= "artist_user",
@@ -176,7 +176,7 @@ public class User {
 			this.updatedAt = updatedAt;
 		}
 
-		@JsonManagedReference
+//		@JsonManagedReference
 		public List<Artist> getArtists() {
 			return artists;
 		}

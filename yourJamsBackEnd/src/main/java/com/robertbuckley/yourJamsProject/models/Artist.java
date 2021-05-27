@@ -35,8 +35,8 @@ public class Artist {
 	private Date createdAt;
 	private Date updatedAt;
 	
-//	@JsonBackReference
-	@JsonIgnore
+//	@JsonIgnore
+	@JsonBackReference
 	@ManyToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(
 			name= "artist_user",
