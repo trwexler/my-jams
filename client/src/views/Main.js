@@ -34,15 +34,12 @@ const Main = (props)=>{
 
     return(
         <div>
-            {/* <h1>Main</h1> */}
-            
-
             <Router>
                 <LogReg user={user} setUser={setUser} path="/" default/>
                 <Landing user={user} setUser={setUser} isLoading={isLoading} items={items} path="/landing"/>
                 <ArtistPage user={user} setUser={setUser} path="/artist/:artistId/:id"/> 
                 <UserProfile user={user} setUser={setUser} path="/user/:id"/>
-                <Feed user={user} setUser={setUser} path="/feed"/>
+                <Feed user={user} setUser={setUser} path="/feed/:id"/>
                 <Edit user={user} setUser={setUser} path="/edit/:id"/>
             </Router>
         </div>

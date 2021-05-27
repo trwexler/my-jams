@@ -56,6 +56,11 @@ const Header = (props)=>{
         </li>
       </Link>
 
+      <Link to={`/feed/${id}`} className="nav-link">
+        <li className="nav-item">
+          Feed
+        </li>
+      </Link>
       
     </ul>
 
