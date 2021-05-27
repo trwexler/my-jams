@@ -13,7 +13,7 @@ const Landing = (props) => {
   // const [artistList, setArtistList] = useState([]);
   const [id, setId] = useState("");
   const { user, setUser, items, isLoading} = props;
-
+      
       useEffect(()=>{
         // console.log(id)
         axios.get(`http://localhost:8080/getUser/${user.email}`)
@@ -21,12 +21,21 @@ const Landing = (props) => {
                 console.log(res.data);
                 setId(res.data.id);
                 setUser(res.data);
-                console.log(user.email)
+                console.log(user.email);
+                const json = JSON.stringify(res.data.email);
+                localStorage.setItem("res.data.email", json);
             })
             .catch((err)=>{
                 console.log(err);
             })
         }, [])
+
+      useEffect(()=>{
+        const json = JSON.stringify(user.email);
+        localStorage.setItem("user.email", json);
+        }, [user])
+
+
 
 
   // Size = number of artists displayed on landing page.

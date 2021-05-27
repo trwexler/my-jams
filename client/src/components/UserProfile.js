@@ -16,11 +16,21 @@ const Profile = (props) =>{
     const [artists, setArtists] = useState([]);
     const [albums, setAlbums] = useState([]);
 
+
     useEffect(()=>{
-        axios.get("http://localhost:8080/getUser/" + user.email)
+        let storageRetreiver = localStorage.getItem('user.email');
+        setUser({...user, email:storageRetreiver})
+    }, [])
+
+
+    useEffect(()=>{
+        const json = localStorage.getItem("user.email");
+        let storageRetreiver = JSON.parse(json);
+        axios.get("http://localhost:8080/getUser/" + storageRetreiver)
             .then((res)=>{
                 console.log(res.data);
                 setUser(res.data);
+                console.log("http://localhost:8080/getUser/" + storageRetreiver);
             })
             .catch((err)=>{
                 console.log(err);
@@ -102,10 +112,10 @@ const Profile = (props) =>{
                 <div>
                     <div className="bg-white shadow mx-auto">
                         <h2 className="text-2xl p-3 font-mono">
-                        Welcome home, {user.userName}!
+                        {user.userName}'s Jams
                         </h2>
                         {/* would be a prof pic */}
-                        <div className="rounded h-full
+                        {/* <div className="rounded h-full
                         mx-auto py-3 mx-2 mb-4 bg-white">
                         </div>
                             <p className="text-sm p-3">
@@ -114,7 +124,7 @@ const Profile = (props) =>{
                             <button 
                             onClick={(e)=>navigate(`/edit/${props.currentId}`)}>
                             Edit
-                            </button>
+                            </button> */}
                     </div>
                     
                     <div className="md:w-1/2 md:mx-auto 
