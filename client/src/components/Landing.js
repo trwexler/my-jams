@@ -13,20 +13,44 @@ const Landing = (props) => {
   // const [artistList, setArtistList] = useState([]);
   const [id, setId] = useState("");
   const { user, setUser, items, isLoading} = props;
+      
+    // useEffect(()=>{
+    //   // console.log(id)
+    //   axios.get(`http://localhost:8080/getUser/${user.email}`)
+    //       .then((res)=>{
+    //           console.log(res.data);
+    //           setId(res.data.id);
+    //           setUser(res.data);
+    //           console.log(user.email);
+    //           const json = JSON.stringify(res.data.email);
+    //           localStorage.setItem("res.data.email", json);
+    //       })
+    //       .catch((err)=>{
+    //           console.log(err);
+    //       })
+    //   }, [])
 
-      useEffect(()=>{
-        // console.log(id)
-        axios.get(`http://localhost:8080/getUser/${user.email}`)
-            .then((res)=>{
-                console.log(res.data);
-                setId(res.data.id);
-                setUser(res.data);
-                console.log(user.email)
-            })
-            .catch((err)=>{
-                console.log(err);
-            })
-        }, [])
+    // useEffect(()=>{
+    //   const json = JSON.stringify(user.email);
+    //   localStorage.setItem("user.email", json);
+    //   }, [user])
+
+
+    useEffect(()=>{
+      const json = localStorage.getItem("email");
+      const storageRetreiver = JSON.parse(json);
+      axios.get("http://localhost:8080/getUser/" + storageRetreiver)
+          .then((res)=>{
+              console.log(res.data);
+              setId(res.data.id);
+              setUser(res.data);
+              console.log("http://localhost:8080/getUser/" + storageRetreiver);
+          })
+          .catch((err)=>{
+              console.log(err);
+          })
+      }, [])
+
 
 
   // Size = number of artists displayed on landing page.
