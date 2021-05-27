@@ -88,6 +88,7 @@ const Landing = (props) => {
       <Header id={user.id} user={user} />
       <h1>Explore</h1>
       {user.email}
+      {user.artist}
 
       {
       artistList ?

@@ -18,6 +18,8 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name="tracks")
 public class Track {
@@ -89,7 +91,8 @@ public class Track {
 	public void setTrackId(Long trackId) {
 		this.trackId = trackId;
 	}
-
+	
+	@JsonBackReference
 	public List<User> getTrackLiked() {
 		return trackLiked;
 	}
