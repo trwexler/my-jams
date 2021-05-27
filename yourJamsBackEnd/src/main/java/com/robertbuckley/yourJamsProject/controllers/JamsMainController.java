@@ -1,10 +1,9 @@
 package com.robertbuckley.yourJamsProject.controllers;
 
-import javax.validation.Valid;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -45,33 +44,38 @@ public class JamsMainController {
 		System.out.println("current artist " + artistId);
 //		System.out.println("current user" + user.getId());
 		User currentUser = this.uServ.findUserById(userId);
+//		System.out.println(this.jServ.findArtistById(artistId));
 //		System.out.println(userId);
 //		Long artistId = currentArtist.getArtistId();
 //		System.out.println(this.jServ.findByArtistId(artistId).getArtistId());
 //		Long currentArtist = this.jServ.findArtistById(artist.getArtistId());
-		if(this.jServ.findByArtistId(artistId) == null) {
+		List<Artist> getArtists = currentUser.getArtists();
+		if(!this.jServ.doesArtistExist(artistId)) {
 //			artist.setArtistId(artistId);
+			System.out.println("hit the if statement");
 			Artist thisArtist = this.jServ.createArtist(artist);
+			System.out.println(thisArtist.getId());
+//			Artist artistToAdd = this.jServ.findByArtistId(artistId);
+//			jServ.likeArtist(currentUser, artistToAdd);
 //			Artist thisArtist = this.jServ.findByArtistId(artist.getArtistId());
 //			System.out.println("findByArtistId" + thisArtist.getArtistId());
 //			System.out.println("hit the null statement created artist" + artist.getArtistId());
 //			System.out.println(currentUser.getId());
 //			jServ.likeArtist(currentUser, thisArtist);
-			if(currentUser.getArtists().contains(artist)) {
-				return null;
+		}  
+		
+			if  (getArtists.contains(artist)){
+				System.out.println(currentUser.getArtists());
+				System.out.println(" hit the second if statement " + artist);
 			} else {
+				Artist thisArtist = this.jServ.findByArtistId(artistId);
+				System.out.println("hit the else statement" + thisArtist);
 				jServ.likeArtist(currentUser, thisArtist);
+//				jServ.likeArtist(currentUser, artist);
+				System.out.println(" hit the else statement ");
+				return null;
 			}
-		} else if(currentUser.getArtists().contains(artist)){
-			System.out.println(currentUser.getArtists());
-			System.out.println(" hit the else statement " + artist);
-		} else {
-			Artist thisArtist = this.jServ.findByArtistId(artistId);
-			jServ.likeArtist(currentUser, thisArtist);
-//			jServ.likeArtist(currentUser, artist);
-			System.out.println(" hit the else if statement " + artist.getArtistId());
-			return null;
-		}
+		
 		return null;
 	}
 }

@@ -63,6 +63,10 @@ public class JamsServices {
 		return this.artistrepo.findByArtistId(artistId);
 	}
 	
+	public boolean doesArtistExist(Long artistId) {
+		return this.artistrepo.existsByArtistId(artistId);
+	}
+//	
 	public Artist findArtistById(Long id) {
 		return this.artistrepo.findById(id).orElse(null);
 	}
@@ -84,25 +88,26 @@ public class JamsServices {
 	}
 	
 	public void likeArtist(User user, Artist artist) {
-		List<User> artistToLike = artist.getArtistLiked();
-		if(artistToLike == null) {
-			
-		} else {
-		artistToLike.add(user);
-		this.artistrepo.save(artist);
-		}
+		System.out.println(artist.getId());
+		System.out.println(artist.getArtistId());
+		System.out.println(artist.getArtistLiked());
+		List<Artist> artistToLike = user.getArtists();
+		System.out.println(artistToLike);
+		artistToLike.add(artist);
+		System.out.println(artistToLike);
+		this.uRepo.save(user);
 	}
 	
 	public void likeAlbum(User user, Album album) {
-		List<User> albumToLike = album.getAlbumLiked();
-		albumToLike.add(user);
-		this.albumRepo.save(album);
+		List<Album> albumToLike = user.getAlbum();
+		albumToLike.add(album);
+		this.uRepo.save(user);
 	}
 	
 	public void likeTrack(User user, Track track) {
-		List<User> trackToLike = track.getTrackLiked();
-		trackToLike.add(user);
-		this.tRepo.save(track);
+		List<Track> trackToLike = user.getTracks();
+		trackToLike.add(track);
+		this.uRepo.save(user);
 	}
 
 }

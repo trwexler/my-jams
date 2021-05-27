@@ -10,4 +10,6 @@ import com.robertbuckley.yourJamsProject.models.User;
 public interface ArtistRepository extends CrudRepository<Artist, Long> {
 	List<Artist> findAll();
 	Artist findByArtistId(Long artistId);
+	boolean existsByArtistId(Long artistId);
+	
 }
