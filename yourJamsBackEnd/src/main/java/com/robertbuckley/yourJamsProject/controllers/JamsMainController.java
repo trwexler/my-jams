@@ -66,7 +66,7 @@ public class JamsMainController {
 	}
 	
 	@PostMapping("/likeAlbum/{userId}/{albumId}")
-	public Long likeArtist(@PathVariable("userId")Long userId, @PathVariable("albumId")Long albumId, @ModelAttribute("album")Album album) {
+	public Long likeAlbum(@PathVariable("userId")Long userId, @PathVariable("albumId")Long albumId, @ModelAttribute("album")Album album) {
 		System.out.println("current user " + userId);
 		System.out.println("current artist " + albumId);
 		User currentUser = this.uServ.findUserById(userId);
@@ -91,7 +91,7 @@ public class JamsMainController {
 	}
 	
 	@PostMapping("/likeTrack/{userId}/{trackId}")
-	public Long likeArtist(@PathVariable("userId")Long userId, @PathVariable("trackId")Long trackId, @ModelAttribute("track")Track track) {
+	public Long likeTrack(@PathVariable("userId")Long userId, @PathVariable("trackId")Long trackId, @ModelAttribute("track")Track track) {
 		System.out.println("current user " + userId);
 		System.out.println("current artist " + trackId);
 		User currentUser = this.uServ.findUserById(userId);
