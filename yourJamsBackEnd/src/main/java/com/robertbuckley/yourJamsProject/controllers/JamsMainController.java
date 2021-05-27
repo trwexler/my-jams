@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.robertbuckley.yourJamsProject.models.Album;
 import com.robertbuckley.yourJamsProject.models.Artist;
+import com.robertbuckley.yourJamsProject.models.Track;
 import com.robertbuckley.yourJamsProject.models.User;
 import com.robertbuckley.yourJamsProject.repositories.ArtistRepository;
 import com.robertbuckley.yourJamsProject.services.JamsServices;
@@ -39,39 +41,73 @@ public class JamsMainController {
 	
 	@PostMapping("/likeArtist/{userId}/{artistId}")
 	public Long likeArtist(@PathVariable("userId")Long userId, @PathVariable("artistId")Long artistId, @ModelAttribute("artist")Artist artist) {
-//		User currentUser = this.uServ.findByEmail(user.getEmail());
 		System.out.println("current user " + userId);
 		System.out.println("current artist " + artistId);
-//		System.out.println("current user" + user.getId());
 		User currentUser = this.uServ.findUserById(userId);
-//		System.out.println(this.jServ.findArtistById(artistId));
-//		System.out.println(userId);
-//		Long artistId = currentArtist.getArtistId();
-//		System.out.println(this.jServ.findByArtistId(artistId).getArtistId());
-//		Long currentArtist = this.jServ.findArtistById(artist.getArtistId());
 		List<Artist> getArtists = currentUser.getArtists();
 		if(!this.jServ.doesArtistExist(artistId)) {
-//			artist.setArtistId(artistId);
 			System.out.println("hit the if statement");
 			Artist thisArtist = this.jServ.createArtist(artist);
 			System.out.println(thisArtist.getId());
-//			Artist artistToAdd = this.jServ.findByArtistId(artistId);
-//			jServ.likeArtist(currentUser, artistToAdd);
-//			Artist thisArtist = this.jServ.findByArtistId(artist.getArtistId());
-//			System.out.println("findByArtistId" + thisArtist.getArtistId());
-//			System.out.println("hit the null statement created artist" + artist.getArtistId());
-//			System.out.println(currentUser.getId());
-//			jServ.likeArtist(currentUser, thisArtist);
-		}  
-		
-			if  (getArtists.contains(artist)){
+		}  		
+			if  (getArtists.contains(this.jServ.findByArtistId(artistId))){
 				System.out.println(currentUser.getArtists());
 				System.out.println(" hit the second if statement " + artist);
 			} else {
 				Artist thisArtist = this.jServ.findByArtistId(artistId);
+				System.out.println(getArtists.contains(thisArtist));
 				System.out.println("hit the else statement" + thisArtist);
 				jServ.likeArtist(currentUser, thisArtist);
-//				jServ.likeArtist(currentUser, artist);
+				System.out.println(" hit the else statement ");
+				return null;
+			}
+		
+		return null;
+	}
+	
+	@PostMapping("/likeAlbum/{userId}/{albumId}")
+	public Long likeArtist(@PathVariable("userId")Long userId, @PathVariable("albumId")Long albumId, @ModelAttribute("album")Album album) {
+		System.out.println("current user " + userId);
+		System.out.println("current artist " + albumId);
+		User currentUser = this.uServ.findUserById(userId);
+		List<Album> getAlbums = currentUser.getAlbum();
+		if(!this.jServ.doesAlbumExist(albumId)) {
+			System.out.println("hit the if statement");
+			Album thisAlbum = this.jServ.createAlbum(album);
+			System.out.println(thisAlbum.getId());
+		}  		
+			if  (getAlbums.contains(album)){
+				System.out.println(currentUser.getAlbum());
+				System.out.println(" hit the second if statement " + album);
+			} else {
+				Album thisAlbum = this.jServ.findByAlbumId(albumId);
+				System.out.println("hit the else statement" + thisAlbum);
+				jServ.likeAlbum(currentUser, thisAlbum);
+				System.out.println(" hit the else statement ");
+				return null;
+			}
+		
+		return null;
+	}
+	
+	@PostMapping("/likeTrack/{userId}/{trackId}")
+	public Long likeArtist(@PathVariable("userId")Long userId, @PathVariable("trackId")Long trackId, @ModelAttribute("track")Track track) {
+		System.out.println("current user " + userId);
+		System.out.println("current artist " + trackId);
+		User currentUser = this.uServ.findUserById(userId);
+		List<Track> getTracks = currentUser.getTracks();
+		if(!this.jServ.doesTrackExist(trackId)) {
+			System.out.println("hit the if statement");
+			Track thisTrack = this.jServ.createTrack(track);
+			System.out.println(thisTrack.getId());
+		}  		
+			if  (getTracks.contains(track)){
+				System.out.println(currentUser.getTracks());
+				System.out.println(" hit the second if statement " + track);
+			} else {
+				Track thisTrack = this.jServ.findByTrackId(trackId);
+				System.out.println("hit the else statement" + thisTrack);
+				jServ.likeTrack(currentUser, thisTrack);
 				System.out.println(" hit the else statement ");
 				return null;
 			}
@@ -80,12 +116,3 @@ public class JamsMainController {
 	}
 }
 
-
-		
-//	}
-//		String userEmail = user.getEmail();
-//		System.out.println(userEmail);
-//		User currentUser = this.uServ.findByEmail(userEmail);
-//		System.out.println(currentUser);
-//		Artist currentArtist = this.jServ.findArtistById(id);
-//		this.jServ.likeArtist(currentUser, currentArtist);

@@ -37,6 +37,7 @@ public class Track {
 //	@JoinColumn(name="album_id")
 //	private Album albums;
 	
+	@JsonBackReference
 	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(
 			name= "track_user",
@@ -92,7 +93,6 @@ public class Track {
 		this.trackId = trackId;
 	}
 	
-	@JsonBackReference
 	public List<User> getTrackLiked() {
 		return trackLiked;
 	}

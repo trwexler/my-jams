@@ -14,6 +14,8 @@ import 'simplebar/dist/simplebar.min.css';
 const ArtistPage = (props)=>{
 
     const {artistId} = props;
+    const {albumId} = props;
+    const {trackId} = props;
     const {user, setUser, userEmail, id, setId } = props;
 
 
@@ -31,6 +33,7 @@ const ArtistPage = (props)=>{
 
     const[albums, setAlbums] = useState([{
         artist: "",
+        albumId: "",
         title: "",
         tracks: [],
         albumId: "",
@@ -39,6 +42,7 @@ const ArtistPage = (props)=>{
     const[tracks,setTracks] = useState([{
         artist: "",
         album: "",
+        trackId: "",
         title: "",
         trackId: "",
     }]);
@@ -139,6 +143,38 @@ const ArtistPage = (props)=>{
             console.log(err);
         })
     })
+
+    const albumAddHandler = ((e)=>{
+        axios.post(`http://localhost:8080/likeAlbum/${user.id}/${albumId}`, {
+            userid: user.id,
+            albumId
+        })
+        .then((res)=>{
+            console.log(res);
+            // setUser({...user,
+            //     [e.target.name]: e.target.value
+            // })
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+    })
+
+    const trackAddHandler = ((e)=>{
+        axios.post(`http://localhost:8080/likeTrack/${user.id}/${trackId}`, {
+            userid: user.id,
+            trackId
+        })
+        .then((res)=>{
+            console.log(res);
+            // setUser({...user,
+            //     [e.target.name]: e.target.value
+            // })
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+    })
     
 
     return(
@@ -211,7 +247,7 @@ const ArtistPage = (props)=>{
                         tracks.map((track,index)=>(
                             <div key={index} className="mx-auto w-100">
                                 <div className="d-flex mx-auto justify-content-center">
-                                    <button onClick={addHandler} name="tracks" value={track.strTrack} className="btn btn-primary btn-sm m-2">add</button>
+                                    <button onClick={trackAddHandler} name="tracks" value={track.strTrack} className="btn btn-primary btn-sm m-2">add</button>
                                     <p className="p-0 mx-2 mt-3 h1 w-50" key={index}>{track.strTrack}</p>
                                 </div>
                                 <hr/>
@@ -267,7 +303,7 @@ const ArtistPage = (props)=>{
                                         <button  style={{position:"absolute", transform:"translate(-50%, -3%)", top:"50%", left:"50%", borderRadius:"50%", fontSize:"20px", opacity:"0.8"}}
                                         name="albums" 
                                         value={album.strAlbum} className="btn"
-                                        onClick={addHandler}>
+                                        onClick={albumAddHandler}>
                                         +
                                         </button>
 
@@ -284,7 +320,7 @@ const ArtistPage = (props)=>{
                                         <button  style={{position:"absolute", transform:"translate(-50%, -3%)", top:"50%", left:"50%", borderRadius:"50%", fontSize:"20px", opacity:"0.8"}}
                                         name="albums" 
                                         value={album.strAlbum} className="btn"
-                                        onClick={addHandler}>
+                                        onClick={albumAddHandler}>
                                         +
                                         </button>
 

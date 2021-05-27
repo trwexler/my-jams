@@ -66,7 +66,7 @@ public class User {
 			)
 	private List<Artist> artists;
 	
-//	@JsonManagedReference
+	@JsonManagedReference
 	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(
 			name= "album_user",
@@ -76,7 +76,7 @@ public class User {
 	
 	private List<Album> album;
 	
-//	@JsonManagedReference
+	@JsonManagedReference
 	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(
 			name= "track_user",
