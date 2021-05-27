@@ -94,7 +94,7 @@ const Landing = (props) => {
       artistList ?
         <div >
           <div >
-            <div className="container-fluid" >
+            <div class="container-fluid" >
               <div className="row title" style={{ marginBottom: "20px" }}>
                 <div class="col-sm-12">Most Loved Artists</div>
               </div>
@@ -108,14 +108,11 @@ const Landing = (props) => {
                     artist.strTrackThumb ?
                   <div>
                       <img src={artist.strTrackThumb} />
-
                     <Link to={`/artist/${artist.idArtist}/${user.id}`} style={{color:"blue", fontSize:"20px"}}>{artist.strArtist}</Link>
-
                   </div>
                   :
                   <div>
                     <img src={"https://images.8tracks.com/cover/i/000/471/318/record-7500.jpg?rect=0,0,1385,1385&q=98&fm=jpg&fit=max&w=1024&h=1024"} />
-
                       <Link to={`/artist/${artist.idArtist}/${user.id}`} style={{color:"blue", fontSize:"20px"}}>{artist.strArtist}</Link>
                   </div>
                   }
