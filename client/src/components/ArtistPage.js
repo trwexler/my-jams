@@ -66,13 +66,19 @@ const ArtistPage = (props)=>{
     },[artistId])
 
     useEffect(()=>{
-        // console.log(id)
-        axios.get(`http://localhost:8080/getUser/${user.email}`)
+        let storageRetreiver = localStorage.getItem('user.email');
+        setUser({...user, email:storageRetreiver})
+    }, [])
+
+
+    useEffect(()=>{
+        const json = localStorage.getItem("user.email");
+        let storageRetreiver = JSON.parse(json);
+        axios.get("http://localhost:8080/getUser/" + storageRetreiver)
             .then((res)=>{
                 console.log(res.data);
-                setId(res.data.id);
                 setUser(res.data);
-                console.log(user.email)
+                console.log("http://localhost:8080/getUser/" + storageRetreiver);
             })
             .catch((err)=>{
                 console.log(err);
