@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { navigate } from "@reach/router";
 import "../registration.css";
@@ -25,20 +25,17 @@ const Login = (props) => {
         email: email,
         password: password,
       },
-      console.log(email),
-      console.log(password)
         )
         .then((res) => {
           console.log(res.data);
           console.log(email, "Res data");
-          console.log(user.email);
-          console.log(user.id);
           setUser({
             email: email,
             password: password,
-
         });
         console.log(user);
+        const json = JSON.stringify(email);
+        localStorage.setItem("email", json);
         
         if(res.data == true){
           navigate(`/landing`);
@@ -55,6 +52,8 @@ const Login = (props) => {
         setErrorMessage(err.response.data.message);
       });
   };
+
+
 
   return (
     <div>
