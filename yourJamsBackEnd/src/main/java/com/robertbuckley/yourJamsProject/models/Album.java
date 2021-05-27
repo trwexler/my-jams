@@ -39,6 +39,7 @@ public class Album {
 //	@OneToMany(mappedBy="albums", fetch=FetchType.LAZY)
 //	private List<Track> tracks;
 	
+	@JsonBackReference
 	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(
 			name= "album_user",
@@ -93,7 +94,7 @@ public class Album {
 	public void setAlbumId(Long albumId) {
 		this.albumId = albumId;
 	}
-	@JsonBackReference
+	
 	public List<User> getAlbumLiked() {
 		return albumLiked;
 	}

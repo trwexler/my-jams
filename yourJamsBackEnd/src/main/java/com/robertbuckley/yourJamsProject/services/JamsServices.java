@@ -59,6 +59,14 @@ public class JamsServices {
 		return this.albumRepo.findById(id).orElse(null);
 	}
 	
+	public Album findByAlbumId(Long albumId) {
+		return this.albumRepo.findByAlbumId(albumId);
+	}
+	
+	public boolean doesAlbumExist(Long albumId) {
+		return this.albumRepo.existsByAlbumId(albumId);
+	}
+	
 	public Artist findByArtistId(Long artistId) {
 		return this.artistrepo.findByArtistId(artistId);
 	}
@@ -73,6 +81,14 @@ public class JamsServices {
 	
 	public Track findTrackById(Long id) {
 		return this.tRepo.findById(id).orElse(null);
+	}
+	
+	public Track findByTrackId(Long trackId) {
+		return this.tRepo.findByTrackId(trackId);
+	}
+	
+	public boolean doesTrackExist(Long trackId) {
+		return this.tRepo.existsByTrackId(trackId);
 	}
 	
 	public Album createAlbum(Album newAlbum) {
