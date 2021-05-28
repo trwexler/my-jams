@@ -40,9 +40,6 @@ public class Artist {
 	
 	private List<User> artistLiked;
 	
-//	@OneToMany(mappedBy="artist", fetch=FetchType.LAZY)
-//	private List<Album> albums;
-	
 	@PrePersist
 	protected void onCreate() {
 		this.createdAt = new Date();
