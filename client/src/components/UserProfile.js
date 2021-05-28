@@ -13,7 +13,12 @@ const Profile = (props) =>{
 
     const {user, setUser, userEmail} = props;
     const [userProfile, setUserProfile] = useState({});
-    const [artists, setArtists] = useState([]);
+    const [artistList, setArtistList] = useState([]);
+    const [artists, setArtists] = useState([{
+        artistName:"",
+        artistId:"",
+        artistImg:""
+    }]);
     const [albums, setAlbums] = useState([]);
 
 
@@ -29,6 +34,8 @@ const Profile = (props) =>{
         axios.get("http://localhost:8080/getUser/" + storageRetreiver)
             .then((res)=>{
                 console.log(res.data);
+                console.log('findart', res.data.artists)
+                setArtistList(res.data.artists);
                 setUser(res.data);
                 console.log("http://localhost:8080/getUser/" + storageRetreiver);
             })
@@ -38,18 +45,48 @@ const Profile = (props) =>{
         }, [])
 
 
-    let artistArr = [];
 
-    //for testing
-    let artistList = [
-        112035,
-        112034,
-        112033,
-        112032,
-        112031,
-        112030,
-        112039,
-    ];
+
+        useEffect(()=>{
+            let artistArr = [];
+            for(let i = 0; i<artistList.length; i++){
+                axios.get(`https://theaudiodb.com/api/v1/json/523532/artist.php?i=${artistList[i].artistId}`)
+                .then((res)=>{
+                    console.log(res.data.artists[0].strArtistBanner);
+                    // console.log(artists[i]);
+                    // artistArr.push(artists[i]);
+                    artistArr.push({
+                        artistName:res.data.artists[0].strArtistBanner,
+                        artistId: res.data.artists[0].idArtist,
+                        artistImg: res.data.artists[0].strArtistBanner,
+                    });
+                    setArtists([...artistArr,
+                        {
+                            artistName:res.data.artists[0].strArtistBanner,
+                            artistId: res.data.artists[0].idArtist,
+                            artistImg: res.data.artists[0].strArtistBanner,
+                        }
+                    ]);
+                })
+                .catch((err)=>{
+                    console.log(err);
+                })
+            }
+        },[user])
+
+
+    // let artistArr = [];
+
+    // //for testing
+    // let artistList = [
+    //     112035,
+    //     112034,
+    //     112033,
+    //     112032,
+    //     112031,
+    //     112030,
+    //     112039,
+    // ];
 
 
     let albumArr = [];
@@ -68,34 +105,41 @@ const Profile = (props) =>{
 
 
 
-    useEffect(()=>{
-        for(let i = 0; i<artistList.length; i++){
-            axios.get(`https://theaudiodb.com/api/v1/json/523532/artist.php?i=${artistList[i]}`)
-            .then((res)=>{
-                console.log(res.data.artists[0]);
-                artistArr.push(res.data.artists[0]);
-                setArtists([...artistArr,
-                    res.data.artists[0]
-                ]);
-                console.log(artistArr);
-            })
-            .catch((err)=>{
-                console.log(err);
-            })
-        }
-    },[])
+
+
+
+    // useEffect(()=>{
+    //     for(let i = 0; i<artistList.length; i++){
+    //         axios.get(`https://theaudiodb.com/api/v1/json/523532/artist.php?i=${artistList[i]}`)
+    //         .then((res)=>{
+    //             console.log(res.data.artists[0]);
+    //             artistArr.push(res.data.artists[0]);
+    //             setArtists([...artistArr,
+    //                 res.data.artists[0]
+    //             ]);
+    //             console.log(artistArr);
+    //         })
+    //         .catch((err)=>{
+    //             console.log(err);
+    //         })
+    //     }
+    // },[])
+
+
+
+
 
 
     useEffect(()=>{
         for(let i = 0; i<albumList.length; i++){
             axios.get(`https://theaudiodb.com/api/v1/json/1/album.php?m=${albumList[i]}`)
             .then((res)=>{
-                console.log(res.data.album[0]);
+                // console.log(res.data.album[0]);
                 albumArr.push(res.data.album[0]);
-                setAlbums([...albumArr,
+                setAlbums([albumArr,
                     res.data.album[0]
                 ]);
-                console.log(albumArr);
+                // console.log(albumArr);
             })
             .catch((err)=>{
                 console.log(err);
@@ -135,7 +179,7 @@ const Profile = (props) =>{
 
                         {
                             artists.map((item, index)=>(
-                                <img src={item.strArtistLogo} alt="" />
+                                <img src={item.artistImg} alt="" />
                             ))
                         }
 
