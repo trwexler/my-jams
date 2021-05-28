@@ -7,10 +7,12 @@ import org.springframework.stereotype.Service;
 
 import com.robertbuckley.yourJamsProject.models.Album;
 import com.robertbuckley.yourJamsProject.models.Artist;
+import com.robertbuckley.yourJamsProject.models.Post;
 import com.robertbuckley.yourJamsProject.models.Track;
 import com.robertbuckley.yourJamsProject.models.User;
 import com.robertbuckley.yourJamsProject.repositories.AlbumRepository;
 import com.robertbuckley.yourJamsProject.repositories.ArtistRepository;
+import com.robertbuckley.yourJamsProject.repositories.PostRepository;
 import com.robertbuckley.yourJamsProject.repositories.TrackRepository;
 import com.robertbuckley.yourJamsProject.repositories.UserRepository;
 
@@ -28,7 +30,10 @@ public class JamsServices {
 	@Autowired
 	private TrackRepository tRepo;
 	
-	public JamsServices(AlbumRepository albumRepo, UserRepository uRepo, ArtistRepository artistrepo, TrackRepository tRepo) {
+	@Autowired
+	private PostRepository pRepo;
+	
+	public JamsServices(AlbumRepository albumRepo, UserRepository uRepo, ArtistRepository artistrepo, TrackRepository tRepo, PostRepository pRepo) {
 		this.albumRepo = albumRepo;
 		this.artistrepo = artistrepo;
 		this.tRepo = tRepo;
@@ -51,6 +56,10 @@ public class JamsServices {
 		return this.tRepo.findAll();
 	}
 	
+	public List<Post> findAllPost(){
+		return this.pRepo.findAll();
+	}
+	
 	public User findUserById(Long id) {
 		return this.uRepo.findById(id).orElse(null);
 	}
@@ -59,16 +68,36 @@ public class JamsServices {
 		return this.albumRepo.findById(id).orElse(null);
 	}
 	
+	public Album findByAlbumId(Long albumId) {
+		return this.albumRepo.findByAlbumId(albumId);
+	}
+	
+	public boolean doesAlbumExist(Long albumId) {
+		return this.albumRepo.existsByAlbumId(albumId);
+	}
+	
 	public Artist findByArtistId(Long artistId) {
 		return this.artistrepo.findByArtistId(artistId);
 	}
 	
+	public boolean doesArtistExist(Long artistId) {
+		return this.artistrepo.existsByArtistId(artistId);
+	}
+//	
 	public Artist findArtistById(Long id) {
 		return this.artistrepo.findById(id).orElse(null);
 	}
 	
 	public Track findTrackById(Long id) {
 		return this.tRepo.findById(id).orElse(null);
+	}
+	
+	public Track findByTrackName(String trackName) {
+		return this.tRepo.findByTrackName(trackName);
+	}
+	
+	public boolean doesTrackExist(String trackName) {
+		return this.tRepo.existsByTrackName(trackName);
 	}
 	
 	public Album createAlbum(Album newAlbum) {
@@ -84,25 +113,52 @@ public class JamsServices {
 	}
 	
 	public void likeArtist(User user, Artist artist) {
-		List<User> artistToLike = artist.getArtistLiked();
-		if(artistToLike == null) {
-			
-		} else {
-		artistToLike.add(user);
-		this.artistrepo.save(artist);
-		}
+		System.out.println(artist.getId());
+		System.out.println(artist.getArtistId());
+		System.out.println(artist.getArtistLiked());
+		List<Artist> artistToLike = user.getArtists();
+		System.out.println(artistToLike);
+		artistToLike.add(artist);
+		System.out.println(artistToLike);
+		this.uRepo.save(user);
 	}
 	
 	public void likeAlbum(User user, Album album) {
-		List<User> albumToLike = album.getAlbumLiked();
-		albumToLike.add(user);
-		this.albumRepo.save(album);
+		List<Album> albumToLike = user.getAlbum();
+		albumToLike.add(album);
+		this.uRepo.save(user);
 	}
 	
 	public void likeTrack(User user, Track track) {
-		List<User> trackToLike = track.getTrackLiked();
-		trackToLike.add(user);
+		List<Track> trackToLike = user.getTracks();
+		trackToLike.add(track);
+		this.uRepo.save(user);
+	}
+	
+	public void unLikeArtist(User user, Artist artist) {
+		List<User> artistToLeave = artist.getArtistLiked();
+		artistToLeave.remove(user);
+		this.artistrepo.save(artist);
+	}
+	
+	public void unLikeAlbum(User user, Album album) {
+		List<User> albumToLeave = album.getAlbumLiked();
+		albumToLeave.remove(user);
+		this.albumRepo.save(album);
+	}
+	
+	public void unLikeTrack(User user, Track track) {
+		List<User> trackToLeave = track.getTrackLiked();
+		trackToLeave.remove(user);
 		this.tRepo.save(track);
+	}
+	
+	public Post createPost(Post post) {
+		return this.pRepo.save(post);
+	}
+	
+	public void deletePost(Long id) {
+		this.pRepo.deleteById(id);
 	}
 
 }

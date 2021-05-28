@@ -8,4 +8,6 @@ import com.robertbuckley.yourJamsProject.models.Album;
 
 public interface AlbumRepository extends CrudRepository<Album, Long>{
 	List<Album> findAll();
+	Album findByAlbumId(Long albumId);
+	boolean existsByAlbumId(Long albumId);
 }

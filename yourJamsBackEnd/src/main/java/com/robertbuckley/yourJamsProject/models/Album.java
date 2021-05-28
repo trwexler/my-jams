@@ -19,6 +19,8 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name="albums")
 public class Album {
@@ -26,7 +28,7 @@ public class Album {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
-	@NotBlank
+//	@NotBlank
 	private Long albumId;
 	@Column(updatable=false)
 	private Date createdAt;
@@ -93,7 +95,8 @@ public class Album {
 	public void setAlbumId(Long albumId) {
 		this.albumId = albumId;
 	}
-
+	
+	@JsonBackReference
 	public List<User> getAlbumLiked() {
 		return albumLiked;
 	}

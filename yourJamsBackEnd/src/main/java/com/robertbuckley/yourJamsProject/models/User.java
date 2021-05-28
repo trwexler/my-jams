@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,24 +21,27 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name="users")
-@EntityListeners(AuditingEntityListener.class)
+//@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class User {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	@NotBlank
-	@Column(name = "first_name", nullable = false)
+	@Column(name = "firstName", nullable = false)
 	private String firstName;
 	@NotBlank
-	@Column(name = "last_name", nullable = false)
+	@Column(name = "lastMame", nullable = false)
 	private String lastName;
 	@NotBlank
-	@Column(name = "username", nullable = false)
+	@Column(name = "userName", nullable = false)
 	private String userName;
 	@Email(message="Email must be valid")
 	@NotBlank
@@ -55,16 +57,16 @@ public class User {
 	private Date createdAt;
 	private Date updatedAt;
 
-
+	@JsonManagedReference
 	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(
 			name= "artist_user",
 			joinColumns = @JoinColumn(name="user_id"),
 			inverseJoinColumns = @JoinColumn(name="artist_id")
 			)
-	
 	private List<Artist> artists;
 	
+	@JsonManagedReference
 	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(
 			name= "album_user",
@@ -74,6 +76,7 @@ public class User {
 	
 	private List<Album> album;
 	
+	@JsonManagedReference
 	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(
 			name= "track_user",
@@ -173,7 +176,7 @@ public class User {
 			this.updatedAt = updatedAt;
 		}
 
-
+//		@JsonManagedReference
 		public List<Artist> getArtists() {
 			return artists;
 		}
@@ -181,7 +184,7 @@ public class User {
 		public void setArtists(List<Artist> artists) {
 			this.artists = artists;
 		}
-
+//		@JsonManagedReference
 		public List<Post> getPosts() {
 			return posts;
 		}
@@ -189,7 +192,7 @@ public class User {
 		public void setPosts(List<Post> posts) {
 			this.posts = posts;
 		}
-
+//		@JsonManagedReference
 		public List<Album> getAlbum() {
 			return album;
 		}
@@ -197,7 +200,7 @@ public class User {
 		public void setAlbum(List<Album> album) {
 			this.album = album;
 		}
-
+//		@JsonManagedReference
 		public List<Track> getTracks() {
 			return tracks;
 		}

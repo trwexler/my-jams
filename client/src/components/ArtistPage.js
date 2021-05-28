@@ -24,7 +24,6 @@ const ArtistPage = (props)=>{
 
     const[artist, setArtist] = useState({
         name: "",
-        artistId: "",
         bio:"",
         artistId: "", //will be props.artistId 
     });

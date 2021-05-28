@@ -8,4 +8,6 @@ import com.robertbuckley.yourJamsProject.models.Track;
 
 public interface TrackRepository extends CrudRepository<Track, Long>{
 	List<Track> findAll();
+	Track findByTrackName(String trackName);
+	boolean existsByTrackName(String trackName);
 }
