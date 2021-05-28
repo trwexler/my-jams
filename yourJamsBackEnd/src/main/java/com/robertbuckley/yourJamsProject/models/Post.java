@@ -22,9 +22,9 @@ public class Post {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
-	@NotBlank
+//	@NotBlank
 	private String content;
-	@NotBlank
+//	@NotBlank
 	private String currentListening;
 	@Column(updatable=false)
 	private Date createdAt;

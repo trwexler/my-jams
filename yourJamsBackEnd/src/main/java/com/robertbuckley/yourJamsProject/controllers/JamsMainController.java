@@ -72,7 +72,7 @@ public class JamsMainController {
 	@PostMapping("/likeAlbum/{userId}/{albumId}")
 	public Long likeAlbum(@PathVariable("userId")Long userId, @PathVariable("albumId")Long albumId, @ModelAttribute("album")Album album) {
 		System.out.println("current user " + userId);
-		System.out.println("current artist " + albumId);
+		System.out.println("current album " + albumId);
 		User currentUser = this.uServ.findUserById(userId);
 		List<Album> getAlbums = currentUser.getAlbum();
 		if(!this.jServ.doesAlbumExist(albumId)) {
@@ -135,7 +135,7 @@ public class JamsMainController {
 		return null;
 	}
 	
-	@PostMapping("/UnlikeTrack/{userId}/{trackName}")
+	@PostMapping("/unLikeTrack/{userId}/{trackName}")
 	public String unLikeTrack(@PathVariable("userId")Long userId, @PathVariable("trackName")String trackName, @ModelAttribute("track")Track track) {
 		User currentUser = this.uServ.findUserById(userId);
 		Track currentTrack = this.jServ.findByTrackName(trackName);
@@ -143,18 +143,18 @@ public class JamsMainController {
 		return null;
 	}
 	
-	@PostMapping("/addPost/{userId}")
-	public String addPost(@Valid @RequestBody Post post, @PathVariable("userid")Long userId) {
-		System.out.println(userId);
-		this.jServ.createPost(post);
-		return null;
-	}
-	
-	@PostMapping("/deletePost/{userId}")
-	public String deletePost(@PathVariable("id")Long id) {
-		jServ.deletePost(id);
-		return null;
-	}
+//	@PostMapping("/addPost/{userId}")
+//	public String addPost(@Valid @RequestBody Post post, @PathVariable("userid")Long userId) {
+//		System.out.println(userId);
+//		this.jServ.createPost(post);
+//		return null;
+//	}
+//	
+//	@PostMapping("/deletePost/{userId}")
+//	public String deletePost(@PathVariable("id")Long id) {
+//		jServ.deletePost(id);
+//		return null;
+//	}
 }
 
 

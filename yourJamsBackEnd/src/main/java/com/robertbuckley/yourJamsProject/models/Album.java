@@ -28,7 +28,7 @@ public class Album {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
-	@NotBlank
+//	@NotBlank
 	private Long albumId;
 	@Column(updatable=false)
 	private Date createdAt;
