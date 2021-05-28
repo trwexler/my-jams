@@ -96,17 +96,18 @@ const Feed = (props)=>{
             <div className="flex flex-col-reverse">
 
                 {
+                    
                     recommends.map((recommend, index)=>(
                         <div key={index} className="border" style={{background: "linear-gradient(90deg, rgba(129,255,0,1) 0%, rgba(100,255,230,1) 60%)"}}>
-                            <p style={{color:"black", fontSize:"20px"}}>{recommend.userName} recommends {recommend.artistName}</p>
-                            
+                            <h2 style={{color:"black"}}>{recommend.userName} recommends {recommend.artistName}</h2>
                             <img src={recommend.artistImg} alt="" />
-                            <p style={{color:"black", fontSize:"20px"}}>{recommend.userName}'s review:</p> 
-                            <p style={{color:"black", fontSize:"16px"}}>{recommend.content}</p>
+                            <h2 style={{color:"black"}}>{recommend.userName}'s review:</h2> 
+                            <p style={{color:"black", fontSize:"22px", width:"50%"}} className="mx-auto">{recommend.content}</p>
                         </div>
                     ))
+                    
                 }
-            
+
 
             </div>
             
