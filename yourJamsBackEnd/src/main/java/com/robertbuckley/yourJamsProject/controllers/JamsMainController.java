@@ -119,7 +119,7 @@ public class JamsMainController {
 		return null;
 	}
 	
-	@PostMapping("/leave/{userId}/{artistId}")
+	@PostMapping("/unLikeArtist/{userId}/{artistId}")
 	public String unLikeArtist(@PathVariable("userId")Long userId, @PathVariable("artistId")Long artistId, @ModelAttribute("artist")Artist artist) {
 		User currentUser = this.uServ.findUserById(userId);
 		Artist currentArtist = this.jServ.findByArtistId(artistId);
@@ -127,7 +127,7 @@ public class JamsMainController {
 		return null;
 	}
 	
-	@PostMapping("/leave/{userId}/{albumId}")
+	@PostMapping("/unLikeAlbum/{userId}/{albumId}")
 	public String unLikeArtist(@PathVariable("userId")Long userId, @PathVariable("albumId")Long albumId, @ModelAttribute("album")Album album) {
 		User currentUser = this.uServ.findUserById(userId);
 		Album currentAlbum = this.jServ.findByAlbumId(albumId);
@@ -135,7 +135,7 @@ public class JamsMainController {
 		return null;
 	}
 	
-	@PostMapping("/leave/{userId}/{trackName}")
+	@PostMapping("/UnlikeTrack/{userId}/{trackName}")
 	public String unLikeTrack(@PathVariable("userId")Long userId, @PathVariable("trackName")String trackName, @ModelAttribute("track")Track track) {
 		User currentUser = this.uServ.findUserById(userId);
 		Track currentTrack = this.jServ.findByTrackName(trackName);
