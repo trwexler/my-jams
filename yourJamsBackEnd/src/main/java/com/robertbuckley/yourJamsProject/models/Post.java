@@ -24,6 +24,8 @@ public class Post {
 	private Long id;
 	@NotBlank
 	private String content;
+	@NotBlank
+	private String currentListening;
 	@Column(updatable=false)
 	private Date createdAt;
 	private Date updatedAt;
@@ -56,6 +58,14 @@ public class Post {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public String getCurrentListening() {
+		return currentListening;
+	}
+
+	public void setCurrentListening(String currentListening) {
+		this.currentListening = currentListening;
 	}
 
 	public Date getCreatedAt() {

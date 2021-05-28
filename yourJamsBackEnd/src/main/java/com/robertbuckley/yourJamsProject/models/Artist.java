@@ -12,11 +12,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name="artists")
@@ -29,6 +29,7 @@ public class Artist {
 	@Column(updatable=false)
 	private Date createdAt;
 	private Date updatedAt;
+	
 	
 	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(
@@ -87,7 +88,8 @@ public class Artist {
 	public void setArtistId(Long artistId) {
 		this.artistId = artistId;
 	}
-
+	
+	@JsonBackReference
 	public List<User> getArtistLiked() {
 		return artistLiked;
 	}
