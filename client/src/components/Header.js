@@ -62,6 +62,12 @@ const Header = (props)=>{
         </li>
       </Link>
       
+      <Link to={`/`} className="nav-link">
+        <li className="nav-item">
+          Logout
+        </li>
+      </Link>
+      
     </ul>
 
       <form onSubmit={searchHandler} className="form-inline my-2 my-lg-0">
