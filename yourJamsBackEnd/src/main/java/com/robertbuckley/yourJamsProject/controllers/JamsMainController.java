@@ -97,7 +97,7 @@ public class JamsMainController {
 	@PostMapping("/likeTrack/{userId}/{trackName}")
 	public Long likeTrack(@PathVariable("userId")Long userId, @PathVariable("trackName")String trackName, @ModelAttribute("track")Track track) {
 		System.out.println("current user " + userId);
-		System.out.println("current artist " + trackName);
+		System.out.println("current track " + trackName);
 		User currentUser = this.uServ.findUserById(userId);
 		List<Track> getTracks = currentUser.getTracks();
 		if(!this.jServ.doesTrackExist(trackName)) {

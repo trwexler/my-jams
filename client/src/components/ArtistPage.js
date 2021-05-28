@@ -21,8 +21,6 @@ const ArtistPage = (props)=>{
     //will be added from landing page
     // const{artist, artistId} = props;
 
-
-
     const[artist, setArtist] = useState({
         name: "",
         bio:"",
@@ -42,8 +40,6 @@ const ArtistPage = (props)=>{
         title: "",
         trackId: "",
     }]);
-
-
 
      //gets artist
     useEffect(()=>{
@@ -113,7 +109,6 @@ const ArtistPage = (props)=>{
         .catch((err)=>{
             console.log(err);
         })
-
     }
 
     // when trackList "x" is clicked, the tracklist closes.
@@ -157,6 +152,22 @@ const ArtistPage = (props)=>{
         })
     })
     
+
+    const addTrackHandler = ((e)=>{
+        axios.post(`http://localhost:8080/likeTrack/${user.id}/${e.target.value}`, {
+            userid: user.id,
+            trackName: e.target.value
+        })
+        .then((res)=>{
+            console.log(res);
+            // setUser({...user,
+            //     [e.target.name]: e.target.value
+            // })
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+    })
 
     return(
         <div style={{overflow:"hidden"}}>
@@ -204,7 +215,7 @@ const ArtistPage = (props)=>{
                         tracks.map((track,index)=>(
                             <div key={index} className="mx-auto w-100">
                                 <div className="d-flex mx-auto justify-content-center">
-                                    <button onClick={addHandler} name="tracks" value={track.strTrack} className="btn btn-primary btn-sm m-2">add</button>
+                                    <button onClick={addTrackHandler} name="tracks" value={track.strTrack} className="btn btn-primary btn-sm m-2">add</button>
                                     <p className="p-0 mx-2 mt-3 h1 w-50" key={index}>{track.strTrack}</p>
                                 </div>
                                 <hr/>
