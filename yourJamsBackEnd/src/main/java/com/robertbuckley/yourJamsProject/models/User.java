@@ -65,7 +65,6 @@ public class User {
 			)
 	private List<Artist> artists;
 
-
 	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(
 			name= "album_user",
@@ -182,7 +181,7 @@ public class User {
 		public void setArtists(List<Artist> artists) {
 			this.artists = artists;
 		}
-
+//		@JsonManagedReference
 		public List<Post> getPosts() {
 			return posts;
 		}
@@ -190,7 +189,7 @@ public class User {
 		public void setPosts(List<Post> posts) {
 			this.posts = posts;
 		}
-
+//		@JsonManagedReference
 		public List<Album> getAlbum() {
 			return album;
 		}
@@ -198,7 +197,7 @@ public class User {
 		public void setAlbum(List<Album> album) {
 			this.album = album;
 		}
-
+//		@JsonManagedReference
 		public List<Track> getTracks() {
 			return tracks;
 		}

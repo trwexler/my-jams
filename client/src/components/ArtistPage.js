@@ -14,6 +14,7 @@ import 'simplebar/dist/simplebar.min.css';
 const ArtistPage = (props)=>{
 
     const {artistId} = props;
+
     const [albumId, setAlbumId] = useState("");
     const {user, setUser, userEmail, id, setId } = props;
 
@@ -29,6 +30,7 @@ const ArtistPage = (props)=>{
 
     const[albums, setAlbums] = useState([{
         artist: "",
+        albumId: "",
         title: "",
         tracks: [],
         albumId: "",
@@ -37,6 +39,7 @@ const ArtistPage = (props)=>{
     const[tracks,setTracks] = useState([{
         artist: "",
         album: "",
+        trackId: "",
         title: "",
         trackId: "",
     }]);
@@ -134,6 +137,7 @@ const ArtistPage = (props)=>{
             console.log(err);
         })
     })
+
 
 
     const addAlbumHandler = ((e)=>{

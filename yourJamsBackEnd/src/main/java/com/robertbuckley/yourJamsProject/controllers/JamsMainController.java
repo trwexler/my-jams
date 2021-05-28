@@ -2,7 +2,9 @@ package com.robertbuckley.yourJamsProject.controllers;
 
 import java.util.List;
 
+
 import javax.validation.Valid;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,7 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.robertbuckley.yourJamsProject.models.Album;
 import com.robertbuckley.yourJamsProject.models.Artist;
+
 import com.robertbuckley.yourJamsProject.models.Post;
+
 import com.robertbuckley.yourJamsProject.models.Track;
 import com.robertbuckley.yourJamsProject.models.User;
 import com.robertbuckley.yourJamsProject.repositories.ArtistRepository;
@@ -64,6 +68,7 @@ public class JamsMainController {
 				jServ.likeArtist(currentUser, thisArtist);
 				System.out.println(" hit the else statement ");
 				return null;
+
 			}
 		
 		return null;
@@ -157,12 +162,3 @@ public class JamsMainController {
 //	}
 }
 
-
-		
-//	}
-//		String userEmail = user.getEmail();
-//		System.out.println(userEmail);
-//		User currentUser = this.uServ.findByEmail(userEmail);
-//		System.out.println(currentUser);
-//		Artist currentArtist = this.jServ.findArtistById(id);
-//		this.jServ.likeArtist(currentUser, currentArtist);
