@@ -129,11 +129,10 @@ const Profile = (props) =>{
 
                         {
                             artists.map((item, index)=>(
-                                <img key={index} src={item.artistImg} alt="" />
+                                <img key={index} src={item.artistImg} className="m-2" alt="" />
                             ))
                         }
 
-                        <button onClick={()=>navigate(`/edit/${props.currentId}`)} className="btn" style={{opacity:"0.9", marginTop:"15px"}}>Edit</button>
                     </div>
 
                     <div className="md:w-1/2 md:mx-auto 
@@ -143,12 +142,12 @@ const Profile = (props) =>{
                         <hr/>
                             {
                                 albums.map((item, index)=>(
-                                <img src={item.albumImg} alt="" />
+                                <img src={item.albumImg} style={{width:"20%", margin:"5px"}} alt="" />
                                 ))
                             }
                     
                         {/* <p>{userProfile.albums}</p> */}
-                        <button onClick={()=>navigate(`/edit/${props.currentId}`)} className="btn" style={{opacity:"0.9", marginTop:"15px"}}>Edit</button>
+                        
                     </div>
 
 
@@ -156,16 +155,19 @@ const Profile = (props) =>{
                     sm:w-4/5 sm:mx-auto bg-white w-5/6 
                     border mx-auto p-4 my-3 rounded shadow" style={{background: "linear-gradient(90deg, rgba(129,255,0,1) 0%, rgba(100,255,230,1) 60%)"}}>
                         <h3 className="text-left text-2xl pb-3" style={{fontFamily:"Bangers, cursive", fontSize:"50px", color:"black"}}>Your Tracks</h3>
-                        <hr/>
+
 
                         {
                                 trackList.map((track, index)=>(
-                                <p>{track.trackName}</p> 
+                                    <div key={index} className="w-25 mx-auto">
+                                        <p style={{fontSize:"30px"}}>{track.trackName}</p> 
+                                        <hr />
+                                    </div>
+                                
                                 ))
                         }
                     
-                        {/* <p>{userProfile.tracks}</p> */}
-                        <button onClick={()=>navigate(`/edit/${props.currentId}`)} className="btn" style={{opacity:"0.9", marginTop:"15px"}}>Edit</button>
+
                     </div>
 
                 </div> 

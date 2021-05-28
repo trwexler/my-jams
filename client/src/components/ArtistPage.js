@@ -195,7 +195,6 @@ const ArtistPage = (props)=>{
                     </p>
                     </SimpleBar>
 
-
                 </div>
                 
 
