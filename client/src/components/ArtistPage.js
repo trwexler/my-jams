@@ -144,7 +144,7 @@ const ArtistPage = (props)=>{
     return(
         <div style={{overflow:"hidden"}}>
             <Header id={user.id} user={user} userEmail={userEmail}/>
-                <div className="" style={{background: "linear-gradient(167deg, rgba(129,255,0,1) 0%, rgba(100,255,230,1) 60%)"}}>
+                <div className="" style={{background: "linear-gradient(167deg, rgba(129,255,0,1) 0%, rgba(100,255,230,1) 60%)", paddingBottom:"30px"}}>
 
                     <div d-flex>
                         <h1 className="d-inline mx-2" style={{verticalAlign:"middle"}}>
@@ -171,7 +171,7 @@ const ArtistPage = (props)=>{
                     </SimpleBar> */}
 
                     <SimpleBar style={{ maxHeight: "200px" }}>
-                    <p className="w-75 w-sm-50 mx-auto my-4">
+                    <p className="w-75 w-sm-50 mx-auto my-4" style={{color:"black"}}>
                     {artist.bio}
                     </p>
                     </SimpleBar>
@@ -241,13 +241,13 @@ const ArtistPage = (props)=>{
 
                 </div> */}
 
-                <div className="row" >
+                <div className="row" style={{background:"black"}}>
                     {
                         albums?
                         
                         albums.map((album, index)=>(
                             <div key={index} className="mx-auto col-md-4 my-3 position-relative">
-                                <p style={{height:"30px"}} className="overflow-hidden">{album.strAlbum}</p>
+                                <p style={{height:"30px", fontSize:"20px"}} className="overflow-hidden">{album.strAlbum}</p>
 
                                 {/* Renders based on availability of album art */}
 
