@@ -64,9 +64,9 @@ const Register = (props) => {
     <div style={{background: "linear-gradient(167deg, rgba(129,255,0,1) 0%, rgba(100,255,230,1) 60%)"}}>
       <Header />
       {confirmReg ? <h4>{confirmReg}</h4> : null}
-      <h1 className="navbar-brand"style={{fontFamily:"Bangers, cursive", fontSize:"70px", marginBottom:"0", marginTop:"30px"}}>My Jams</h1>
+      <h1 className="navbar-brand" style={{fontFamily:"Bangers, cursive", fontSize:"70px", marginBottom:"0", marginTop:"30px", color:"black"}}>My Jams</h1>
       <div class="top-content">
-        <div class="inner-bg">
+        <div class="inner-bg" style={{paddingTop:"20px"}}>
           <div class="container">
             <div class="row">
               <div class="col-sm-5">

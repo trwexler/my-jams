@@ -79,29 +79,30 @@ const Feed = (props)=>{
 
 
             <Header user={user} id={user.id}/>
+            <h1 style={{fontFamily:"Bangers, cursive", fontSize:"50px", color:"black", marginBottom:"0", background: "linear-gradient(90deg, rgba(129,255,0,1) 0%, rgba(100,255,230,1) 60%)"}}>My Feed</h1>
 
 
-            <form onSubmit={submitHandler}>
-                <label className="m-2">What are you listening to?</label>
+            <form onSubmit={submitHandler} style={{background: "linear-gradient(90deg, rgba(129,255,0,1) 0%, rgba(100,255,230,1) 60%)"}}>
+                <label className="m-2" style={{color:"black", fontSize:"20px"}}>What are you listening to?</label>
                 <input onChange={handleChange} type="text" value={newRecommends.artistName} name="artistName" className="border"/>
 
-                <label className="m-2">Recommendation</label>
+                <label className="m-2" style={{color:"black", fontSize:"20px"}}>Recommendation</label>
                 <input onChange={handleChange} type="text" value={newRecommends.content} name="content" className="border"/>
 
                 <br/>
-                <button className="mx-auto my-3 p-3 rounded shadow-md w-24 hover:bg-blue-100">Post</button>
+                <button className="btn" style={{opacity:"0.9", marginTop:"10px", marginBottom:"15px"}}>Post</button>
             </form>
 
             <div className="flex flex-col-reverse">
 
                 {
                     recommends.map((recommend, index)=>(
-                        <div key={index} className="border">
-                            <p>{recommend.userName} recommends {recommend.artistName}</p>
+                        <div key={index} className="border" style={{background: "linear-gradient(90deg, rgba(129,255,0,1) 0%, rgba(100,255,230,1) 60%)"}}>
+                            <p style={{color:"black", fontSize:"20px"}}>{recommend.userName} recommends {recommend.artistName}</p>
                             
                             <img src={recommend.artistImg} alt="" />
-                            <p>{recommend.userName}'s review:</p> 
-                            <p>{recommend.content}</p>
+                            <p style={{color:"black", fontSize:"20px"}}>{recommend.userName}'s review:</p> 
+                            <p style={{color:"black", fontSize:"16px"}}>{recommend.content}</p>
                         </div>
                     ))
                 }

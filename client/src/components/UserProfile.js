@@ -107,11 +107,11 @@ const Profile = (props) =>{
 
 
     return(
-        <div>
+        <div style={{background:"black"}}>
             <Header user={user} id={user.id} />
-                <div>
-                    <div className="bg-white shadow mx-auto">
-                        <h2 className="text-2xl p-3 font-mono">
+                <div style={{background:"black"}}>
+                    <div className="bg-white shadow mx-auto" style={{background: "linear-gradient(338deg, rgba(255,0,164,1) 0%, rgba(50,247,255,1) 88%)"}}>
+                        <h2 className="text-2xl p-3 font-mono" style={{fontFamily:"Bangers, cursive", fontSize:"70px", color:"black"}}>
                         {user.userName}'s Jams
                         </h2>
                         {/* would be a prof pic */}
@@ -129,8 +129,8 @@ const Profile = (props) =>{
                     
                     <div className="md:w-1/2 md:mx-auto 
                     sm:w-4/5 sm:mx-auto bg-white w-5/6 
-                    border mx-auto p-4 my-3 rounded shadow">
-                        <h3 className="text-left text-2xl pb-3">Your Artists</h3>
+                    border mx-auto p-4 my-3 rounded shadow" style={{background: "linear-gradient(90deg, rgba(129,255,0,1) 0%, rgba(100,255,230,1) 60%)"}}>
+                        <h3 className="text-left text-2xl pb-3" style={{fontFamily:"Bangers, cursive", fontSize:"50px", color:"black"}}>Your Artists</h3>
                         <hr/>
 
                         {
@@ -146,13 +146,13 @@ const Profile = (props) =>{
                         
                     
                         
-                        <button onClick={()=>navigate(`/edit/${props.currentId}`)}>Edit</button>
+                        <button onClick={()=>navigate(`/edit/${props.currentId}`)} className="btn" style={{opacity:"0.9", marginTop:"15px"}}>Edit</button>
                     </div>
 
                     <div className="md:w-1/2 md:mx-auto 
                     sm:w-4/5 sm:mx-auto bg-white w-5/6 
-                    border mx-auto p-4 my-3 rounded shadow">
-                        <h3 className="text-left text-2xl pb-3">Your Albums</h3>
+                    border mx-auto p-4 my-3 rounded shadow" style={{background: "linear-gradient(90deg, rgba(255,0,164,1) 0%, rgba(50,247,255,1) 88%)"}}>
+                        <h3 className="text-left text-2xl pb-3" style={{fontFamily:"Bangers, cursive", fontSize:"50px", color:"black"}}>Your Albums</h3>
                         <hr/>
                             {
                                 albums.map((item, index)=>(
@@ -161,18 +161,18 @@ const Profile = (props) =>{
                             }
                     
                         {/* <p>{userProfile.albums}</p> */}
-                        <button onClick={()=>navigate(`/edit/${props.currentId}`)}>Edit</button>
+                        <button onClick={()=>navigate(`/edit/${props.currentId}`)} className="btn" style={{opacity:"0.9", marginTop:"15px"}}>Edit</button>
                     </div>
 
 
                     <div className="md:w-1/2 md:mx-auto 
                     sm:w-4/5 sm:mx-auto bg-white w-5/6 
-                    border mx-auto p-4 my-3 rounded shadow">
-                        <h3 className="text-left text-2xl pb-3">Your Tracks</h3>
+                    border mx-auto p-4 my-3 rounded shadow" style={{background: "linear-gradient(90deg, rgba(129,255,0,1) 0%, rgba(100,255,230,1) 60%)"}}>
+                        <h3 className="text-left text-2xl pb-3" style={{fontFamily:"Bangers, cursive", fontSize:"50px", color:"black"}}>Your Tracks</h3>
                         <hr/>
                     
                         {/* <p>{userProfile.tracks}</p> */}
-                        <button onClick={()=>navigate(`/edit/${props.currentId}`)}>Edit</button>
+                        <button onClick={()=>navigate(`/edit/${props.currentId}`)} className="btn" style={{opacity:"0.9", marginTop:"15px"}}>Edit</button>
                     </div>
 
 
@@ -183,11 +183,11 @@ const Profile = (props) =>{
             
 
             {/* COMMENT FORM */}
-            <form>
+            <form style={{background: "linear-gradient(338deg, rgba(255,0,164,1) 0%, rgba(50,247,255,1) 88%)"}}>
 
                 {
                 props.profileId == props.currentId ?
-                <label className="m-2 text-2xl">
+                <label className="m-2 text-2xl" style={{fontFamily:"Bangers, cursive", fontSize:"30px", color:"black", paddingTop:"20px"}}>
                 Share your latest with us!
                 </label>
                 :
@@ -201,8 +201,7 @@ const Profile = (props) =>{
                 <input className="mt-5" 
                 type="text" name="content"/>
                 <br/>
-                <button className="mx-auto my-3 
-                p-3 rounded shadow-md w-24">
+                <button className="btn" style={{opacity:"0.9", marginTop:"15px"}}>
                 Post
                 </button>
 

@@ -59,6 +59,45 @@ const Landing = (props) => {
   let settings = {
     dots: true,
     infinite: true,
+    speed: 600,
+    slidesToShow: 7,
+    slidesToScroll: 1,
+    initialSlide: 0,
+    autoplay: true,
+    draggable: true,
+    swipe: true,
+    swipeToSlide: true,
+
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
+  let settings2 = {
+    dots: true,
+    infinite: true,
     speed: 1000,
     slidesToShow: 5,
     slidesToScroll: 1,
@@ -97,14 +136,61 @@ const Landing = (props) => {
   };
 
   return (
-    <div style={{background: "linear-gradient(167deg, rgba(129,255,0,1) 0%, rgba(100,255,230,1) 60%)"}}>
+    <div style={{background: "linear-gradient(90deg, rgba(129,255,0,1) 0%, rgba(100,255,230,1) 60%)"}}>
       <Header id={user.id} user={user} />
 
- 
-        <h1 style={{fontFamily:"Bangers, cursive", fontSize:"50px"}}>My Jams</h1>
-   
+    
+        {/* <h1 style={{fontFamily:"Bangers, cursive", fontSize:"70px", color:"black", marginTop:"20px"}}>
+          My Jams</h1> */}
+   <div>
+      <div style={{
+        background: "linear-gradient(338deg, rgba(255,0,164,1) 0%, rgba(50,247,255,1) 88%)",
+    }}>
+      <Link to={`/user/undefined`} className="nav-link">
+      <h2 style={{fontFamily:"Bangers, cursive", fontSize:"50px", color:"black", marginTop:"10px"}}>
+        Your Jams</h2>
+      </Link>
+     <Slider {...settings2}>
 
-      <h1>Explore</h1>
+{
+items.slice(0, size).map((item, index) => (
+
+  <div key={index}>
+  {
+    item.strTrackThumb ?
+
+  <div>
+      <img src={item.strTrackThumb} />
+
+    <Link to={`/artist/${item.idArtist}/${user.id}`} style={{color:"blue", fontSize:"20px"}}>{item.strArtist}</Link>
+  </div>
+
+  :
+
+  <div>
+    <img src={"https://images.8tracks.com/cover/i/000/471/318/record-7500.jpg?rect=0,0,1385,1385&q=98&fm=jpg&fit=max&w=1024&h=1024"} />
+
+      <Link to={`/artist/${item.idArtist}/${user.id}`} style={{color:"blue", fontSize:"20px"}}>{item.strArtist}</Link>
+  </div>
+
+  }
+  </div>
+))}
+
+</Slider>
+
+      </div>
+
+      {/* <div style={{
+        background: "linear-gradient(338deg, rgba(255,0,164,1) 0%, rgba(50,247,255,1) 88%)",
+
+    }}>
+      <h2 style={{fontFamily:"Bangers, cursive", fontSize:"50px", color:"black", marginTop:"20px"}}>Your Feed</h2>
+
+      </div> */}
+      </div>
+
+      <h1 style={{fontFamily:"Bangers, cursive", fontSize:"50px",color:"black", marginTop:"30px"}}>Explore</h1>
       {user.email}
 
       {
@@ -119,7 +205,7 @@ const Landing = (props) => {
 
             <div className="container-fluid" >
               <div className="row title" style={{ marginBottom: "20px" }}>
-                <div class="col-sm-12">Most Loved Artists</div>
+                <div class="col-sm-12" style={{color:"black", fontSize:"20px"}}>Most Loved Artists</div>
               </div>
             </div>
 
