@@ -9,6 +9,6 @@ import com.robertbuckley.yourJamsProject.models.Track;
 
 public interface TrackRepository extends CrudRepository<Track, Long>{
 	List<Track> findAll();
-	Track findByTrackId(Long trackId);
-	boolean existsByTrackId(Long trackId);
+	Track findByTrackName(String trackName);
+	boolean existsByTrackName(String trackName);
 }

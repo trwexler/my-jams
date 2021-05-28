@@ -57,7 +57,6 @@ public class User {
 	private Date createdAt;
 	private Date updatedAt;
 
-	@JsonManagedReference
 	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(
 			name= "artist_user",
@@ -65,8 +64,7 @@ public class User {
 			inverseJoinColumns = @JoinColumn(name="artist_id")
 			)
 	private List<Artist> artists;
-	
-	@JsonManagedReference
+
 	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(
 			name= "album_user",
@@ -75,8 +73,7 @@ public class User {
 			)
 	
 	private List<Album> album;
-	
-	@JsonManagedReference
+
 	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(
 			name= "track_user",

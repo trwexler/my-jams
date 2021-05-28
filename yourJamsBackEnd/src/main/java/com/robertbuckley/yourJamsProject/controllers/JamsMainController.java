@@ -2,15 +2,23 @@ package com.robertbuckley.yourJamsProject.controllers;
 
 import java.util.List;
 
+
+import javax.validation.Valid;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.robertbuckley.yourJamsProject.models.Album;
 import com.robertbuckley.yourJamsProject.models.Artist;
+
+import com.robertbuckley.yourJamsProject.models.Post;
+
 import com.robertbuckley.yourJamsProject.models.Track;
 import com.robertbuckley.yourJamsProject.models.User;
 import com.robertbuckley.yourJamsProject.repositories.ArtistRepository;
@@ -60,6 +68,7 @@ public class JamsMainController {
 				jServ.likeArtist(currentUser, thisArtist);
 				System.out.println(" hit the else statement ");
 				return null;
+
 			}
 		
 		return null;
@@ -68,7 +77,7 @@ public class JamsMainController {
 	@PostMapping("/likeAlbum/{userId}/{albumId}")
 	public Long likeAlbum(@PathVariable("userId")Long userId, @PathVariable("albumId")Long albumId, @ModelAttribute("album")Album album) {
 		System.out.println("current user " + userId);
-		System.out.println("current artist " + albumId);
+		System.out.println("current album " + albumId);
 		User currentUser = this.uServ.findUserById(userId);
 		List<Album> getAlbums = currentUser.getAlbum();
 		if(!this.jServ.doesAlbumExist(albumId)) {
@@ -90,13 +99,13 @@ public class JamsMainController {
 		return null;
 	}
 	
-	@PostMapping("/likeTrack/{userId}/{trackId}")
-	public Long likeTrack(@PathVariable("userId")Long userId, @PathVariable("trackId")Long trackId, @ModelAttribute("track")Track track) {
+	@PostMapping("/likeTrack/{userId}/{trackName}")
+	public Long likeTrack(@PathVariable("userId")Long userId, @PathVariable("trackName")String trackName, @ModelAttribute("track")Track track) {
 		System.out.println("current user " + userId);
-		System.out.println("current artist " + trackId);
+		System.out.println("current track " + trackName);
 		User currentUser = this.uServ.findUserById(userId);
 		List<Track> getTracks = currentUser.getTracks();
-		if(!this.jServ.doesTrackExist(trackId)) {
+		if(!this.jServ.doesTrackExist(trackName)) {
 			System.out.println("hit the if statement");
 			Track thisTrack = this.jServ.createTrack(track);
 			System.out.println(thisTrack.getId());
@@ -105,7 +114,7 @@ public class JamsMainController {
 				System.out.println(currentUser.getTracks());
 				System.out.println(" hit the second if statement " + track);
 			} else {
-				Track thisTrack = this.jServ.findByTrackId(trackId);
+				Track thisTrack = this.jServ.findByTrackName(trackName);
 				System.out.println("hit the else statement" + thisTrack);
 				jServ.likeTrack(currentUser, thisTrack);
 				System.out.println(" hit the else statement ");
@@ -114,5 +123,42 @@ public class JamsMainController {
 		
 		return null;
 	}
+	
+	@PostMapping("/unLikeArtist/{userId}/{artistId}")
+	public String unLikeArtist(@PathVariable("userId")Long userId, @PathVariable("artistId")Long artistId, @ModelAttribute("artist")Artist artist) {
+		User currentUser = this.uServ.findUserById(userId);
+		Artist currentArtist = this.jServ.findByArtistId(artistId);
+		this.jServ.unLikeArtist(currentUser, currentArtist);
+		return null;
+	}
+	
+	@PostMapping("/unLikeAlbum/{userId}/{albumId}")
+	public String unLikeArtist(@PathVariable("userId")Long userId, @PathVariable("albumId")Long albumId, @ModelAttribute("album")Album album) {
+		User currentUser = this.uServ.findUserById(userId);
+		Album currentAlbum = this.jServ.findByAlbumId(albumId);
+		this.jServ.unLikeAlbum(currentUser, currentAlbum);
+		return null;
+	}
+	
+	@PostMapping("/unLikeTrack/{userId}/{trackName}")
+	public String unLikeTrack(@PathVariable("userId")Long userId, @PathVariable("trackName")String trackName, @ModelAttribute("track")Track track) {
+		User currentUser = this.uServ.findUserById(userId);
+		Track currentTrack = this.jServ.findByTrackName(trackName);
+		this.jServ.unLikeTrack(currentUser, currentTrack);
+		return null;
+	}
+	
+//	@PostMapping("/addPost/{userId}")
+//	public String addPost(@Valid @RequestBody Post post, @PathVariable("userid")Long userId) {
+//		System.out.println(userId);
+//		this.jServ.createPost(post);
+//		return null;
+//	}
+//	
+//	@PostMapping("/deletePost/{userId}")
+//	public String deletePost(@PathVariable("id")Long id) {
+//		jServ.deletePost(id);
+//		return null;
+//	}
 }
 

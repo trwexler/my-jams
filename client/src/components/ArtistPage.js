@@ -14,19 +14,16 @@ import 'simplebar/dist/simplebar.min.css';
 const ArtistPage = (props)=>{
 
     const {artistId} = props;
-    const {albumId} = props;
-    const {trackId} = props;
+
+    const [albumId, setAlbumId] = useState("");
     const {user, setUser, userEmail, id, setId } = props;
 
 
     //will be added from landing page
     // const{artist, artistId} = props;
 
-
-
     const[artist, setArtist] = useState({
         name: "",
-        artistId: "",
         bio:"",
         artistId: "", //will be props.artistId 
     });
@@ -46,8 +43,6 @@ const ArtistPage = (props)=>{
         title: "",
         trackId: "",
     }]);
-
-
 
      //gets artist
     useEffect(()=>{
@@ -117,7 +112,6 @@ const ArtistPage = (props)=>{
         .catch((err)=>{
             console.log(err);
         })
-
     }
 
     // when trackList "x" is clicked, the tracklist closes.
@@ -144,26 +138,12 @@ const ArtistPage = (props)=>{
         })
     })
 
-    const albumAddHandler = ((e)=>{
-        axios.post(`http://localhost:8080/likeAlbum/${user.id}/${albumId}`, {
-            userid: user.id,
-            albumId
-        })
-        .then((res)=>{
-            console.log(res);
-            // setUser({...user,
-            //     [e.target.name]: e.target.value
-            // })
-        })
-        .catch((err)=>{
-            console.log(err);
-        })
-    })
 
-    const trackAddHandler = ((e)=>{
-        axios.post(`http://localhost:8080/likeTrack/${user.id}/${trackId}`, {
+
+    const addAlbumHandler = ((e)=>{
+        axios.post(`http://localhost:8080/likeAlbum/${user.id}/${e.target.value}`, {
             userid: user.id,
-            trackId
+            albumId: e.target.value
         })
         .then((res)=>{
             console.log(res);
@@ -177,10 +157,26 @@ const ArtistPage = (props)=>{
     })
     
 
+    const addTrackHandler = ((e)=>{
+        axios.post(`http://localhost:8080/likeTrack/${user.id}/${e.target.value}`, {
+            userid: user.id,
+            trackName: e.target.value
+        })
+        .then((res)=>{
+            console.log(res);
+            // setUser({...user,
+            //     [e.target.name]: e.target.value
+            // })
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+    })
+
     return(
         <div style={{overflow:"hidden"}}>
             <Header id={user.id} user={user} userEmail={userEmail}/>
-                <div className="" style={{background: "linear-gradient(167deg, rgba(129,255,0,1) 0%, rgba(100,255,230,1) 60%)"}}>
+                <div className="" style={{background: "linear-gradient(167deg, rgba(129,255,0,1) 0%, rgba(100,255,230,1) 60%)", paddingBottom:"30px"}}>
 
                     <div d-flex>
                         <h1 className="d-inline mx-2" style={{verticalAlign:"middle"}}>
@@ -197,41 +193,16 @@ const ArtistPage = (props)=>{
                         </button>
                     </div>
 
-
-                    {/* <p data-simplebar style={{height:"200px", overflow:"scroll"}} 
-                    className="w-75 w-sm-50 mx-auto my-4">{artist.bio}</p> */}
-{/* 
-                    <SimpleBar data-simplebar style={{ height: '300px' }}>
-                    <p  style={{height:"200px", overflow:"scroll"}} 
-                    className="w-75 w-sm-50 mx-auto my-4">{artist.bio}</p>
-                    </SimpleBar> */}
-
                     <SimpleBar style={{ maxHeight: "200px" }}>
-                    <p className="w-75 w-sm-50 mx-auto my-4">
+                    <p className="w-75 w-sm-50 mx-auto my-4" style={{color:"black"}}>
                     {artist.bio}
                     </p>
                     </SimpleBar>
-
 
                 </div>
                 
 
 
-{/* 
-            <div id="tracksList" className="d-none">
-            <button className="btn btn-primary btn-sm" onClick={closeTrack}>x</button>
-            
-            {
-                tracks.map((track,index)=>(
-                    <div className=" mx-auto d-flex">
-                        <div className="d-flex mx-auto w-25">
-                            <button className="btn btn-primary btn-sm m-2">+</button>
-                            <p className="p-0 mx-2" key={index}>{track.strTrack}</p>
-                        </div>
-                    </div>
-                ))
-            }
-            </div> */}
 
 
 
@@ -247,7 +218,7 @@ const ArtistPage = (props)=>{
                         tracks.map((track,index)=>(
                             <div key={index} className="mx-auto w-100">
                                 <div className="d-flex mx-auto justify-content-center">
-                                    <button onClick={trackAddHandler} name="tracks" value={track.strTrack} className="btn btn-primary btn-sm m-2">add</button>
+                                    <button onClick={addTrackHandler} name="tracks" value={track.strTrack} className="btn btn-primary btn-sm m-2">add</button>
                                     <p className="p-0 mx-2 mt-3 h1 w-50" key={index}>{track.strTrack}</p>
                                 </div>
                                 <hr/>
@@ -257,39 +228,19 @@ const ArtistPage = (props)=>{
 
                 </div>
                 </SimpleBar>
-                {/* <div id="tracksList" 
-                className="d-none mx-auto .bg-dark position-fixed" 
-                style={{width:"90vw", backgroundColor:"black", opacity:".9", zIndex:"100", top:"0px", bottom:"0px", right:"0px", left:"0px", overflowY:"scroll", textAlign:"left"}}>
 
-                    <button className="btn btn-primary position-fixed btn-sm" onClick={closeTrack}>close</button>
-                    
-                    {
-                        tracks.map((track,index)=>(
-                            <div key={index} className="mx-auto w-100">
-                                <div className="d-flex mx-auto justify-content-center">
-                                    <button onClick={addHandler} name="tracks" value={track.strTrack} className="btn btn-primary btn-sm m-2">add</button>
-                                    <p className="p-0 mx-2 mt-3 h1 w-50" key={index}>{track.strTrack}</p>
-                                </div>
-                                <hr/>
-                            </div>
-                        ))
-                    }
 
-                </div> */}
-
-                <div className="row" >
+                <div className="row" style={{background:"black"}}>
                     {
                         albums?
                         
                         albums.map((album, index)=>(
                             <div key={index} className="mx-auto col-md-4 my-3 position-relative">
-                                <p style={{height:"30px"}} className="overflow-hidden">{album.strAlbum}</p>
+                                <p style={{height:"30px", fontSize:"20px"}} className="overflow-hidden">{album.strAlbum}</p>
 
                                 {/* Renders based on availability of album art */}
 
-
                                 {
-
                                     album.strAlbumThumb?
 
                                     <div>
@@ -302,8 +253,8 @@ const ArtistPage = (props)=>{
 
                                         <button  style={{position:"absolute", transform:"translate(-50%, -3%)", top:"50%", left:"50%", borderRadius:"50%", fontSize:"20px", opacity:"0.8"}}
                                         name="albums" 
-                                        value={album.strAlbum} className="btn"
-                                        onClick={albumAddHandler}>
+                                        value={album.idAlbum} className="btn"
+                                        onClick={addAlbumHandler}>
                                         +
                                         </button>
 
@@ -319,8 +270,8 @@ const ArtistPage = (props)=>{
 
                                         <button  style={{position:"absolute", transform:"translate(-50%, -3%)", top:"50%", left:"50%", borderRadius:"50%", fontSize:"20px", opacity:"0.8"}}
                                         name="albums" 
-                                        value={album.strAlbum} className="btn"
-                                        onClick={albumAddHandler}>
+                                        value={album.idAlbum} className="btn"
+                                        onClick={addAlbumHandler}>
                                         +
                                         </button>
 

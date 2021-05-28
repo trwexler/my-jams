@@ -26,7 +26,7 @@ public class Album {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
-	@NotBlank
+//	@NotBlank
 	private Long albumId;
 	@Column(updatable=false)
 	private Date createdAt;
@@ -95,6 +95,8 @@ public class Album {
 		this.albumId = albumId;
 	}
 	
+	@JsonBackReference
+
 	public List<User> getAlbumLiked() {
 		return albumLiked;
 	}

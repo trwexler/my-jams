@@ -16,7 +16,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -35,18 +36,13 @@ public class Artist {
 	private Date createdAt;
 	private Date updatedAt;
 	
-//	@JsonIgnore
-	@JsonBackReference
-	@ManyToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(
 			name= "artist_user",
 			joinColumns = @JoinColumn(name="artist_id"),
 			inverseJoinColumns = @JoinColumn(name="user_id")
 			)
 	private List<User> artistLiked;
-	
-//	@OneToMany(mappedBy="artist", fetch=FetchType.LAZY)
-//	private List<Album> albums;
 	
 	@PrePersist
 	protected void onCreate() {
@@ -94,7 +90,7 @@ public class Artist {
 		this.artistId = artistId;
 	}
 	
-//	@JsonBackReference
+	@JsonBackReference
 	public List<User> getArtistLiked() {
 		return artistLiked;
 	}

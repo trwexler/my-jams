@@ -28,7 +28,7 @@ public class Track {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	@NotBlank
-	private Long trackId;
+	private String trackName;
 	@Column(updatable=false)
 	private Date createdAt;
 	private Date updatedAt;
@@ -84,15 +84,16 @@ public class Track {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-
-	public Long getTrackId() {
-		return trackId;
-	}
-
-	public void setTrackId(Long trackId) {
-		this.trackId = trackId;
-	}
 	
+	public String getTrackName() {
+		return trackName;
+	}
+
+	public void setTrackName(String trackName) {
+		this.trackName = trackName;
+	}
+
+	@JsonBackReference
 	public List<User> getTrackLiked() {
 		return trackLiked;
 	}
