@@ -67,13 +67,15 @@ const Profile = (props) =>{
                         albumId: res.data.album[0].idAlbum,
                         albumImg: res.data.album[0].strAlbumThumb,
                     });
-                    setAlbums([...albumArr,
-                        {
-                            albumName:res.data.album[0].strAlbum,
-                            albumId: res.data.album[0].idAlbum,
-                            albumImg: res.data.album[0].strAlbumThumb,
-                        }
-                    ]);
+                    setAlbums(albumArr);
+                    // setAlbums([...albumArr,
+                    //     {
+                    //         albumName:res.data.album[0].strAlbum,
+                    //         albumId: res.data.album[0].idAlbum,
+                    //         albumImg: res.data.album[0].strAlbumThumb,
+                    //     }
+                    // ]);
+                    // setAlbums([...albumArr]);
                 })
                 .catch((err)=>{
                     console.log(err);
@@ -98,13 +100,7 @@ const Profile = (props) =>{
                         artistId: res.data.artists[0].idArtist,
                         artistImg: res.data.artists[0].strArtistBanner,
                     });
-                    setArtists([...artistArr,
-                        {
-                            artistName:res.data.artists[0].strArtistBanner,
-                            artistId: res.data.artists[0].idArtist,
-                            artistImg: res.data.artists[0].strArtistBanner,
-                        }
-                    ]);
+                    setArtists(artistArr);
                 })
                 .catch((err)=>{
                     console.log(err);
