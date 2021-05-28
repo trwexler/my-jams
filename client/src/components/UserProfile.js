@@ -14,12 +14,19 @@ const Profile = (props) =>{
     const {user, setUser, userEmail} = props;
     const [userProfile, setUserProfile] = useState({});
     const [artistList, setArtistList] = useState([]);
+    const [albumList, setAlbumList] = useState([]);
+
     const [artists, setArtists] = useState([{
         artistName:"",
         artistId:"",
         artistImg:""
     }]);
-    const [albums, setAlbums] = useState([]);
+
+    const [albums, setAlbums] = useState([{
+        albumName:"",
+        albumId:"",
+        albumId:""
+    }]);
 
 
     useEffect(()=>{
@@ -36,6 +43,8 @@ const Profile = (props) =>{
                 console.log(res.data);
                 console.log('findart', res.data.artists)
                 setArtistList(res.data.artists);
+                setAlbumList(res.data.album);
+                console.log('resdataalbum',res.data.album);
                 setUser(res.data);
                 console.log("http://localhost:8080/getUser/" + storageRetreiver);
             })
@@ -43,6 +52,34 @@ const Profile = (props) =>{
                 console.log(err);
             })
         }, [])
+
+        useEffect(()=>{
+            let albumArr = [];
+            for(let i = 0; i<albumList.length; i++){
+                axios.get(`https://theaudiodb.com/api/v1/json/1/album.php?m=${albumList[i].albumId}`)
+                .then((res)=>{
+                    console.log(res.data);
+                    // console.log(artists[i]);
+                    // artistArr.push(artists[i]);
+                    albumArr.push({
+                        albumName:res.data.album[0].strAlbum,
+                        albumId: res.data.album[0].idAlbum,
+                        albumImg: res.data.album[0].strAlbumThumb,
+                    });
+                    setAlbums([...albumArr,
+                        {
+                            albumName:res.data.album[0].strAlbum,
+                            albumId: res.data.album[0].idAlbum,
+                            albumImg: res.data.album[0].strAlbumThumb,
+                        }
+                    ]);
+                })
+                .catch((err)=>{
+                    console.log(err);
+                })
+            }
+        },[user])
+
 
 
 
@@ -52,7 +89,7 @@ const Profile = (props) =>{
             for(let i = 0; i<artistList.length; i++){
                 axios.get(`https://theaudiodb.com/api/v1/json/523532/artist.php?i=${artistList[i].artistId}`)
                 .then((res)=>{
-                    console.log(res.data.artists[0].strArtistBanner);
+                    console.log(res.data);
                     // console.log(artists[i]);
                     // artistArr.push(artists[i]);
                     artistArr.push({
@@ -75,32 +112,21 @@ const Profile = (props) =>{
         },[user])
 
 
-    // let artistArr = [];
+
+
+
+    // let albumArr = [];
 
     // //for testing
-    // let artistList = [
-    //     112035,
-    //     112034,
-    //     112033,
-    //     112032,
-    //     112031,
-    //     112030,
-    //     112039,
+    // let albumList = [
+    //     2115888,
+    //     2115887,
+    //     2115886,
+    //     2115885,
+    //     2115884,
+    //     2115883,
+    //     2115882,
     // ];
-
-
-    let albumArr = [];
-
-    //for testing
-    let albumList = [
-        2115888,
-        2115887,
-        2115886,
-        2115885,
-        2115884,
-        2115883,
-        2115882,
-    ];
 
 
 
@@ -129,23 +155,23 @@ const Profile = (props) =>{
 
 
 
-
-    useEffect(()=>{
-        for(let i = 0; i<albumList.length; i++){
-            axios.get(`https://theaudiodb.com/api/v1/json/1/album.php?m=${albumList[i]}`)
-            .then((res)=>{
-                // console.log(res.data.album[0]);
-                albumArr.push(res.data.album[0]);
-                setAlbums([albumArr,
-                    res.data.album[0]
-                ]);
-                // console.log(albumArr);
-            })
-            .catch((err)=>{
-                console.log(err);
-            })
-        }
-    },[])
+//practice albums
+    // useEffect(()=>{
+    //     for(let i = 0; i<albumList.length; i++){
+    //         axios.get(`https://theaudiodb.com/api/v1/json/1/album.php?m=${albumList[i]}`)
+    //         .then((res)=>{
+    //             // console.log(res.data.album[0]);
+    //             albumArr.push(res.data.album[0]);
+    //             setAlbums([albumArr,
+    //                 res.data.album[0]
+    //             ]);
+    //             // console.log(albumArr);
+    //         })
+    //         .catch((err)=>{
+    //             console.log(err);
+    //         })
+    //     }
+    // },[])
 
 
 
@@ -200,7 +226,7 @@ const Profile = (props) =>{
                         <hr/>
                             {
                                 albums.map((item, index)=>(
-                                <img src={item.strAlbumThumb} alt="" />
+                                <img src={item.albumImg} alt="" />
                                 ))
                             }
                     
