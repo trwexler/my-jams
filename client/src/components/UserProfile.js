@@ -110,7 +110,7 @@ const Profile = (props) =>{
         <div style={{background:"black"}}>
             <Header user={user} id={user.id} />
                 <div style={{background:"black"}}>
-                    <div className="bg-white shadow mx-auto" style={{background: "linear-gradient(167deg, rgba(129,255,0,1) 0%, rgba(100,255,230,1) 60%)"}}>
+                    <div className="bg-white shadow mx-auto" style={{background: "linear-gradient(338deg, rgba(255,0,164,1) 0%, rgba(50,247,255,1) 88%)"}}>
                         <h2 className="text-2xl p-3 font-mono" style={{fontFamily:"Bangers, cursive", fontSize:"70px", color:"black"}}>
                         {user.userName}'s Jams
                         </h2>
@@ -151,7 +151,7 @@ const Profile = (props) =>{
 
                     <div className="md:w-1/2 md:mx-auto 
                     sm:w-4/5 sm:mx-auto bg-white w-5/6 
-                    border mx-auto p-4 my-3 rounded shadow" style={{background: "linear-gradient(90deg, rgba(129,255,0,1) 0%, rgba(100,255,230,1) 60%)"}}>
+                    border mx-auto p-4 my-3 rounded shadow" style={{background: "linear-gradient(90deg, rgba(255,0,164,1) 0%, rgba(50,247,255,1) 88%)"}}>
                         <h3 className="text-left text-2xl pb-3" style={{fontFamily:"Bangers, cursive", fontSize:"50px", color:"black"}}>Your Albums</h3>
                         <hr/>
                             {
@@ -183,7 +183,7 @@ const Profile = (props) =>{
             
 
             {/* COMMENT FORM */}
-            <form style={{background: "linear-gradient(90deg, rgba(129,255,0,1) 0%, rgba(100,255,230,1) 60%)"}}>
+            <form style={{background: "linear-gradient(338deg, rgba(255,0,164,1) 0%, rgba(50,247,255,1) 88%)"}}>
 
                 {
                 props.profileId == props.currentId ?
