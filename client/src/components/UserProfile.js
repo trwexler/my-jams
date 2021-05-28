@@ -12,9 +12,9 @@ import Edit from '../components/Edit';
 const Profile = (props) =>{
 
     const {user, setUser, userEmail} = props;
-    const [userProfile, setUserProfile] = useState({});
     const [artistList, setArtistList] = useState([]);
     const [albumList, setAlbumList] = useState([]);
+    const [trackList, setTrackList] = useState([]);
 
     const [artists, setArtists] = useState([{
         artistName:"",
@@ -40,10 +40,11 @@ const Profile = (props) =>{
         const storageRetreiver = JSON.parse(json);
         axios.get("http://localhost:8080/getUser/" + storageRetreiver)
             .then((res)=>{
-                console.log(res.data);
+                console.log(res.data.tracks);
                 console.log('findart', res.data.artists)
                 setArtistList(res.data.artists);
                 setAlbumList(res.data.album);
+                setTrackList(res.data.tracks);
                 console.log('resdataalbum',res.data.album);
                 setUser(res.data);
                 console.log("http://localhost:8080/getUser/" + storageRetreiver);
@@ -113,69 +114,6 @@ const Profile = (props) =>{
 
 
 
-
-
-    // let albumArr = [];
-
-    // //for testing
-    // let albumList = [
-    //     2115888,
-    //     2115887,
-    //     2115886,
-    //     2115885,
-    //     2115884,
-    //     2115883,
-    //     2115882,
-    // ];
-
-
-
-
-
-
-
-    // useEffect(()=>{
-    //     for(let i = 0; i<artistList.length; i++){
-    //         axios.get(`https://theaudiodb.com/api/v1/json/523532/artist.php?i=${artistList[i]}`)
-    //         .then((res)=>{
-    //             console.log(res.data.artists[0]);
-    //             artistArr.push(res.data.artists[0]);
-    //             setArtists([...artistArr,
-    //                 res.data.artists[0]
-    //             ]);
-    //             console.log(artistArr);
-    //         })
-    //         .catch((err)=>{
-    //             console.log(err);
-    //         })
-    //     }
-    // },[])
-
-
-
-
-
-//practice albums
-    // useEffect(()=>{
-    //     for(let i = 0; i<albumList.length; i++){
-    //         axios.get(`https://theaudiodb.com/api/v1/json/1/album.php?m=${albumList[i]}`)
-    //         .then((res)=>{
-    //             // console.log(res.data.album[0]);
-    //             albumArr.push(res.data.album[0]);
-    //             setAlbums([albumArr,
-    //                 res.data.album[0]
-    //             ]);
-    //             // console.log(albumArr);
-    //         })
-    //         .catch((err)=>{
-    //             console.log(err);
-    //         })
-    //     }
-    // },[])
-
-
-
-
     return(
         <div style={{background:"black"}}>
             <Header user={user} id={user.id} />
@@ -184,17 +122,7 @@ const Profile = (props) =>{
                         <h2 className="text-2xl p-3 font-mono" style={{fontFamily:"Bangers, cursive", fontSize:"70px", color:"black"}}>
                         {user.userName}'s Jams
                         </h2>
-                        {/* would be a prof pic */}
-                        {/* <div className="rounded h-full
-                        mx-auto py-3 mx-2 mb-4 bg-white">
-                        </div>
-                            <p className="text-sm p-3">
-                            {user.bio}
-                            </p>
-                            <button 
-                            onClick={(e)=>navigate(`/edit/${props.currentId}`)}>
-                            Edit
-                            </button> */}
+
                     </div>
                     
                     <div className="md:w-1/2 md:mx-auto 
@@ -205,17 +133,10 @@ const Profile = (props) =>{
 
                         {
                             artists.map((item, index)=>(
-                                <img src={item.artistImg} alt="" />
+                                <img key={index} src={item.artistImg} alt="" />
                             ))
                         }
 
-                        
-
-
-                        {/* <div>{user.artists}</div> */}
-                        
-                    
-                        
                         <button onClick={()=>navigate(`/edit/${props.currentId}`)} className="btn" style={{opacity:"0.9", marginTop:"15px"}}>Edit</button>
                     </div>
 
@@ -240,13 +161,16 @@ const Profile = (props) =>{
                     border mx-auto p-4 my-3 rounded shadow" style={{background: "linear-gradient(90deg, rgba(129,255,0,1) 0%, rgba(100,255,230,1) 60%)"}}>
                         <h3 className="text-left text-2xl pb-3" style={{fontFamily:"Bangers, cursive", fontSize:"50px", color:"black"}}>Your Tracks</h3>
                         <hr/>
+
+                        {
+                                trackList.map((track, index)=>(
+                                <p>{track.trackName}</p> 
+                                ))
+                        }
                     
                         {/* <p>{userProfile.tracks}</p> */}
                         <button onClick={()=>navigate(`/edit/${props.currentId}`)} className="btn" style={{opacity:"0.9", marginTop:"15px"}}>Edit</button>
                     </div>
-
-
-
 
                 </div> 
                 
