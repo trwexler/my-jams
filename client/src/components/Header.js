@@ -62,11 +62,11 @@ const Header = (props)=>{
         </li>
       </Link>
       
-      <Link to={`/`} className="nav-link">
+      <a href={`/`} className="nav-link">
         <li className="nav-item">
           Logout
         </li>
-      </Link>
+      </a>
       
     </ul>
 
