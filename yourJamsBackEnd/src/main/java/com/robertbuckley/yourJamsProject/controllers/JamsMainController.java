@@ -154,7 +154,7 @@ public class JamsMainController {
 		return jServ.createPost(post);
 	}
 	
-	@PostMapping("/deletePost/{userId}")
+	@PostMapping("/deletePost/{postId}")
 	public String deletePost(@PathVariable("id")Long id) {
 		jServ.deletePost(id);
 		return null;
