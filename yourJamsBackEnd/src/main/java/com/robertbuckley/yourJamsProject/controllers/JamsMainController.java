@@ -148,17 +148,16 @@ public class JamsMainController {
 		return null;
 	}
 	
-//	@PostMapping("/addPost/{userId}")
-//	public String addPost(@Valid @RequestBody Post post, @PathVariable("userid")Long userId) {
-//		System.out.println(userId);
-//		this.jServ.createPost(post);
-//		return null;
-//	}
-//	
-//	@PostMapping("/deletePost/{userId}")
-//	public String deletePost(@PathVariable("id")Long id) {
-//		jServ.deletePost(id);
-//		return null;
-//	}
+	@PostMapping("/addPost/{userId}")
+	public Post addPost(@PathVariable("userId")Long userId, @ModelAttribute("post")Post post) {
+		System.out.println(userId);
+		return jServ.createPost(post);
+	}
+	
+	@PostMapping("/deletePost/{userId}")
+	public String deletePost(@PathVariable("id")Long id) {
+		jServ.deletePost(id);
+		return null;
+	}
 }
 

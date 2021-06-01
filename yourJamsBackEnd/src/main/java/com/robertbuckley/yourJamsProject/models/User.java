@@ -83,6 +83,7 @@ public class User {
 	
 	private List<Track> tracks;
 	
+//	@JsonManagedReference
 	@OneToMany(mappedBy="user", fetch=FetchType.LAZY)
 	private List<Post> posts;
 
