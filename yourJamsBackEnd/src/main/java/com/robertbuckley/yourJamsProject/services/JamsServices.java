@@ -98,6 +98,7 @@ public class JamsServices {
 	
 	public boolean doesTrackExist(String trackName) {
 		return this.tRepo.existsByTrackName(trackName);
+
 	}
 	
 	public Album createAlbum(Album newAlbum) {
@@ -133,6 +134,7 @@ public class JamsServices {
 		List<Track> trackToLike = user.getTracks();
 		trackToLike.add(track);
 		this.uRepo.save(user);
+
 	}
 	
 	public void unLikeArtist(User user, Artist artist) {
@@ -151,6 +153,7 @@ public class JamsServices {
 		List<User> trackToLeave = track.getTrackLiked();
 		trackToLeave.remove(user);
 		this.tRepo.save(track);
+
 	}
 	
 	public Post createPost(Post post) {

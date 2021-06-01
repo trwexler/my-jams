@@ -56,8 +56,7 @@ public class User {
 	@Column(updatable=false)
 	private Date createdAt;
 	private Date updatedAt;
-	//to be toggled off during login/reg and when on landing page
-	@JsonManagedReference
+
 	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(
 			name= "artist_user",
@@ -65,8 +64,7 @@ public class User {
 			inverseJoinColumns = @JoinColumn(name="artist_id")
 			)
 	private List<Artist> artists;
-	//to be toggled off during login/reg and when on landing page
-	@JsonManagedReference
+
 	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(
 			name= "album_user",
@@ -75,8 +73,7 @@ public class User {
 			)
 	
 	private List<Album> album;
-	//to be toggled off during login/reg and when on landing page
-	@JsonManagedReference
+
 	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(
 			name= "track_user",
@@ -86,6 +83,7 @@ public class User {
 	
 	private List<Track> tracks;
 	
+//	@JsonManagedReference
 	@OneToMany(mappedBy="user", fetch=FetchType.LAZY)
 	private List<Post> posts;
 

@@ -43,6 +43,8 @@ public class UserController {
 	@GetMapping("/getUser/{email}")
 	public User loginPage(@PathVariable("email")String email) {
 		System.out.println("From getmapping getuser/{email} " + email);
+		User thisUser = uServ.findByEmail(email);
+//		System.out.println(Artist thisUser.getArtists().getId());
 //		User currentUser = uServ.findByEmail(email);
 //		System.out.println(currentUser.getId());
 		return uServ.findByEmail(email);
@@ -55,7 +57,8 @@ public class UserController {
 	}
 
 	@PostMapping("/login")
-	public boolean proccesslogin(@RequestBody User user) {
+	public boolean proccesslogin(@ModelAttribute User user) {
+		System.out.println("in process login");
 		if( !this.uServ.authenticateUser(user.getEmail(), user.getPassword())) {
 //			redirectAttributes.addFlashAttribute("error", "INVALID CREDENTIALS");
 			System.out.println("null");
