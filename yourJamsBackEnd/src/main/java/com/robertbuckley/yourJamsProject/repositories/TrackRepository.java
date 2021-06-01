@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
+import com.robertbuckley.yourJamsProject.models.Artist;
 import com.robertbuckley.yourJamsProject.models.Track;
 
 public interface TrackRepository extends CrudRepository<Track, Long>{

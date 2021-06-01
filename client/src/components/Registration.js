@@ -35,11 +35,18 @@ const Register = (props) => {
     e.preventDefault();
 
     console.log(user);
-    axios.post("http://localhost:8080/register", user, {
-        // withCredentials: true,
-      })
+    console.log('user', user);
+        console.log('email', user.email);
+        console.log('pass', user.password);
+        console.log('first', user.firstName);
+        console.log('last', user.lastName);
+    axios.post("http://localhost:8080/register", user)
       .then((res) => {
         console.log('user', user);
+        console.log('email', user.email);
+        console.log('pass', user.password);
+        console.log('first', user.firstName);
+        console.log('last', user.lastName);
         setUser({
             firstName:"",
             lastName: "",
@@ -154,13 +161,13 @@ const Register = (props) => {
                         ) : null}
 
                         <input
-                          type="text"
+                          type="email"
                           placeholder="Email..."
                           class="form-email form-control"
                           id="form-email"
-                          name="email"
-                          value={user.email}
-                          onChange={handleChange}
+                            name="email"
+                            value={user.email}
+                            onChange={ handleChange }
                         />
                       </div>
 

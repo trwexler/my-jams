@@ -3,6 +3,7 @@ package com.robertbuckley.yourJamsProject.models;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,6 +19,11 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
 @Table(name="artists")
 public class Artist {
@@ -30,14 +36,12 @@ public class Artist {
 	private Date createdAt;
 	private Date updatedAt;
 	
-	
 	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(
 			name= "artist_user",
 			joinColumns = @JoinColumn(name="artist_id"),
 			inverseJoinColumns = @JoinColumn(name="user_id")
 			)
-	
 	private List<User> artistLiked;
 	
 	@PrePersist

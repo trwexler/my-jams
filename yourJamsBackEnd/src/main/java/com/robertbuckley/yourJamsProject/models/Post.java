@@ -86,7 +86,11 @@ public class Post {
 		this.updatedAt = updatedAt;
 	}
 	
+<<<<<<< HEAD
 	@JsonBackReference
+=======
+//	@JsonBackReference
+>>>>>>> cdbd96ae7018cee7e2fa3c457553343229d8db40
 	public User getUser() {
 		return user;
 	}
