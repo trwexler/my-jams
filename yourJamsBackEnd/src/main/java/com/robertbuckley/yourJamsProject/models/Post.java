@@ -1,6 +1,7 @@
 package com.robertbuckley.yourJamsProject.models;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,13 +10,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name="posts")
@@ -31,6 +36,18 @@ public class Post {
 	@Column(updatable=false)
 	private Date createdAt;
 	private Date updatedAt;
+	
+	@ManyToMany(fetch=FetchType.LAZY)
+	@JoinTable(
+			name= "artist_post",
+			joinColumns = @JoinColumn(name="post_id"),
+			inverseJoinColumns = @JoinColumn(name="artist_id")
+			)
+	private List<Artist> postArtists;
+	
+//	@ManyToOne(fetch=FetchType.LAZY)
+//	@JoinColumn(name="artist_id")
+//	private Artist artist;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="user_id")
@@ -87,7 +104,7 @@ public class Post {
 	}
 	
 
-	@JsonBackReference
+	@JsonBackReference(value="user-movement")
 	public User getUser() {
 		return user;
 	}
@@ -95,4 +112,13 @@ public class Post {
 	public void setUser(User user) {
 		this.user = user;
 	}
+
+	public List<Artist> getPostArtists() {
+		return postArtists;
+	}
+
+	public void setPostArtists(List<Artist> postArtists) {
+		this.postArtists = postArtists;
+	}
+
 }

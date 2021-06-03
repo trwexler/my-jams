@@ -163,5 +163,19 @@ public class JamsServices {
 	public void deletePost(Long id) {
 		this.pRepo.deleteById(id);
 	}
+	
+	public void postArtist(Post post, Artist artist) {
+		List<Artist> postToArtist = post.getPostArtists();
+		postToArtist.add(artist);
+		this.pRepo.save(post);
+	}
+	
+//	public void updatePost(Long id, Post post, Long artistId) {
+//		Artist currentArtist = this.artistrepo.findByArtistId(artistId);
+//		System.out.println(currentArtist.getId());
+//		User currentUser = this.uRepo.findById(id).orElse(null);
+//		post.setPostArtists(currentArtist);
+//		post.setUser(currentUser);
+//	}
 
 }

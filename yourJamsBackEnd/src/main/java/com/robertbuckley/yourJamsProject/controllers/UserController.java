@@ -35,10 +35,10 @@ public class UserController {
 //		return "register.jsp";
 //	}
 	
-	@GetMapping("/")
-	public String loginPage(@ModelAttribute("user")User emptyUser, Model viewModel) {
-		return "login.jsp";
-	}
+//	@GetMapping("/")
+//	public String loginPage(@ModelAttribute("user")User emptyUser, Model viewModel) {
+//		return "login.jsp";
+//	}
 	
 	@GetMapping("/getUser/{email}")
 	public User loginPage(@PathVariable("email")String email) {
