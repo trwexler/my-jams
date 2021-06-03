@@ -96,7 +96,6 @@ public class Album {
 	}
 	
 	@JsonBackReference
-
 	public List<User> getAlbumLiked() {
 		return albumLiked;
 	}
