@@ -165,9 +165,10 @@ public class JamsServices {
 	}
 	
 	public void postArtist(Post post, Artist artist) {
-		List<Artist> postToArtist = post.getPostArtists();
-		postToArtist.add(artist);
-		this.pRepo.save(post);
+		List<Post> postToArtist = artist.getArtistPost();
+		System.out.println(postToArtist);
+		postToArtist.add(post);
+		this.artistrepo.save(artist);
 	}
 	
 //	public void updatePost(Long id, Post post, Long artistId) {
