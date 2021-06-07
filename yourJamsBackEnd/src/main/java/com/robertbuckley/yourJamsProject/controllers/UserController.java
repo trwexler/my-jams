@@ -35,10 +35,10 @@ public class UserController {
 //		return "register.jsp";
 //	}
 	
-	@GetMapping("/")
-	public String loginPage(@ModelAttribute("user")User emptyUser, Model viewModel) {
-		return "login.jsp";
-	}
+//	@GetMapping("/")
+//	public String loginPage(@ModelAttribute("user")User emptyUser, Model viewModel) {
+//		return "login.jsp";
+//	}
 	
 	@GetMapping("/getUser/{email}")
 	public User loginPage(@PathVariable("email")String email) {
@@ -57,8 +57,9 @@ public class UserController {
 	}
 
 	@PostMapping("/login")
-	public boolean proccesslogin(@ModelAttribute User user) {
+	public boolean proccesslogin(@RequestBody User user) {
 		System.out.println("in process login");
+		System.out.println("user email" + user.getEmail());
 		if( !this.uServ.authenticateUser(user.getEmail(), user.getPassword())) {
 //			redirectAttributes.addFlashAttribute("error", "INVALID CREDENTIALS");
 			System.out.println("null");

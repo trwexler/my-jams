@@ -2,26 +2,21 @@ package com.robertbuckley.yourJamsProject.controllers;
 
 import java.util.List;
 
-
-import javax.validation.Valid;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.robertbuckley.yourJamsProject.models.Album;
 import com.robertbuckley.yourJamsProject.models.Artist;
-
 import com.robertbuckley.yourJamsProject.models.Post;
-
 import com.robertbuckley.yourJamsProject.models.Track;
 import com.robertbuckley.yourJamsProject.models.User;
 import com.robertbuckley.yourJamsProject.repositories.ArtistRepository;
+import com.robertbuckley.yourJamsProject.repositories.PostRepository;
 import com.robertbuckley.yourJamsProject.services.JamsServices;
 import com.robertbuckley.yourJamsProject.services.UserService;
 
@@ -37,6 +32,9 @@ public class JamsMainController {
 	@Autowired
 	private ArtistRepository aRepo;
 	
+	@Autowired
+	private PostRepository pRepo;
+	
 //	@PostMapping("/addArtist/{id}")
 //	public Long createArtist(@Valid @PathVariable("id")Long id, @ModelAttribute("artId")Artist artist) {
 //		if(id == artist.getArtistId()) {
@@ -46,6 +44,12 @@ public class JamsMainController {
 //		}
 //		return null;
 //	}
+	
+	@GetMapping("/allPosts")
+	public List<Post> getAllPosts() {
+		return jServ.findAllPost();
+		
+	}
 	
 	@PostMapping("/likeArtist/{userId}/{artistId}")
 	public Long likeArtist(@PathVariable("userId")Long userId, @PathVariable("artistId")Long artistId, @ModelAttribute("artist")Artist artist) {
@@ -85,14 +89,14 @@ public class JamsMainController {
 			Album thisAlbum = this.jServ.createAlbum(album);
 			System.out.println(thisAlbum.getId());
 		}  		
-			if  (getAlbums.contains(album)){
+			if  (getAlbums.contains(this.jServ.findByAlbumId(albumId))){
 				System.out.println(currentUser.getAlbum());
 				System.out.println(" hit the second if statement " + album);
 			} else {
 				Album thisAlbum = this.jServ.findByAlbumId(albumId);
 				System.out.println("hit the else statement" + thisAlbum);
 				jServ.likeAlbum(currentUser, thisAlbum);
-				System.out.println(" hit the else statement ");
+				System.out.println(" hit the else statement " + currentUser.getId() + " " + thisAlbum.getId());
 				return null;
 			}
 		
@@ -110,7 +114,7 @@ public class JamsMainController {
 			Track thisTrack = this.jServ.createTrack(track);
 			System.out.println(thisTrack.getId());
 		}  		
-			if  (getTracks.contains(track)){
+			if  (getTracks.contains(this.jServ.findByTrackName(trackName))){
 				System.out.println(currentUser.getTracks());
 				System.out.println(" hit the second if statement " + track);
 			} else {
@@ -148,14 +152,35 @@ public class JamsMainController {
 		return null;
 	}
 	
-	@PostMapping("/addPost/{userId}")
-	public Post addPost(@PathVariable("userId")Long userId, @ModelAttribute("post")Post post) {
-		System.out.println(userId);
-		return jServ.createPost(post);
+	@PostMapping("/addPost/{userId}/{artistId}")
+	public Post addPost(@PathVariable("userId")Long userId, @PathVariable("artistId")Long artistId, @ModelAttribute("post")Post post, @ModelAttribute("artist")Artist artist) {
+		User currentUser = this.uServ.findUserById(userId);
+		Post newPost = this.jServ.createPost(post);
+		post.setUser(currentUser);
+		pRepo.save(newPost);
+		System.out.println("current user " + userId);
+		System.out.println("current artistId " + artistId);
+		System.out.println("current post " + newPost.getId());
+		List<Artist> getArtists = post.getPostArtists();
+		if(!this.jServ.doesArtistExist(artistId)) {
+			System.out.println("hit the if statement");
+			Artist thisArtist = this.jServ.createArtist(artist);
+		} else {
+//			Artist thisArtist = jServ.findByArtistId(artistId);
+			System.out.println("hit the else statment");
+//			post.setUser(currentUser);
+			return null;
+		}
+		Artist thisArtist = this.jServ.findByArtistId(artistId);
+		System.out.println(artist.getArtistPost());
+		jServ.postArtist(newPost, thisArtist);
+			
+		
+		return null;
 	}
 	
 	@PostMapping("/deletePost/{postId}")
-	public String deletePost(@PathVariable("id")Long id) {
+	public String deletePost(@PathVariable("postId")Long id) {
 		jServ.deletePost(id);
 		return null;
 	}

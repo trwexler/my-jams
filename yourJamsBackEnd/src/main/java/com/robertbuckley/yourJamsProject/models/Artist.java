@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -22,20 +24,26 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name="artists")
-public class Artist {
+
+public class Artist{
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 //	@NotBlank
 	private Long artistId;
+	private String artistName;
+	private String urlArt;
 	@Column(updatable=false)
 	private Date createdAt;
 	private Date updatedAt;
 	
+	@JsonBackReference
 	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(
 			name= "artist_user",
@@ -43,6 +51,20 @@ public class Artist {
 			inverseJoinColumns = @JoinColumn(name="user_id")
 			)
 	private List<User> artistLiked;
+	
+//	@JsonBackReference
+	@JsonBackReference(value="artist")
+	@ManyToMany(fetch=FetchType.LAZY)
+	@JoinTable(
+			name= "artist_post",
+			joinColumns = @JoinColumn(name="artist_id"),
+			inverseJoinColumns = @JoinColumn(name="post_id")
+			)
+	private List<Post> artistPost;
+//	@JsonIgnore
+//	@JsonManagedReference(value="artist-movement")
+//	@OneToMany(mappedBy="artist", fetch=FetchType.LAZY)
+//	private List<Post> artistPosts;
 	
 	@PrePersist
 	protected void onCreate() {
@@ -64,6 +86,22 @@ public class Artist {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getArtistName() {
+		return artistName;
+	}
+
+	public void setArtistName(String artistName) {
+		this.artistName = artistName;
+	}
+
+	public String getUrlArt() {
+		return urlArt;
+	}
+
+	public void setUrlArt(String urlArt) {
+		this.urlArt = urlArt;
 	}
 
 	public Date getCreatedAt() {
@@ -90,13 +128,20 @@ public class Artist {
 		this.artistId = artistId;
 	}
 	
-	@JsonBackReference
 	public List<User> getArtistLiked() {
 		return artistLiked;
 	}
 
 	public void setArtistLiked(List<User> artistLiked) {
 		this.artistLiked = artistLiked;
+	}
+
+	public List<Post> getArtistPost() {
+		return artistPost;
+	}
+
+	public void setArtistPost(List<Post> artistPost) {
+		this.artistPost = artistPost;
 	}
 	
 }
