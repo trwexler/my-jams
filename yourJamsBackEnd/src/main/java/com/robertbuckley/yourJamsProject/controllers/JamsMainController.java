@@ -51,8 +51,8 @@ public class JamsMainController {
 		
 	}
 	
-	@PostMapping("/likeArtist/{userId}/{artistId}")
-	public Long likeArtist(@PathVariable("userId")Long userId, @PathVariable("artistId")Long artistId, @ModelAttribute("artist")Artist artist) {
+	@PostMapping("/likeArtist/{userId}/{artistId}/{artistName}/{urlArt}")
+	public Long likeArtist(@PathVariable("userId")Long userId, @PathVariable("artistId")Long artistId, @PathVariable("artistName")String artistName, @PathVariable("urlArt")String urlArt, @ModelAttribute("artist")Artist artist) {
 		System.out.println("current user " + userId);
 		System.out.println("current artist " + artistId);
 		User currentUser = this.uServ.findUserById(userId);
@@ -178,6 +178,11 @@ public class JamsMainController {
 			
 		
 		return null;
+	}
+	
+	@PostMapping("/getAllPosts")
+	public List<Post> getAllPosts(@ModelAttribute("posts")Post post) {
+		return jServ.findAllPost();
 	}
 	
 	@PostMapping("/deletePost/{postId}")
