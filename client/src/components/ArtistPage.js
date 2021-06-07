@@ -124,8 +124,8 @@ const ArtistPage = (props)=>{
 
     const addHandler = ((e)=>{
         axios.post(`http://localhost:8080/likeArtist/${user.id}/${artistId}`, {
-            userid: user.id,
-            artistId
+            // userid: user.id,
+            // artistId
         })
         .then((res)=>{
             console.log(res);
