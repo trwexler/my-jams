@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.robertbuckley.yourJamsProject.models.Album;
@@ -51,8 +53,11 @@ public class JamsMainController {
 		
 	}
 	
-	@PostMapping("/likeArtist/{userId}/{artistId}/{artistName}/{urlArt}")
-	public Long likeArtist(@PathVariable("userId")Long userId, @PathVariable("artistId")Long artistId, @PathVariable("artistName")String artistName, @PathVariable("urlArt")String urlArt, @ModelAttribute("artist")Artist artist) {
+//	@PathVariable("userId")Long userId, @PathVariable("artistId")Long artistId, 
+	
+	@CrossOrigin(origins = "http://localhost:3000")
+	@PostMapping("/likeArtist/{userId}/{artistId}")
+	public Long likeArtist(@RequestBody Artist artist, @PathVariable("userId")Long userId, @PathVariable("artistId")Long artistId) {
 		System.out.println("current user " + userId);
 		System.out.println("current artist " + artistId);
 		User currentUser = this.uServ.findUserById(userId);
@@ -60,6 +65,8 @@ public class JamsMainController {
 		if(!this.jServ.doesArtistExist(artistId)) {
 			System.out.println("hit the if statement");
 			Artist thisArtist = this.jServ.createArtist(artist);
+			artist.setArtistId(artistId);
+			aRepo.save(artist);
 			System.out.println(thisArtist.getId());
 		}  		
 			if  (getArtists.contains(this.jServ.findByArtistId(artistId))){

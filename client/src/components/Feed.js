@@ -4,28 +4,26 @@ import {Link, navigate, Router} from '@reach/router';
 import Header from './Header';
 
 
-const Feed = (props)=>{
 
+
+const Feed = (props)=>{
     const {user, setUser} = props;
     const [recommends, setRecommends] = useState([])
 
     const [newRecommends, setNewRecommends] = useState({
-        // userName: "",
+        userName: "",
         artistName: "",
         content: ""
     })
 
     useEffect(()=>{
         setNewRecommends({
-            // userName: user.userName,
+            userName: user.userName,
             artistName: "",
             content: ""})
+
     },[user])
     
-
-
-    //addpost userid/artistid   post call needed
-
 
 
     useEffect(()=>{
@@ -44,7 +42,6 @@ const Feed = (props)=>{
             })
         }, [])
 
-
         const handleChange = (e) => {
             console.log(newRecommends);
             setNewRecommends({
@@ -56,16 +53,15 @@ const Feed = (props)=>{
 
         const submitHandler = (e)=>{
             e.preventDefault();
-            axios.post(`http://localhost:8080/addPost/${user.id}/${artistId}`,{
-                userid: user.id,
-                artistId
-            })
+
+            axios.get(`https://www.theaudiodb.com/api/v1/json/523532/search.php?s=${newRecommends.artistName}`)
             .then((res)=>{
                 console.log(res);
+    
                 setRecommends([...recommends, {
-                    // userName: newRecommends.userName,
-                    // artistImg: res.data.artists[0].strArtistFanart,
-                    artistName: newRecommends.artistName,
+                    userName: newRecommends.userName,
+                    artistImg: res.data.artists[0].strArtistFanart,
+                    artistName: res.data.artists[0].strArtist,
                     content: newRecommends.content
                 }])
             })
@@ -73,20 +69,6 @@ const Feed = (props)=>{
                 console.log(err);
             })
 
-            // axios.get(`https://www.theaudiodb.com/api/v1/json/523532/search.php?s=${newRecommends.artistName}`)
-            // axios.get(`https://www.theaudiodb.com/api/v1/json/523532/search.php?s=${newRecommends.artistName}`)
-            // .then((res)=>{
-            //     console.log(res);
-            //     setRecommends([...recommends, {
-            //         userName: newRecommends.userName,
-            //         artistImg: res.data.artists[0].strArtistFanart,
-            //         artistName: res.data.artists[0].strArtist,
-            //         content: newRecommends.content
-            //     }])
-            // })
-            // .catch((err)=>{
-            //     console.log(err);
-            // })
         }
 
 
@@ -114,18 +96,17 @@ const Feed = (props)=>{
             <div className="flex flex-col-reverse">
 
                 {
-                    
                     recommends.map((recommend, index)=>(
                         <div key={index} className="border" style={{background: "linear-gradient(90deg, rgba(129,255,0,1) 0%, rgba(100,255,230,1) 60%)"}}>
-                            <h2 style={{color:"black"}}>{recommend.userName} recommends {recommend.artistName}</h2>
+                            <p style={{color:"black", fontSize:"20px"}}>{recommend.userName} recommends {recommend.artistName}</p>
+                            
                             <img src={recommend.artistImg} alt="" />
-                            <h2 style={{color:"black"}}>{recommend.userName}'s review:</h2> 
-                            <p style={{color:"black", fontSize:"22px", width:"50%"}} className="mx-auto">{recommend.content}</p>
+                            <p style={{color:"black", fontSize:"20px"}}>{recommend.userName}'s review:</p> 
+                            <p style={{color:"black", fontSize:"16px"}}>{recommend.content}</p>
                         </div>
                     ))
-                    
                 }
-
+            
 
             </div>
             
