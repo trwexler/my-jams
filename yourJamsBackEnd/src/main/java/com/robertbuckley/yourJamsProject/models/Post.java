@@ -32,7 +32,7 @@ public class Post {
 //	@NotBlank
 	private String content;
 //	@NotBlank
-	private String currentListening;
+	private String artistName;
 	@Column(updatable=false)
 	private Date createdAt;
 	private Date updatedAt;
@@ -79,12 +79,12 @@ public class Post {
 		this.content = content;
 	}
 
-	public String getCurrentListening() {
-		return currentListening;
+	public String getArtistName() {
+		return artistName;
 	}
 
-	public void setCurrentListening(String currentListening) {
-		this.currentListening = currentListening;
+	public void setArtistName(String artistName) {
+		this.artistName = artistName;
 	}
 
 	public Date getCreatedAt() {

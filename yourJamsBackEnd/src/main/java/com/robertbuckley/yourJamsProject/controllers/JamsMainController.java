@@ -158,22 +158,23 @@ public class JamsMainController {
 		Post newPost = this.jServ.createPost(post);
 		post.setUser(currentUser);
 		pRepo.save(newPost);
-		System.out.println("current user " + userId);
-		System.out.println("current artistId " + artistId);
-		System.out.println("current post " + newPost.getId());
-		List<Artist> getArtists = post.getPostArtists();
-		if(!this.jServ.doesArtistExist(artistId)) {
-			System.out.println("hit the if statement");
-			Artist thisArtist = this.jServ.createArtist(artist);
-		} else {
-//			Artist thisArtist = jServ.findByArtistId(artistId);
-			System.out.println("hit the else statment");
-//			post.setUser(currentUser);
-			return null;
-		}
 		Artist thisArtist = this.jServ.findByArtistId(artistId);
+		System.out.println(thisArtist.getId());
 		System.out.println(artist.getArtistPost());
 		jServ.postArtist(newPost, thisArtist);
+//		List<Artist> getArtists = post.getPostArtists();
+//		System.out.println("current user " + userId);
+//		System.out.println("current artistId " + artistId);
+//		System.out.println("current post " + newPost.getId());
+//		if(!this.jServ.doesArtistExist(artistId)) {
+//			System.out.println("hit the if statement");
+//			Artist thisArtist = this.jServ.createArtist(artist);
+//		} else {
+////			Artist thisArtist = jServ.findByArtistId(artistId);
+//			System.out.println("hit the else statment");
+////			post.setUser(currentUser);
+//			return null;
+//		}
 			
 		
 		return null;
