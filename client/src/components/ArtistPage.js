@@ -124,7 +124,7 @@ const ArtistPage = (props)=>{
 
 
     const addHandler = ((e)=>{
-        axios.post(`http://localhost:8080/likeArtist/${user.id}/${artistId}`,{
+        axios.post(`http://localhost:8080/likeArtist/${user.id}/${artistId}/${artist.name}`,{
             artistName: artist.name,
             urlArt: artist.artistPicture
         })
