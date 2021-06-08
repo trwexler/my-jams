@@ -22,8 +22,6 @@ const Feed = (props)=>{
             content: ""})
     },[user])
     
-
-
     //addpost userid/artistid   post call needed
 
 
@@ -54,24 +52,24 @@ const Feed = (props)=>{
         }
 
 
-        const submitHandler = (e)=>{
-            e.preventDefault();
-            axios.post(`http://localhost:8080/addPost/${user.id}/${artistId}`,{
-                userid: user.id,
-                artistId
-            })
-            .then((res)=>{
-                console.log(res);
-                setRecommends([...recommends, {
-                    // userName: newRecommends.userName,
-                    // artistImg: res.data.artists[0].strArtistFanart,
-                    artistName: newRecommends.artistName,
-                    content: newRecommends.content
-                }])
-            })
-            .catch((err)=>{
-                console.log(err);
-            })
+        // const submitHandler = (e)=>{
+        //     e.preventDefault();
+        //     axios.post(`http://localhost:8080/addPost/${user.id}/${artistId}`,{
+        //         userid: user.id,
+        //         artistId
+        //     })
+        //     .then((res)=>{
+        //         console.log(res);
+        //         setRecommends([...recommends, {
+        //             // userName: newRecommends.userName,
+        //             // artistImg: res.data.artists[0].strArtistFanart,
+        //             artistName: newRecommends.artistName,
+        //             content: newRecommends.content
+        //         }])
+        //     })
+        //     .catch((err)=>{
+        //         console.log(err);
+        //     })
 
             // axios.get(`https://www.theaudiodb.com/api/v1/json/523532/search.php?s=${newRecommends.artistName}`)
             // axios.get(`https://www.theaudiodb.com/api/v1/json/523532/search.php?s=${newRecommends.artistName}`)
@@ -87,7 +85,7 @@ const Feed = (props)=>{
             // .catch((err)=>{
             //     console.log(err);
             // })
-        }
+        // }
 
 
 
@@ -100,7 +98,7 @@ const Feed = (props)=>{
             <h1 style={{fontFamily:"Bangers, cursive", fontSize:"50px", color:"black", marginBottom:"0", background: "linear-gradient(90deg, rgba(129,255,0,1) 0%, rgba(100,255,230,1) 60%)"}}>My Feed</h1>
 
 
-            <form onSubmit={submitHandler} style={{background: "linear-gradient(90deg, rgba(129,255,0,1) 0%, rgba(100,255,230,1) 60%)"}}>
+            {/* <form onSubmit={submitHandler} style={{background: "linear-gradient(90deg, rgba(129,255,0,1) 0%, rgba(100,255,230,1) 60%)"}}>
                 <label className="m-2" style={{color:"black", fontSize:"20px"}}>What are you listening to?</label>
                 <input onChange={handleChange} type="text" value={newRecommends.artistName} name="artistName" className="border"/>
 
@@ -109,7 +107,7 @@ const Feed = (props)=>{
 
                 <br/>
                 <button className="btn" style={{opacity:"0.9", marginTop:"10px", marginBottom:"15px"}}>Post</button>
-            </form>
+            </form> */}
 
             <div className="flex flex-col-reverse">
 
