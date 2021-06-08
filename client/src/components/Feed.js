@@ -10,8 +10,13 @@ const Feed = (props)=>{
     const {user, setUser} = props;
     const [recommends, setRecommends] = useState([])
 
+    // const [artist, setArtist] = useState({
+
+    // })
+
     const [newRecommends, setNewRecommends] = useState({
         userName: "",
+        artistImg: "",
         artistName: "",
         content: ""
     })
@@ -19,6 +24,7 @@ const Feed = (props)=>{
     useEffect(()=>{
         setNewRecommends({
             userName: user.userName,
+            artistImg: "",
             artistName: "",
             content: ""})
 
@@ -31,7 +37,7 @@ const Feed = (props)=>{
     useEffect(()=>{
         const json = localStorage.getItem("email");
         const storageRetreiver = JSON.parse(json);
-        console.log(user.userName);
+        console.log(user);
         axios.get("http://localhost:8080/getUser/" + storageRetreiver)
             .then((res)=>{
                 console.log(res.data);
@@ -45,7 +51,7 @@ const Feed = (props)=>{
         }, [])
 
         const handleChange = (e) => {
-            console.log(newRecommends);
+            console.log(e.target.name, e.target.value);
             setNewRecommends({
                 ...newRecommends,
                 [e.target.name]: e.target.value,
@@ -53,44 +59,14 @@ const Feed = (props)=>{
         }
 
 
-        // const submitHandler = (e)=>{
-        //     e.preventDefault();
-        //     axios.post(`http://localhost:8080/addPost/${user.id}/${artistId}`,{
-        //         userid: user.id,
-        //         artistId
-        //     })
-        //     .then((res)=>{
-        //         console.log(res);
-        //         setRecommends([...recommends, {
-        //             // userName: newRecommends.userName,
-        //             // artistImg: res.data.artists[0].strArtistFanart,
-        //             artistName: newRecommends.artistName,
-        //             content: newRecommends.content
-        //         }])
-        //     })
-        //     .catch((err)=>{
-        //         console.log(err);
-        //     })
-
-            // axios.get(`https://www.theaudiodb.com/api/v1/json/523532/search.php?s=${newRecommends.artistName}`)
-            // axios.get(`https://www.theaudiodb.com/api/v1/json/523532/search.php?s=${newRecommends.artistName}`)
-            // .then((res)=>{
-            //     console.log(res);
-            //     setRecommends([...recommends, {
-            //         userName: newRecommends.userName,
-            //         artistImg: res.data.artists[0].strArtistFanart,
-            //         artistName: res.data.artists[0].strArtist,
-            //         content: newRecommends.content
-            //     }])
-            // })
-            // .catch((err)=>{
-            //     console.log(err);
-            // })
-        // }
         const submitHandler = (e)=>{
             e.preventDefault();
 
-            axios.get(`https://www.theaudiodb.com/api/v1/json/523532/search.php?s=${newRecommends.artistName}`)
+            // axios.post(`http://localhost:8080/addPost/${user.id}/${artistId}`)
+
+            axios.get(`https://www.theaudiodb.com/api/v1/json/523532/search.php?s=${newRecommends.artistName}`
+            
+            )
             .then((res)=>{
                 console.log(res);
     
@@ -107,8 +83,6 @@ const Feed = (props)=>{
 
         }
 
-
-
     return(
 
         <div>
@@ -118,16 +92,34 @@ const Feed = (props)=>{
             <h1 style={{fontFamily:"Bangers, cursive", fontSize:"50px", color:"black", marginBottom:"0", background: "linear-gradient(90deg, rgba(129,255,0,1) 0%, rgba(100,255,230,1) 60%)"}}>My Feed</h1>
 
 
-            {/* <form onSubmit={submitHandler} style={{background: "linear-gradient(90deg, rgba(129,255,0,1) 0%, rgba(100,255,230,1) 60%)"}}>
+            <form onSubmit={submitHandler} style={{background: "linear-gradient(90deg, rgba(129,255,0,1) 0%, rgba(100,255,230,1) 60%)"}}>
+
+
+
                 <label className="m-2" style={{color:"black", fontSize:"20px"}}>What are you listening to?</label>
-                <input onChange={handleChange} type="text" value={newRecommends.artistName} name="artistName" className="border"/>
+                <select name="artistName" onChange={handleChange} >
+                    {
+                        user.artists.map((artist, index)=>(
+                            <option key={index} value={artist.artistName}>
+                                {artist.artistName}
+                            </option>
+                        ))
+                    }
+                </select>
+
+
+
+                {/* <input onChange={handleChange} type="text" value={newRecommends.artistName} name="artistName" className="border"/> */}
+
+
+
 
                 <label className="m-2" style={{color:"black", fontSize:"20px"}}>Recommendation</label>
                 <input onChange={handleChange} type="text" value={newRecommends.content} name="content" className="border"/>
 
                 <br/>
                 <button className="btn" style={{opacity:"0.9", marginTop:"10px", marginBottom:"15px"}}>Post</button>
-            </form> */}
+            </form>
 
             <div className="flex flex-col-reverse">
 
