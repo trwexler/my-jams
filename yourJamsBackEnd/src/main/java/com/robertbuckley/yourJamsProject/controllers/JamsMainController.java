@@ -160,7 +160,9 @@ public class JamsMainController {
 	}
 	
 	@PostMapping("/addPost/{userId}/{artistId}")
+
 	public Post addPost(@PathVariable("userId")Long userId, @PathVariable("artistId")Long artistId, @RequestBody Post post, @ModelAttribute("artist")Artist artist) {
+
 		User currentUser = this.uServ.findUserById(userId);
 		Post newPost = this.jServ.createPost(post);
 		post.setUser(currentUser);
@@ -186,7 +188,7 @@ public class JamsMainController {
 		return null;
 	}
 	
-	@PostMapping("/getAllPosts")
+	@GetMapping("/getAllPosts")
 	public List<Post> getAllPosts(@ModelAttribute("posts")Post post) {
 		return jServ.findAllPost();
 	}
