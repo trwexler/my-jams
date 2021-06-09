@@ -26,6 +26,7 @@ const ArtistPage = (props)=>{
         name: "",
         bio:"",
         artistId: "", //will be props.artistId 
+        artistPicture:"",
     });
 
     const[albums, setAlbums] = useState([{
@@ -124,7 +125,7 @@ const ArtistPage = (props)=>{
 
 
     const addHandler = ((e)=>{
-        axios.post(`http://localhost:8080/likeArtist/${user.id}/${artistId}/${artist.name}`,{
+        axios.post(`http://localhost:8080/likeArtist/${user.id}/${artistId}`,{
             artistName: artist.name,
             urlArt: artist.artistPicture
         })

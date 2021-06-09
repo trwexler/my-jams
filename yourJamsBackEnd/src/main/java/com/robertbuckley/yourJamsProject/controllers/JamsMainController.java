@@ -160,14 +160,15 @@ public class JamsMainController {
 	}
 	
 	@PostMapping("/addPost/{userId}/{artistId}")
+
 	public Post addPost(@PathVariable("userId")Long userId, @PathVariable("artistId")Long artistId, @RequestBody Post post, @ModelAttribute("artist")Artist artist) {
+
 		User currentUser = this.uServ.findUserById(userId);
 		Post newPost = this.jServ.createPost(post);
 		post.setUser(currentUser);
 		pRepo.save(newPost);
 		Artist thisArtist = this.jServ.findArtistById(artistId);
 		System.out.println(thisArtist.getId());
-		System.out.println(artist.getArtistPost());
 		jServ.postArtist(newPost, thisArtist);
 //		List<Artist> getArtists = post.getPostArtists();
 //		System.out.println("current user " + userId);
