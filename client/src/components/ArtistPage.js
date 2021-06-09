@@ -54,6 +54,7 @@ const ArtistPage = (props)=>{
                     name: res.data.artists[0].strArtist,
                     artistId: res.data.artists[0].idArtist,
                     bio:res.data.artists[0].strBiographyEN,
+                    artistPicture: res.data.artists[0].strArtistThumb
                     // albums: res.data.artists[0],
                     // will keep track of which users like them
                     // users: res.data.artists[0]
@@ -123,9 +124,9 @@ const ArtistPage = (props)=>{
 
 
     const addHandler = ((e)=>{
-        axios.post(`http://localhost:8080/likeArtist/${user.id}/${artistId}`, {
-            // userid: user.id,
-            // artistId
+        axios.post(`http://localhost:8080/likeArtist/${user.id}/${artistId}/${artist.name}`,{
+            artistName: artist.name,
+            urlArt: artist.artistPicture
         })
         .then((res)=>{
             console.log(res);
