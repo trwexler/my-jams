@@ -49,9 +49,17 @@ public class Post {
 //	@JoinColumn(name="artist_id")
 //	private Artist artist;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="user_id")
-	private User user;
+//	@ManyToOne(fetch=FetchType.LAZY)
+//	@JoinColumn(name="user_id")
+//	private User user;
+	
+	@ManyToMany(fetch=FetchType.LAZY)
+	@JoinTable(
+			name= "user_post",
+			joinColumns = @JoinColumn(name="post_id"),
+			inverseJoinColumns = @JoinColumn(name="user_id")
+			)
+	private List<User> creator;
 	
 	@PrePersist
 	protected void onCreate() {
@@ -104,17 +112,26 @@ public class Post {
 	}
 	
 
+	
+//	public User getUser() {
+//		return user;
+//	}
+//
+//	public void setUser(User user) {
+//		this.user = user;
+//	}
+
 	@JsonBackReference(value="user-movement")
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
 	public List<Artist> getPostArtists() {
 		return postArtists;
+	}
+
+	public List<User> getCreator() {
+		return creator;
+	}
+
+	public void setCreator(List<User> creator) {
+		this.creator = creator;
 	}
 
 	public void setPostArtists(List<Artist> postArtists) {

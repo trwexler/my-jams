@@ -165,11 +165,12 @@ public class JamsMainController {
 
 		User currentUser = this.uServ.findUserById(userId);
 		Post newPost = this.jServ.createPost(post);
-		post.setUser(currentUser);
-		pRepo.save(newPost);
+//		post.setUser(currentUser);
+//		pRepo.save(newPost);
 		Artist thisArtist = this.jServ.findArtistById(artistId);
 		System.out.println(thisArtist.getId());
 		jServ.postArtist(newPost, thisArtist);
+		jServ.postCreator(newPost, currentUser);
 //		List<Artist> getArtists = post.getPostArtists();
 //		System.out.println("current user " + userId);
 //		System.out.println("current artistId " + artistId);

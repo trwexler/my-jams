@@ -38,7 +38,7 @@ public class User {
 	@Column(name = "firstName", nullable = false)
 	private String firstName;
 	@NotBlank
-	@Column(name = "lastName", nullable = false)
+	@Column(name = "lastMame", nullable = false)
 	private String lastName;
 	@NotBlank
 	@Column(name = "userName", nullable = false)
@@ -83,9 +83,19 @@ public class User {
 	
 	private List<Track> tracks;
 	
-//	@JsonManagedReference
-	@OneToMany(mappedBy="user", fetch=FetchType.LAZY)
+////	@JsonManagedReference
+//	@OneToMany(mappedBy="user", fetch=FetchType.LAZY)
+//	private List<Post> posts;
+	
+	@ManyToMany(fetch=FetchType.LAZY)
+	@JoinTable(
+			name= "user_post",
+			joinColumns = @JoinColumn(name="user_id"),
+			inverseJoinColumns = @JoinColumn(name="post_id")
+			)
+	
 	private List<Post> posts;
+	
 
 		@PrePersist
 		protected void onCreate() {
@@ -179,6 +189,7 @@ public class User {
 			return artists;
 		}
 
+
 		public void setArtists(List<Artist> artists) {
 			this.artists = artists;
 		}
@@ -186,10 +197,19 @@ public class User {
 		public List<Post> getPosts() {
 			return posts;
 		}
-
+		
 		public void setPosts(List<Post> posts) {
 			this.posts = posts;
 		}
+		
+//		public List<Post> getPosts() {
+//			return posts;
+//		}
+//
+//		public void setPosts(List<Post> posts) {
+//			this.posts = posts;
+//		}
+		
 //		@JsonManagedReference
 		public List<Album> getAlbum() {
 			return album;

@@ -171,6 +171,13 @@ public class JamsServices {
 		this.artistrepo.save(artist);
 	}
 	
+	public void postCreator(Post post, User user) {
+		List<Post> postCreator = user.getPosts();
+		System.out.println(postCreator);
+		postCreator.add(post);
+		this.uRepo.save(user);
+	}
+	
 //	public void updatePost(Long id, Post post, Long artistId) {
 //		Artist currentArtist = this.artistrepo.findByArtistId(artistId);
 //		System.out.println(currentArtist.getId());
