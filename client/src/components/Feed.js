@@ -17,13 +17,18 @@ const Feed = (props)=>{
 
     const [newRecommends, setNewRecommends] = useState({
         artistName: "",
-        content: ""
+        content: "",
+        userName:user.userName,
+        creatorId: user.id
     })
 
     useEffect(()=>{
         setNewRecommends({
             artistName: "",
-            content: ""
+            content: "",
+            userName:user.userName,
+            creatorId: user.id,
+
         })
 
     },[user])

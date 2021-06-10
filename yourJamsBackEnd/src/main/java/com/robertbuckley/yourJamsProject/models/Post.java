@@ -33,6 +33,8 @@ public class Post {
 	private String content;
 //	@NotBlank
 	private String artistName;
+	private String userName;
+	private Long creatorId;
 	@Column(updatable=false)
 	private Date createdAt;
 	private Date updatedAt;
@@ -120,5 +122,21 @@ public class Post {
 	public void setPostArtists(List<Artist> postArtists) {
 		this.postArtists = postArtists;
 	}
+
+	public Long getCreatorId() {
+        return creatorId;
+    }
+
+    public void setCreatorId(Long creatorId) {
+        this.creatorId = creatorId;
+    }
+	
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
 }
