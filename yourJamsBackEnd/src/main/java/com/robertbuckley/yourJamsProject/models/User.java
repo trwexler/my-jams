@@ -38,7 +38,7 @@ public class User {
 	@Column(name = "firstName", nullable = false)
 	private String firstName;
 	@NotBlank
-	@Column(name = "lastMame", nullable = false)
+	@Column(name = "lastName", nullable = false)
 	private String lastName;
 	@NotBlank
 	@Column(name = "userName", nullable = false)

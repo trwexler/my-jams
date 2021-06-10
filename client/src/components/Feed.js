@@ -48,6 +48,18 @@ const Feed = (props)=>{
             })
         }, [])
 
+        useEffect(()=>{
+            axios.get('http://localhost:8080/getAllPosts')
+                .then((res)=>{
+                    console.log(res.data);
+                    console.log(res.data[0].userid);
+                    setRecommends(res.data);
+                })
+                .catch((err)=>{
+                    console.log(err);
+                })
+        },[])
+
         const handleChange = (e) => {
             // axios.get(`https://www.theaudiodb.com/api/v1/json/523532/search.php?s=${e.target.value}`)
             //     .then((res)=>{
@@ -129,7 +141,7 @@ const Feed = (props)=>{
                         <div key={index} className="border" style={{background: "linear-gradient(90deg, rgba(129,255,0,1) 0%, rgba(100,255,230,1) 60%)"}}>
                             <p style={{color:"black", fontSize:"20px"}}>{recommend.userName} recommends {recommend.artistName}</p>
                             
-                            <img src={recommend.artistImg} alt="" />
+                            <img src={recommend.postArtists[0].urlArt} alt="" />
                             <p style={{color:"black", fontSize:"20px"}}>{recommend.userName}'s review:</p> 
                             <p style={{color:"black", fontSize:"16px"}}>{recommend.content}</p>
                         </div>
