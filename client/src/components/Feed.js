@@ -52,7 +52,6 @@ const Feed = (props)=>{
             axios.get('http://localhost:8080/getAllPosts')
                 .then((res)=>{
                     console.log(res.data);
-                    console.log(res.data[0].userid);
                     setRecommends(res.data);
                 })
                 .catch((err)=>{
