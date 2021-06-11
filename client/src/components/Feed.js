@@ -10,6 +10,7 @@ const Feed = (props)=>{
     const {user, setUser} = props;
     const [artistId, setArtistId] = useState(0);
     const [recommends, setRecommends] = useState([])
+    const [artistPic, setArtistPic] = useState([]);
 
     // const [artist, setArtist] = useState({
 
@@ -19,7 +20,8 @@ const Feed = (props)=>{
         artistName: "",
         content: "",
         userName:user.userName,
-        creatorId: user.id
+        creatorId: user.id,
+        artistPic:""
     })
 
     useEffect(()=>{
@@ -28,10 +30,10 @@ const Feed = (props)=>{
             content: "",
             userName:user.userName,
             creatorId: user.id,
-
+            artistPic:""
         })
 
-    },[user])
+    },[recommends])
     
     //addpost userid/artistid   post call needed
 
@@ -82,23 +84,26 @@ const Feed = (props)=>{
         const submitHandler = (e)=>{
             e.preventDefault();
 
-            // axios.get(`https://www.theaudiodb.com/api/v1/json/523532/search.php?s=${newRecommends.artistName}`)
-            // .then((res)=>{
-            //     console.log(res);
-    
-            //     setRecommends([...recommends, {
-            //         artistName: res.data.artists[0].strArtist,
-            //         content: newRecommends.content
-            //     }])
-            // })
-            // .catch((err)=>{
-            //     console.log(err);
-            // })
+            axios.get(`https://www.theaudiodb.com/api/v1/json/523532/search.php?s=${newRecommends.artistName}`)
+            .then((res)=>{
+                setArtistPic(res.data.artists[0].strArtistThumb);
+            })
+            .catch((err)=>{
+                console.log(err);
+            })
 
             axios.post(`http://localhost:8080/addPost/${user.id}/${artistId}`, 
             newRecommends)
                 .then((res)=>{
                     console.log(res);
+                    let fullRecommendList = [...recommends, {
+                        content: newRecommends.content, 
+                        artistName: newRecommends.artistName,
+                        userName:newRecommends.userName,
+                        creatorId: newRecommends.creatorId,
+                        artistPic: artistPic
+                    }];
+                        setRecommends(fullRecommendList); 
                 })
                 .catch((err)=>{
                     console.log(err);
@@ -120,6 +125,7 @@ const Feed = (props)=>{
 
 
                 <select name="artistName" onChange={handleChange} >
+                    <option value="" default>Your Artists</option>
                     {
                         user.artists.map((artist, index)=>(
                             <option onClick={((e)=>setArtistId(artist.id))} key={index} value={artist.artistName}>
@@ -128,6 +134,7 @@ const Feed = (props)=>{
                         ))
                     }
                 </select>
+                <br/>
 
                 <label className="m-2" style={{color:"black", fontSize:"20px"}}>Recommendation</label>
                 <input onChange={handleChange} type="text" value={newRecommends.content} name="content" className="border"/>
@@ -138,14 +145,21 @@ const Feed = (props)=>{
 
             </form>
 
-            <div className="flex flex-col-reverse">
+            <div className="flex flex-col-reverse" style={{display:"flex", flexDirection:"column-reverse"}}>
 
                 {
                     recommends.map((recommend, index)=>(
-                        <div key={index} className="border" style={{background: "linear-gradient(90deg, rgba(129,255,0,1) 0%, rgba(100,255,230,1) 60%)"}}>
-                            <p style={{color:"black", fontSize:"20px"}}>{recommend.userName} recommends {recommend.artistName}</p>
+                        <div key={index} className="border" style={{background: "linear-gradient(90deg, rgba(129,255,0,1) 0%, rgba(100,255,230,1) 60%)", display:"flex", flexDirection:"column"}}>
+                        <Link to={`/user/${recommend.creatorId}`}> 
+                        <p style={{color:"black", fontSize:"20px"}}>{recommend.userName} recommends {recommend.artistName}</p>
+                        </Link>
+                            {
+                                recommend.postArtists?
+                                <img className="mx-auto" style={{width:"35%", height:"400px"}} src={recommend.postArtists[0].urlArt} alt="" />
+                                :
+                                <img className="mx-auto" style={{width:"35%", height:"400px"}} src={artistPic} alt="" />
+                            }
                             
-                            <img src={recommend.postArtists[0].urlArt} alt="" />
                             <p style={{color:"black", fontSize:"20px"}}>{recommend.userName}'s review:</p> 
                             <p style={{color:"black", fontSize:"16px"}}>{recommend.content}</p>
                         </div>
