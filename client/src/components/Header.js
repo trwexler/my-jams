@@ -58,7 +58,7 @@ const Header = (props)=>{
 
       <Link to={`/feed/${id}`} className="nav-link">
         <li className="nav-item">
-          Feed
+          Reviews
         </li>
       </Link>
       

@@ -116,7 +116,7 @@ const Feed = (props)=>{
         <div>
 
             <Header user={user} id={user.id}/>
-            <h1 style={{fontFamily:"Bangers, cursive", fontSize:"50px", color:"black", marginBottom:"0", background: "linear-gradient(90deg, rgba(129,255,0,1) 0%, rgba(100,255,230,1) 60%)"}}>My Feed</h1>
+            <h1 style={{fontFamily:"Bangers, cursive", fontSize:"50px", color:"black", marginBottom:"0", background: "linear-gradient(90deg, rgba(129,255,0,1) 0%, rgba(100,255,230,1) 60%)"}}>Jams Community Reviews</h1>
 
 
             <form onSubmit={submitHandler} style={{background: "linear-gradient(90deg, rgba(129,255,0,1) 0%, rgba(100,255,230,1) 60%)"}}>
@@ -136,7 +136,7 @@ const Feed = (props)=>{
                 </select>
                 <br/>
 
-                <label className="m-2" style={{color:"black", fontSize:"20px"}}>Recommendation</label>
+                <label className="m-2" style={{color:"black", fontSize:"20px"}}>Review</label>
                 <input onChange={handleChange} type="text" value={newRecommends.content} name="content" className="border"/>
 
 
@@ -151,16 +151,16 @@ const Feed = (props)=>{
                     recommends.map((recommend, index)=>(
                         <div key={index} className="border" style={{background: "linear-gradient(90deg, rgba(129,255,0,1) 0%, rgba(100,255,230,1) 60%)", display:"flex", flexDirection:"column"}}>
                         <Link to={`/user/${recommend.creatorId}`}> 
-                        <p style={{color:"black", fontSize:"20px"}}>{recommend.userName} recommends {recommend.artistName}</p>
+                        <p style={{color:"black", fontSize:"20px"}}>{recommend.userName}'s review of {recommend.artistName}</p>
                         </Link>
                             {
                                 recommend.postArtists?
-                                <img className="mx-auto" style={{width:"35%", height:"400px"}} src={recommend.postArtists[0].urlArt} alt="" />
+                                <img className="mx-auto" style={{width:"32%", height:"400px"}} src={recommend.postArtists[0].urlArt} alt="" />
                                 :
-                                <img className="mx-auto" style={{width:"35%", height:"400px"}} src={artistPic} alt="" />
+                                <img className="mx-auto" style={{width:"32%", height:"400px"}} src={artistPic} alt="" />
                             }
                             
-                            <p style={{color:"black", fontSize:"20px"}}>{recommend.userName}'s review:</p> 
+                            <p style={{color:"black", fontSize:"20px"}}>What {recommend.userName} thought:</p> 
                             <p style={{color:"black", fontSize:"16px"}}>{recommend.content}</p>
                         </div>
                     ))
